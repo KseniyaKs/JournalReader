@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ArticlesTest</string>
+    <string name="header_articles_screen">КНИГА СТИЛЯ</string>
+    <string name="author_name">ПОЛЛИ РЫЖОВОЙ</string>
+    <string name="back">Назад</string>
+    <string name="more_button">Подробнее</string>
+
+</resources>
