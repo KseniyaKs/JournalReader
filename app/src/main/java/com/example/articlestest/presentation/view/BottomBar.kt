@@ -1,6 +1,5 @@
 package com.example.articlestest.presentation.view
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
@@ -32,9 +31,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.example.articlestest.R
+import com.example.articlestest.presentation.currentRoute
 import com.example.articlestest.presentation.navigation.NavItem
+import com.example.articlestest.ui.theme.Grey
 import com.example.articlestest.ui.theme.Pink
-import com.example.articlestest.ui.theme.Gray
 
 
 sealed class BottomNavItem(var title: String, var icon: Int, var screen_route: String) {
@@ -98,7 +98,7 @@ fun BottomBarNavigation(navController: NavController) {
                             contentDescription = item.title,
                             tint = if (currentRoute == item.screen_route) {
                                 Pink
-                            } else Gray
+                            } else Grey
                         )
                     },
                     label = {
@@ -108,7 +108,7 @@ fun BottomBarNavigation(navController: NavController) {
                         )
                     },
                     selectedContentColor = Pink,
-                    unselectedContentColor = Gray,
+                    unselectedContentColor = Grey,
                     alwaysShowLabel = true,
                     selected = currentRoute == item.screen_route,
                     onClick = {

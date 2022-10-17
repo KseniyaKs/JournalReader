@@ -4,5 +4,20 @@
     <string name="author_name">ПОЛЛИ РЫЖОВОЙ</string>
     <string name="back">Назад</string>
     <string name="more_button">Подробнее</string>
+    <string name="telephone_number">Номер телефона</string>
+    <string name="continue_button">Продолжить</string>
+    <string name="confirmation_code">Код подтверждения</string>
+    <string name="incorrect_code">Неверный код</string>
+    <string name="password">Пароль</string>
+    <string name="password_help">Отлично, придумайте пароль</string>
+    <string name="registration_help">Для завершения регистрации, пожалуйста, введите данные о Вас</string>
+    <string name="further">Далее</string>
+    <string name="your_city">Ваш город</string>
+    <string name="done">Готово</string>
+    <string name="enter_password">Чтобы войти в Ваш аккаунт, введите пароль</string>
+    <string name="incorrect_password">Неверный пароль</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="send_code">Мы отправили смс на указанный номер</string>
+
 
 </resources>

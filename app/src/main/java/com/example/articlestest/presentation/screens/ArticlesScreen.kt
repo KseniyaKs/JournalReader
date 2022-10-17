@@ -24,10 +24,10 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
 import com.example.articlestest.R
-import com.example.articlestest.data.Article
-import com.example.articlestest.data.DemoDataProvider
+import com.example.articlestest.data.model.Article
+import com.example.articlestest.data.model.DemoDataProvider
 import com.example.articlestest.presentation.navigation.NavItem
-import com.example.articlestest.ui.theme.DarkGray
+import com.example.articlestest.ui.theme.DarkGrey
 import com.example.articlestest.ui.theme.Pink
 
 
@@ -46,7 +46,7 @@ fun ArticlesScreen(
         item {
             Spacer(modifier = Modifier.height(50.dp))
             Image(
-                painter = painterResource(id = R.drawable.ic_header_articles),
+                painter = painterResource(id = R.drawable.ic_logo_small),
                 contentDescription = null,
             )
             Spacer(modifier = Modifier.height(9.dp))
@@ -69,7 +69,7 @@ fun Article(
         modifier = Modifier
             .fillMaxSize()
             .clickable(
-                interactionSource = remember{ MutableInteractionSource() },
+                interactionSource = remember { MutableInteractionSource() },
                 indication = null
             ) { onClick() })
     {
@@ -91,7 +91,7 @@ fun Article(
 
         Text(
             text = article.title.uppercase(),
-            color = DarkGray,
+            color = DarkGrey,
             fontSize = 20.sp,
             fontFamily = FontFamily(Font(R.font.foglihten_no_regular)),
             fontWeight = FontWeight.Light,
@@ -104,7 +104,7 @@ fun Article(
         )
         Text(
             text = article.date,
-            color = DarkGray,
+            color = DarkGrey,
             fontSize = 14.sp,
             fontFamily = FontFamily(Font(R.font.gilroy_light)),
             modifier = Modifier.constrainAs(date) {

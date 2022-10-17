@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.articlestest.R
-import com.example.articlestest.data.DemoDataProvider
-import com.example.articlestest.presentation.ArticleDetailViewModel
+import com.example.articlestest.data.model.DemoDataProvider
+import com.example.articlestest.presentation.screens.article_details.ArticleDetailViewModel
 import com.example.articlestest.ui.theme.Blue
 import com.example.articlestest.ui.theme.Pink
 

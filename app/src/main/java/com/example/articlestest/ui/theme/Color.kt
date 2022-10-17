@@ -10,8 +10,22 @@ val Teal200 = Color(0xFF03DAC5)
 //for selected_tab in bottom bar, more button of article, like
 val Pink = Color(0xFFD44594)
 
-val Gray = Color(0xFFA6A6A6)
-val DarkGray = Color(0xFF222222)
+val Grey300 = Color(0xFFD0D5DD)
+val Grey = Color(0xFFA6A6A6)
+val DarkGrey = Color(0xFF222222)
+val Grey900 = Color(0xff101828)
 
 //for icons like, comment
 val Blue = Color(0xFF3F8CFF)
+val HyperLinkBlue = Color(0xFF0082F9)
+
+val DarkBlue = Color(0xFF344054)
+val BrightRed = Color(0xFFFF3434)
+
+val AlphaBlack = Color(0xFF222222)
+val GreyBlue = Color(0xFF667085)
+
+
+
+
+

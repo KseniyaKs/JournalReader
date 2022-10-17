@@ -6,20 +6,30 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.view.WindowCompat
-import com.example.articlestest.presentation.view.MainScreenContent
+import androidx.navigation.NavHostController
+import com.example.articlestest.presentation.MainScreenContent
 import com.example.articlestest.ui.theme.ArticlesTestTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var navHostController: NavHostController
+
+    private var backPressed = 0L
+    private val finish: () -> Unit = {
+        if (backPressed + 3000 > System.currentTimeMillis()) {
+            finishAndRemoveTask()
+        }
+        backPressed = System.currentTimeMillis()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,14 +42,17 @@ class MainActivity : ComponentActivity() {
                     darkIcons = useDarkIcons,
                 )
             }
+
+
             ArticlesTestTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    MainScreenContent()
+                    MainScreenContent(navHostController, finish)
                 }
             }
+
         }
     }
 }

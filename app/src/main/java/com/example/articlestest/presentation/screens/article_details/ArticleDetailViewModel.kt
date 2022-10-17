@@ -1,7 +1,6 @@
-package com.example.articlestest.presentation
+package com.example.articlestest.presentation.screens.article_details
 
 import android.util.Log
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.articlestest.domain.ArticleRepository

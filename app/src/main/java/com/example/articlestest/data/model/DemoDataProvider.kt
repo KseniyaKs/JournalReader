@@ -1,4 +1,4 @@
-package com.example.articlestest.data
+package com.example.articlestest.data.model
 
 import com.example.articlestest.R
 
