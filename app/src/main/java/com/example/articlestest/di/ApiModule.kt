@@ -77,13 +77,6 @@ class ApiModule {
         return httpLoggingInterceptor
     }
 
-
-//    @Provides
-//    @Singleton
-//    fun pdovideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-//        return PreferenceManager.getDefaultSharedPreferences(context)
-//    }
-
     @Singleton
     @Provides
     fun providePreferencesDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
