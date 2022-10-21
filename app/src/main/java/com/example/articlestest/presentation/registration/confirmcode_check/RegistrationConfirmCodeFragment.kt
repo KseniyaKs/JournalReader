@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.articlestest.R
 import com.example.articlestest.huinya.base.BaseViewState
+import com.example.articlestest.huinya.base.presentation.view.Countdown
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.create_password.RegistrationPasswordFragment
 import com.example.articlestest.presentation.view.IncorrectCode
@@ -79,7 +80,10 @@ class RegistrationConfirmCodeFragment : Fragment() {
                 is NavDestination.RegistrationPassword -> {
                     requireActivity().supportFragmentManager
                         .beginTransaction()
-                        .add(R.id.container, RegistrationPasswordFragment.newInstance())
+                        .add(
+                            R.id.container,
+                            RegistrationPasswordFragment.newInstance(destination.phone)
+                        )
                         .addToBackStack("registration_password")
                         .commit()
                 }
@@ -125,6 +129,7 @@ fun RegistrationConfirmCodeScreen(
             if (uiState is BaseViewState.Error) {
                 IncorrectCode()
             }
+
         }
 
         Column(
@@ -133,6 +138,17 @@ fun RegistrationConfirmCodeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+            Countdown(
+                max = max,
+                onResendConfirmCode = {
+                    viewModel.onTriggerEvent(
+                        RegistrationConfirmCodeEvent.SendConfirmCode(
+                            phone
+                        )
+                    )
+                },
+                modifier = Modifier.padding(bottom = 42.dp)
+            )
 
             Button(
                 onClick = {

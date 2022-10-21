@@ -1,4 +1,4 @@
-package com.example.articlestest.domain
+package com.example.articlestest.huinya.base.test
 
 
 interface ArticleRepository {

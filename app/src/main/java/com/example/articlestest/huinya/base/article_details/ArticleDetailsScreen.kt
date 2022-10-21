@@ -1,4 +1,4 @@
-package com.example.articlestest.presentation.view
+package com.example.articlestest.huinya.base.presentation.view
 
 import android.os.Bundle
 import androidx.compose.foundation.Image
@@ -24,8 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.articlestest.R
-import com.example.articlestest.data.model.DemoDataProvider
-import com.example.articlestest.presentation.screens.article_details.ArticleDetailViewModel
+import com.example.articlestest.huinya.base.article_details.ArticleDetailViewModel
 import com.example.articlestest.ui.theme.Blue
 import com.example.articlestest.ui.theme.Pink
 
@@ -48,7 +47,7 @@ fun ArticleDetailsScreen(
         Toolbar(articleTitle = articleTitle?.uppercase() ?: "", navController = navController)
 
         Text(
-            text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." + DemoDataProvider.articleDetails_1,
+            text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
             fontSize = 14.sp,
             fontFamily = FontFamily(Font(R.font.gilroy_medium)),
             modifier = Modifier.padding(PaddingValues(bottom = 24.dp)),
@@ -67,7 +66,7 @@ fun ArticleDetailsScreen(
         )
 
         Text(
-            text = DemoDataProvider.articleDetails_2,
+            text = "DemoDataProvider.articleDetails_2",
             fontSize = 14.sp,
             fontFamily = FontFamily(Font(R.font.gilroy_medium)),
             modifier = Modifier.padding(PaddingValues(top = 24.dp, bottom = 58.dp)),

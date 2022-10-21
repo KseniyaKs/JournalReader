@@ -11,11 +11,16 @@ sealed class NavDestination {
 
     class RegistrationConfirmationCode(val phone: String) : NavDestination()
 
-    object RegistrationPassword : NavDestination()
+    class RegistrationPassword(val phone: String) : NavDestination()
 
     object RegistrationUserData : NavDestination()
 
-    object RegistrationUserCity : NavDestination()
+    class RegistrationUserCity(
+        val name: String,
+        val surname: String,
+        val patronymic: String,
+        val email: String,
+    ) : NavDestination()
 
     object BackClick : NavDestination()
 }

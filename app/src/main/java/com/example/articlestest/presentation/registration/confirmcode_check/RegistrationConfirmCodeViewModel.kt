@@ -25,7 +25,7 @@ class RegistrationConfirmCodeViewModel @Inject constructor(
             val confirmCodeCheck = repository.checkConfirmCode(phone = phone, code = code)
             setState((BaseViewState.Data(RegistrationConfirmCodeViewState)))
             if (confirmCodeCheck) {
-                onNavigationEvent(NavDestination.RegistrationPassword)
+                onNavigationEvent(NavDestination.RegistrationPassword(phone))
             } else setState(BaseViewState.Error(Throwable("Invalid confirmation code")))
         }
     }

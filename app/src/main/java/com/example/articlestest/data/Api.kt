@@ -38,6 +38,9 @@ interface Api {
         @Field("code") code: String
     ): Response<CheckConfirmCodeDto>
 
+    @POST("sign-up/")
+    suspend fun signUp(@Body user: UserBody): Response<TokenDto>
+
 //
 //    @POST("token/refresh/")
 //    suspend fun createNewPToken(@Body user: UserBody): Response<>

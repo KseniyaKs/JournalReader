@@ -4,20 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
@@ -25,6 +32,7 @@ import androidx.fragment.app.viewModels
 import com.example.articlestest.R
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.user_data.RegistrationUserDataFragment
+import com.example.articlestest.presentation.view.LogoAndBack
 import com.example.articlestest.ui.theme.AlphaBlack
 import com.example.articlestest.ui.theme.Grey300
 import com.example.articlestest.ui.theme.Grey900
@@ -35,7 +43,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class RegistrationPasswordFragment : Fragment() {
 
     companion object {
-        fun newInstance() = RegistrationPasswordFragment()
+        private const val PHONE = "PHONE"
+        fun newInstance(phone: String) = RegistrationPasswordFragment().apply {
+            arguments = Bundle().apply {
+                putSerializable(PHONE, phone)
+            }
+        }
     }
 
     val viewModel: RegistrationPasswordViewModel by viewModels()
@@ -43,9 +56,21 @@ class RegistrationPasswordFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_registration_password, container, false)
+        return ComposeView(requireContext()).apply {
+            // Dispose of the Composition when the view's LifecycleOwner
+            // is destroyed
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                androidx.compose.material3.MaterialTheme {
+                    RegistrationPasswordScreen(
+                        viewModel,
+                        phone = requireArguments().get("PHONE") as String
+                    )
+                }
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,25 +93,25 @@ class RegistrationPasswordFragment : Fragment() {
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun RegistrationPasswordScreen(
-    onAuthPasswordContinueClick: () -> Unit
+    viewModel: RegistrationPasswordViewModel,
+    phone: String
 ) {
 
+    val keyboardController = LocalSoftwareKeyboardController.current
     val password = remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(PaddingValues(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 24.dp)),
+            .background(Color.White)
+            .padding(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_logo_small),
-                contentDescription = null,
-                modifier = Modifier.padding(PaddingValues(bottom = 45.dp))
-            )
+            LogoAndBack { viewModel.onBack() }
 
             Text(
                 text = stringResource(id = R.string.password),
@@ -95,6 +120,8 @@ fun RegistrationPasswordScreen(
             )
 
             OutlinedTextField(
+                value = password.value,
+                onValueChange = { password.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),
@@ -106,12 +133,15 @@ fun RegistrationPasswordScreen(
                     unfocusedIndicatorColor = Grey300,
                     cursorColor = Color.Black
                 ),
-                value = password.value,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                 textStyle = LocalTextStyle.current.copy(
                     fontFamily = FontFamily(Font(R.font.gilroy_regular)),
                     fontSize = 20.sp,
-                ),
-                onValueChange = { password.value = it }
+                )
             )
 
             Text(
@@ -131,7 +161,14 @@ fun RegistrationPasswordScreen(
 
         ) {
             Button(
-                onClick = {},
+                onClick = {
+                    viewModel.onTriggerEvent(
+                        eventType = RegistrationPasswordEvent.SignUp(
+                            phone = phone,
+                            password = password.value
+                        )
+                    )
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(44.dp),

@@ -159,7 +159,8 @@ fun AuthorizationConfirmCodeScreen(
                             phone
                         )
                     )
-                }
+                },
+                modifier = Modifier.padding(bottom = 42.dp)
             )
 
             Button(

@@ -1,6 +1,6 @@
-package com.example.articlestest.data
+package com.example.articlestest.huinya.base.test
 
-import com.example.articlestest.domain.ArticleRepository
+import com.example.articlestest.data.Api
 import javax.inject.Inject
 
 class ArticleRepositoryImpl @Inject constructor(

@@ -18,6 +18,7 @@ import kotlin.time.toDuration
 
 @Composable
 fun Countdown(
+    modifier: Modifier,
     max: Int = 60,
     onResendConfirmCode: () -> Unit
 ) {
@@ -44,7 +45,7 @@ fun Countdown(
         append(" сек.)")
     }
 
-    Box {
+    Box(modifier = modifier) {
         Text(
             text = timerString,
             color = HyperLinkBlue,
