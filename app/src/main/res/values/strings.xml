@@ -1,26 +1,44 @@
 <resources>
     <string name="app_name">ArticlesTest</string>
+
     <string name="header_articles_screen">КНИГА СТИЛЯ</string>
     <string name="author_name">ПОЛЛИ РЫЖОВОЙ</string>
+
     <string name="back">Назад</string>
     <string name="more_button">Подробнее</string>
-    <string name="telephone_number">Номер телефона</string>
     <string name="continue_button">Продолжить</string>
-    <string name="confirmation_code">Код подтверждения</string>
-    <string name="incorrect_code">Неверный код</string>
+    <string name="further">Далее</string>
+    <string name="done">Готово</string>
+
     <string name="password">Пароль</string>
     <string name="password_help">Отлично, придумайте пароль</string>
-    <string name="registration_help">Для завершения регистрации, пожалуйста, введите данные о Вас</string>
-    <string name="further">Далее</string>
-    <string name="your_city">Ваш город</string>
-    <string name="done">Готово</string>
     <string name="enter_password">Чтобы войти в Ваш аккаунт, введите пароль</string>
     <string name="incorrect_password">Неверный пароль</string>
     <string name="forgot_password">Забыли пароль?</string>
+
+    <string name="telephone_number">Номер телефона</string>
     <string name="send_code">Мы отправили смс на указанный номер</string>
-    <string name="title_activity_main">MainActivity</string>
+
+    <string name="confirmation_code">Код подтверждения</string>
+    <string name="incorrect_code">Неверный код</string>
+
+    <string name="registration_help">Для завершения регистрации, пожалуйста, введите данные о Вас</string>
+    <string name="your_city">Ваш город</string>
+
+    <string name="magazine">Журнал</string>
+    <string name="articles">Статьи</string>
+    <string name="profile">Профиль</string>
+
+    <string name="buy">Купить</string>
+    <string name="see_more">Смотреть прошлые выпуски</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_qweqe">qweqe</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 
 </resources>

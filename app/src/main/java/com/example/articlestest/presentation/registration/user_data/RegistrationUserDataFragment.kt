@@ -33,11 +33,11 @@ import androidx.fragment.app.viewModels
 import com.example.articlestest.R
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.user_city.RegistrationUserCityFragment
+import com.example.articlestest.presentation.theme.Grey300
+import com.example.articlestest.presentation.theme.Grey900
+import com.example.articlestest.presentation.theme.GreyBlue
+import com.example.articlestest.presentation.theme.Pink
 import com.example.articlestest.presentation.view.LogoAndBack
-import com.example.articlestest.ui.theme.Grey300
-import com.example.articlestest.ui.theme.Grey900
-import com.example.articlestest.ui.theme.GreyBlue
-import com.example.articlestest.ui.theme.Pink
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -118,7 +118,7 @@ fun RegistrationUserDataScreen(
 
             Text(
                 text = stringResource(id = R.string.registration_help),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium)),
+                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(PaddingValues(bottom = 43.dp))
             )
@@ -157,7 +157,7 @@ fun RegistrationUserDataScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.further),
-                    fontFamily = FontFamily(Font(R.font.gilroy_semibold)),
+                    fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
                     fontSize = 17.sp,
                     color = Color.White
                 )
@@ -203,7 +203,7 @@ fun UserData(
                 cursorColor = Color.Black
             ),
             textStyle = LocalTextStyle.current.copy(
-                fontFamily = FontFamily(Font(R.font.gilroy_regular)),
+                fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
                 fontSize = 20.sp,
                 color = GreyBlue,
                 textAlign = TextAlign.Center
@@ -233,7 +233,7 @@ fun UserData(
                 cursorColor = Color.Black
             ),
             textStyle = LocalTextStyle.current.copy(
-                fontFamily = FontFamily(Font(R.font.gilroy_regular)),
+                fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
                 fontSize = 20.sp,
                 color = GreyBlue,
                 textAlign = TextAlign.Center
@@ -263,7 +263,7 @@ fun UserData(
                 cursorColor = Color.Black
             ),
             textStyle = LocalTextStyle.current.copy(
-                fontFamily = FontFamily(Font(R.font.gilroy_regular)),
+                fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
                 fontSize = 20.sp,
                 color = GreyBlue,
                 textAlign = TextAlign.Center
@@ -293,7 +293,7 @@ fun UserData(
                 cursorColor = Color.Black
             ),
             textStyle = LocalTextStyle.current.copy(
-                fontFamily = FontFamily(Font(R.font.gilroy_regular)),
+                fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
                 fontSize = 20.sp,
                 color = GreyBlue,
                 textAlign = TextAlign.Center

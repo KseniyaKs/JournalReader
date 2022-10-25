@@ -29,11 +29,11 @@ import com.example.articlestest.huinya.base.BaseViewState
 import com.example.articlestest.huinya.base.presentation.view.Countdown
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.create_password.RegistrationPasswordFragment
+import com.example.articlestest.presentation.theme.DarkBlue
+import com.example.articlestest.presentation.theme.Pink
 import com.example.articlestest.presentation.view.IncorrectCode
 import com.example.articlestest.presentation.view.LogoAndBack
 import com.example.articlestest.presentation.view.OTPTextFields
-import com.example.articlestest.ui.theme.DarkBlue
-import com.example.articlestest.ui.theme.Pink
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -118,7 +118,7 @@ fun RegistrationConfirmCodeScreen(
 
             Text(
                 text = stringResource(id = R.string.confirmation_code),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium)),
+                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
                 fontSize = 16.sp,
                 color = DarkBlue,
                 modifier = Modifier.padding(PaddingValues(bottom = 8.dp))
@@ -167,7 +167,7 @@ fun RegistrationConfirmCodeScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.continue_button),
-                    fontFamily = FontFamily(Font(R.font.gilroy_semibold)),
+                    fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
                     fontSize = 17.sp,
                     color = Color.White
                 )

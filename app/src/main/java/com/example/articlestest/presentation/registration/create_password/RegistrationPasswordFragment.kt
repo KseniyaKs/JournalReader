@@ -32,11 +32,11 @@ import androidx.fragment.app.viewModels
 import com.example.articlestest.R
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.user_data.RegistrationUserDataFragment
+import com.example.articlestest.presentation.theme.AlphaBlack
+import com.example.articlestest.presentation.theme.Grey300
+import com.example.articlestest.presentation.theme.Grey900
+import com.example.articlestest.presentation.theme.Pink
 import com.example.articlestest.presentation.view.LogoAndBack
-import com.example.articlestest.ui.theme.AlphaBlack
-import com.example.articlestest.ui.theme.Grey300
-import com.example.articlestest.ui.theme.Grey900
-import com.example.articlestest.ui.theme.Pink
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -115,7 +115,7 @@ fun RegistrationPasswordScreen(
 
             Text(
                 text = stringResource(id = R.string.password),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium)),
+                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
                 modifier = Modifier.padding(PaddingValues(bottom = 8.dp))
             )
 
@@ -139,7 +139,7 @@ fun RegistrationPasswordScreen(
                 ),
                 keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                 textStyle = LocalTextStyle.current.copy(
-                    fontFamily = FontFamily(Font(R.font.gilroy_regular)),
+                    fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
                     fontSize = 20.sp,
                 )
             )
@@ -148,7 +148,7 @@ fun RegistrationPasswordScreen(
                 text = stringResource(id = R.string.password_help),
                 fontSize = 12.sp,
                 color = AlphaBlack,
-                fontFamily = FontFamily(Font(R.font.gilroy_medium)),
+                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
                 modifier = Modifier.padding(PaddingValues(top = 8.dp))
             )
         }
@@ -177,7 +177,7 @@ fun RegistrationPasswordScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.continue_button),
-                    fontFamily = FontFamily(Font(R.font.gilroy_semibold)),
+                    fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
                     fontSize = 17.sp,
                     color = Color.White
                 )

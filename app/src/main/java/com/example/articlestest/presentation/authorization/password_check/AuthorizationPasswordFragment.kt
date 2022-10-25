@@ -1,5 +1,6 @@
 package com.example.articlestest.presentation.authorization.password_check
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,10 +34,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.articlestest.R
 import com.example.articlestest.huinya.base.BaseViewState
+import com.example.articlestest.presentation.MainActivity
 import com.example.articlestest.presentation.authorization.confirmcode_check.AuthorizationConfirmcodeFragment
 import com.example.articlestest.presentation.navigation.NavDestination
+import com.example.articlestest.presentation.theme.*
 import com.example.articlestest.presentation.view.LogoAndBack
-import com.example.articlestest.ui.theme.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -93,7 +95,9 @@ class AuthorizationPasswordFragment : Fragment() {
                         .commit()
                 }
                 NavDestination.AppMain -> {
-                    //new activity
+                    val intent = Intent(this.context, MainActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
                 }
                 else -> {}
             }
@@ -127,12 +131,12 @@ fun AuthorizationPasswordScreen(
 
             Text(
                 text = stringResource(id = R.string.enter_password),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium)),
+                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
             )
 
             Text(
                 text = stringResource(id = R.string.password),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium)),
+                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
                 modifier = Modifier.padding(PaddingValues(top = 35.dp, bottom = 8.dp))
             )
 
@@ -154,7 +158,7 @@ fun AuthorizationPasswordScreen(
                 ),
                 keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                 textStyle = LocalTextStyle.current.copy(
-                    fontFamily = FontFamily(Font(R.font.gilroy_regular)),
+                    fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
                     fontSize = 20.sp,
                 ),
                 value = password.value,
@@ -196,7 +200,7 @@ fun AuthorizationPasswordScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.continue_button),
-                    fontFamily = FontFamily(Font(R.font.gilroy_semibold)),
+                    fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
                     fontSize = 17.sp,
                     color = Color.White
                 )

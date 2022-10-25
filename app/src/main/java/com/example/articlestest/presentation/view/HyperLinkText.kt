@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
-import com.example.articlestest.ui.theme.HyperLinkBlue
+import com.example.articlestest.presentation.theme.HyperLinkBlue
 
 
 @Composable

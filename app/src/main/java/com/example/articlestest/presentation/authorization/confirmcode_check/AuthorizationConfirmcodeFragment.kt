@@ -29,10 +29,10 @@ import com.example.articlestest.huinya.base.BaseViewState
 import com.example.articlestest.huinya.base.presentation.view.Countdown
 import com.example.articlestest.presentation.authorization.new_password.AuthorizationNewPasswordFragment
 import com.example.articlestest.presentation.navigation.NavDestination
+import com.example.articlestest.presentation.theme.Pink
 import com.example.articlestest.presentation.view.IncorrectCode
 import com.example.articlestest.presentation.view.LogoAndBack
 import com.example.articlestest.presentation.view.OTPTextFields
-import com.example.articlestest.ui.theme.Pink
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -129,12 +129,12 @@ fun AuthorizationConfirmCodeScreen(
 
             Text(
                 text = stringResource(id = R.string.send_code),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium)),
+                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
             )
 
             Text(
                 text = stringResource(id = R.string.confirmation_code),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium)),
+                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
                 modifier = Modifier.padding(PaddingValues(top = 35.dp, bottom = 8.dp))
             )
 
@@ -180,7 +180,7 @@ fun AuthorizationConfirmCodeScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.continue_button),
-                    fontFamily = FontFamily(Font(R.font.gilroy_semibold)),
+                    fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
                     fontSize = 17.sp,
                     color = Color.White
                 )

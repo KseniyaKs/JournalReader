@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
@@ -52,6 +54,12 @@ class SplashFragment : Fragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //navigation for registration or authorization or main activity
+//        viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
+//        }
+    }
 }
 
 @Composable
@@ -64,7 +72,9 @@ fun SplashScreen(onFinishedShowing: () -> Unit) {
     }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -75,16 +85,3 @@ fun SplashScreen(onFinishedShowing: () -> Unit) {
         )
     }
 }
-
-
-//    LaunchedEffect(null) {
-//        delay(3000L)
-//        navController.navigate("authorization_check_screen"){
-//        }
-
-//        navController.navigate("authorization_check_screen") {
-//            popUpTo("splash_screen") {
-//                inclusive = true
-//            }
-//        }
-//    }

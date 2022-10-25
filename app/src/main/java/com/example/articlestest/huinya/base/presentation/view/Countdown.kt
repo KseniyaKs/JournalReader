@@ -11,7 +11,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.articlestest.ui.theme.HyperLinkBlue
+import com.example.articlestest.presentation.theme.HyperLinkBlue
 import kotlinx.coroutines.delay
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration

@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.articlestest.R
-import com.example.articlestest.ui.theme.Pink
+import com.example.articlestest.presentation.theme.Pink
 
 @Composable
 fun Toolbar(articleTitle: String, navController: NavController) {
@@ -54,7 +54,7 @@ fun Toolbar(articleTitle: String, navController: NavController) {
             text = articleTitle.uppercase(),
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
-            fontFamily = FontFamily(Font(R.font.gilroy_semibold)),
+            fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
             modifier = Modifier.constrainAs(title) {
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)

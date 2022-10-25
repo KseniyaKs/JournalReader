@@ -14,7 +14,6 @@ class AuthorizationActivity : FragmentActivity() {
 
         supportFragmentManager.beginTransaction().add(R.id.container, SplashFragment.newInstance())
             .commit()
-
     }
 }
 

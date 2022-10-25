@@ -1,4 +1,4 @@
-package com.example.articlestest.ui.theme
+package com.example.articlestest.presentation.theme
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -9,6 +9,6 @@ val GilroyUiFonts = FontFamily(
     Font(R.font.gilroy_extrabold, weight = FontWeight.ExtraBold),
     Font(R.font.gilroy_light, weight = FontWeight.Light),
     Font(R.font.gilroy_bold, weight = FontWeight.Bold),
-    Font(R.font.gilroy_medium, weight = FontWeight.Medium),
-    Font(R.font.gilroy_regular, weight = FontWeight.Normal)
+    Font(R.font.gilroy_medium_500, weight = FontWeight.Medium),
+    Font(R.font.gilroy_regular_400, weight = FontWeight.Normal)
 )

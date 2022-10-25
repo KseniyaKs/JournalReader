@@ -32,10 +32,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.articlestest.R
 import com.example.articlestest.presentation.navigation.NavDestination
+import com.example.articlestest.presentation.theme.Grey300
+import com.example.articlestest.presentation.theme.Grey900
+import com.example.articlestest.presentation.theme.Pink
 import com.example.articlestest.presentation.view.LogoAndBack
-import com.example.articlestest.ui.theme.Grey300
-import com.example.articlestest.ui.theme.Grey900
-import com.example.articlestest.ui.theme.Pink
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -114,12 +114,12 @@ fun AuthorizationNewPasswordScreen(
 
             Text(
                 text = stringResource(id = R.string.enter_password),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium)),
+                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
             )
 
             Text(
                 text = stringResource(id = R.string.password),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium)),
+                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
                 modifier = Modifier.padding(PaddingValues(top = 35.dp, bottom = 8.dp))
             )
 
@@ -142,7 +142,7 @@ fun AuthorizationNewPasswordScreen(
                 keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                 value = password.value,
                 textStyle = LocalTextStyle.current.copy(
-                    fontFamily = FontFamily(Font(R.font.gilroy_regular)),
+                    fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
                     fontSize = 20.sp,
                 ),
                 onValueChange = { password.value = it }
@@ -174,7 +174,7 @@ fun AuthorizationNewPasswordScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.continue_button),
-                    fontFamily = FontFamily(Font(R.font.gilroy_semibold)),
+                    fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
                     fontSize = 17.sp,
                     color = Color.White
                 )

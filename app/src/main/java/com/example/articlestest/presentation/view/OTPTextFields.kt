@@ -27,9 +27,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.articlestest.R
-import com.example.articlestest.ui.theme.BrightRed
-import com.example.articlestest.ui.theme.Grey300
-import com.example.articlestest.ui.theme.Grey900
+import com.example.articlestest.presentation.theme.BrightRed
+import com.example.articlestest.presentation.theme.Grey300
+import com.example.articlestest.presentation.theme.Grey900
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -61,7 +61,7 @@ fun OTPTextFields(
                     .focusRequester(focusRequester = focusRequesters[index])
                     .focusProperties(scope = {}),
                 textStyle = LocalTextStyle.current.copy(
-                    fontFamily = FontFamily(Font(R.font.gilroy_regular)),
+                    fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
                     fontSize = 20.sp,
                     textAlign = TextAlign.Center, color = Color.Black
                 ),
@@ -118,6 +118,6 @@ fun IncorrectCode() {
         text = stringResource(id = R.string.incorrect_code),
         fontSize = 12.sp,
         color = BrightRed,
-        fontFamily = FontFamily(Font(R.font.gilroy_medium)),
+        fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
     )
 }

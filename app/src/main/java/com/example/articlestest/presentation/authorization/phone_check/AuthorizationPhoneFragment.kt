@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -36,10 +37,10 @@ import com.example.articlestest.R
 import com.example.articlestest.presentation.authorization.password_check.AuthorizationPasswordFragment
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.confirmcode_check.RegistrationConfirmCodeFragment
+import com.example.articlestest.presentation.theme.Grey300
+import com.example.articlestest.presentation.theme.Grey900
+import com.example.articlestest.presentation.theme.Pink
 import com.example.articlestest.presentation.view.HyperlinkText
-import com.example.articlestest.ui.theme.Grey300
-import com.example.articlestest.ui.theme.Grey900
-import com.example.articlestest.ui.theme.Pink
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -64,7 +65,7 @@ class AuthorizationPhoneFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MaterialTheme {
-                    AuthorizationPhoneScreen(viewModel)//, phone)
+                    AuthorizationPhoneScreen(viewModel)
                 }
             }
         }
@@ -114,6 +115,7 @@ fun AuthorizationPhoneScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.White)
             .padding(
                 PaddingValues(
                     start = 20.dp,
@@ -133,7 +135,7 @@ fun AuthorizationPhoneScreen(
 
             Text(
                 text = stringResource(id = R.string.telephone_number),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium)),
+                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
                 modifier = Modifier.padding(PaddingValues(bottom = 8.dp))
             )
 
@@ -156,7 +158,7 @@ fun AuthorizationPhoneScreen(
                 ),
                 keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                 textStyle = LocalTextStyle.current.copy(
-                    fontFamily = FontFamily(Font(R.font.gilroy_regular)),
+                    fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
                     fontSize = 20.sp,
                 ),
                 value = phoneNumber.value,
@@ -182,7 +184,7 @@ fun AuthorizationPhoneScreen(
                 ),
                 boldText = "«Продолжить»",
                 fontSize = 13.sp,
-                fontFamily = FontFamily(Font(R.font.gilroy_regular)),
+                fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
                 modifier = Modifier.padding(PaddingValues(bottom = 24.dp)),
                 textAlign = TextAlign.Center
             )
@@ -203,7 +205,7 @@ fun AuthorizationPhoneScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.continue_button),
-                    fontFamily = FontFamily(Font(R.font.gilroy_semibold)),
+                    fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
                     fontSize = 17.sp,
                     color = Color.White
                 )

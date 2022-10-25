@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.articlestest.R
-import com.example.articlestest.ui.theme.Pink
+import com.example.articlestest.presentation.theme.Pink
 
 
 @Composable
