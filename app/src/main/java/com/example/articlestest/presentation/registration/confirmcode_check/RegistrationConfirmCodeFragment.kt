@@ -31,8 +31,8 @@ import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.create_password.RegistrationPasswordFragment
 import com.example.articlestest.presentation.theme.DarkBlue
 import com.example.articlestest.presentation.theme.Pink
+import com.example.articlestest.presentation.view.Back
 import com.example.articlestest.presentation.view.IncorrectCode
-import com.example.articlestest.presentation.view.LogoAndBack
 import com.example.articlestest.presentation.view.OTPTextFields
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -67,6 +67,7 @@ class RegistrationConfirmCodeFragment : Fragment() {
                     )
                 }
             }
+            isClickable = true
         }
     }
 
@@ -114,7 +115,7 @@ fun RegistrationConfirmCodeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            LogoAndBack { viewModel.onBack() }
+            Back { viewModel.onBack() }
 
             Text(
                 text = stringResource(id = R.string.confirmation_code),

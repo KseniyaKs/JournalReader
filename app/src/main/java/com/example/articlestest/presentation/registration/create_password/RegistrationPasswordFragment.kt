@@ -36,7 +36,7 @@ import com.example.articlestest.presentation.theme.AlphaBlack
 import com.example.articlestest.presentation.theme.Grey300
 import com.example.articlestest.presentation.theme.Grey900
 import com.example.articlestest.presentation.theme.Pink
-import com.example.articlestest.presentation.view.LogoAndBack
+import com.example.articlestest.presentation.view.Back
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -70,6 +70,7 @@ class RegistrationPasswordFragment : Fragment() {
                     )
                 }
             }
+            isClickable = true
         }
     }
 
@@ -111,7 +112,7 @@ fun RegistrationPasswordScreen(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            LogoAndBack { viewModel.onBack() }
+            Back { viewModel.onBack() }
 
             Text(
                 text = stringResource(id = R.string.password),

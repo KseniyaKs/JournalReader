@@ -2,13 +2,15 @@ package com.example.articlestest.presentation.authorization.new_password
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.example.articlestest.domain.AuthorisationRepository
+import com.example.articlestest.domain.repositories.AuthorisationRepository
 import com.example.articlestest.huinya.base.BaseViewModel
 import com.example.articlestest.huinya.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class AuthorizationNewPasswordViewModel @Inject constructor(
     private val repository: AuthorisationRepository,
     private val savedStateHandle: SavedStateHandle

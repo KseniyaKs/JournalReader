@@ -7,8 +7,8 @@ import com.example.articlestest.data.mapper.MapperFromAuthorizationCheckDtoToMod
 import com.example.articlestest.data.mapper.MapperFromUserPhoneDtoToModel
 import com.example.articlestest.data.model.AuthorizationCheck
 import com.example.articlestest.data.model.UserPhone
-import com.example.articlestest.domain.AuthorisationRepository
 import com.example.articlestest.domain.PreferenceKeys
+import com.example.articlestest.domain.repositories.AuthorisationRepository
 import com.example.articlestest.huinya.base.ResponseMapper
 import javax.inject.Inject
 

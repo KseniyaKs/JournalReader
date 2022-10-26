@@ -12,6 +12,7 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.articlestest.BuildConfig
 import com.example.articlestest.data.Api
+import com.example.articlestest.domain.AuthorizationInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,7 +51,8 @@ class ApiModule {
     @Singleton
     fun provideOkHttpClient(
         @ApplicationContext context: Context,
-        httpLoggingInterceptor: HttpLoggingInterceptor
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        sharedPreference: DataStore<Preferences>
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addNetworkInterceptor(httpLoggingInterceptor)
@@ -62,6 +64,7 @@ class ApiModule {
                     .alwaysReadResponseBody(false)
                     .build()
             )
+            .addInterceptor(AuthorizationInterceptor(sharedPreference))
             .build()
     }
 

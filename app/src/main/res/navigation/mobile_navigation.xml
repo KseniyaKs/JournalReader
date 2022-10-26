@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_journal"
-        android:name="com.example.articlestest.presentation.main_app.journal.JournalFragment"
+        android:name="com.example.articlestest.presentation.main_app.journal.JournalsFragment"
         android:label="@string/magazine"
         tools:layout="@layout/fragment_journal" />
 

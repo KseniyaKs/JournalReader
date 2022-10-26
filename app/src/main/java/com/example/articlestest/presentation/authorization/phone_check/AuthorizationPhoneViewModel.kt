@@ -1,7 +1,7 @@
 package com.example.articlestest.presentation.authorization.phone_check
 
 import androidx.lifecycle.viewModelScope
-import com.example.articlestest.domain.AuthorisationRepository
+import com.example.articlestest.domain.repositories.AuthorisationRepository
 import com.example.articlestest.huinya.base.BaseViewModel
 import com.example.articlestest.huinya.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthorizationCheckViewModel @Inject constructor(
+class AuthorizationPhoneViewModel @Inject constructor(
     val repository: AuthorisationRepository,
 ) : BaseViewModel<BaseViewState<AuthorizationCheckViewStateEvent>, AuthorizationCheckContractEvent>() {
 

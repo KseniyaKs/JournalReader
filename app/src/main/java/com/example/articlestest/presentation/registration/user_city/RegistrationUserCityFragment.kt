@@ -1,5 +1,6 @@
 package com.example.articlestest.presentation.registration.user_city
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -31,11 +30,12 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.articlestest.R
+import com.example.articlestest.presentation.MainActivity
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.theme.Grey300
 import com.example.articlestest.presentation.theme.Grey900
 import com.example.articlestest.presentation.theme.Pink
-import com.example.articlestest.presentation.view.LogoAndBack
+import com.example.articlestest.presentation.view.Back
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -71,9 +71,16 @@ class RegistrationUserCityFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 androidx.compose.material3.MaterialTheme {
-                    RegistrationUserCityScreen(viewModel)
+                    RegistrationUserCityScreen(
+                        viewModel,
+                        name = requireArguments().get("NAME") as String,
+                        surname = requireArguments().get("SURNAME") as String,
+                        patronymic = requireArguments().get("PATRONYMIC") as String,
+                        email = requireArguments().get("EMAIL") as String
+                    )
                 }
             }
+            isClickable = true
         }
     }
 
@@ -85,7 +92,9 @@ class RegistrationUserCityFragment : Fragment() {
                     parentFragmentManager.popBackStack()
                 }
                 is NavDestination.AppMain -> {
-                    //new activity
+                    val intent = Intent(this.context, MainActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
                 }
                 else -> {}
             }
@@ -97,10 +106,22 @@ class RegistrationUserCityFragment : Fragment() {
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun RegistrationUserCityScreen(
-    viewModel: RegistrationUserCityViewModel
+    viewModel: RegistrationUserCityViewModel,
+    name: String,
+    surname: String,
+    patronymic: String,
+    email: String
 ) {
     val city = remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
+
+    LaunchedEffect(Unit) {
+        viewModel.onTriggerEvent(
+            eventType = RegistrationUserCityEvent.GetCity
+        )
+    }
+
+    val cityState by viewModel.cityState.collectAsState()
 
     Column(
         modifier = Modifier
@@ -113,7 +134,7 @@ fun RegistrationUserCityScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            LogoAndBack { viewModel.onBack() }
+            Back { viewModel.onBack() }
 
             Text(
                 text = stringResource(id = R.string.your_city),
@@ -156,7 +177,17 @@ fun RegistrationUserCityScreen(
 
         ) {
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    viewModel.onTriggerEvent(
+                        eventType = RegistrationUserCityEvent.CreateUserInfo(
+                            name = name,
+                            surname = surname,
+                            patronymic = patronymic,
+                            email = email,
+                            city = "22"//city.value
+                        )
+                    )
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(44.dp),

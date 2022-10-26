@@ -1,4 +1,4 @@
-package com.example.articlestest.domain
+package com.example.articlestest.domain.repositories
 
 import com.example.articlestest.data.model.AuthorizationCheck
 import com.example.articlestest.data.model.UserPhone

@@ -2,7 +2,7 @@ package com.example.articlestest.presentation.registration.create_password
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.example.articlestest.domain.RegistrationRepository
+import com.example.articlestest.domain.repositories.RegistrationRepository
 import com.example.articlestest.huinya.base.BaseViewModel
 import com.example.articlestest.huinya.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination

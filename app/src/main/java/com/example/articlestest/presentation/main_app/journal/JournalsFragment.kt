@@ -15,9 +15,11 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
@@ -28,15 +30,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.articlestest.R
+import com.example.articlestest.huinya.base.BaseViewState
 import com.example.articlestest.presentation.theme.Pink
+import com.example.articlestest.presentation.view.PicassoImage
+import dagger.hilt.android.AndroidEntryPoint
 
 
-class JournalFragment : Fragment() {
+@AndroidEntryPoint
+class JournalsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = JournalFragment()
+        fun newInstance() = JournalsFragment()
     }
+
+    val viewModel: JournalsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,15 +58,32 @@ class JournalFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MaterialTheme {
-                    JournalScreen()
+                    JournalScreen(viewModel)
                 }
             }
+            isClickable = true
         }
     }
 }
 
 @Composable
-fun JournalScreen() {
+fun JournalScreen(viewModel: JournalsViewModel) {
+
+    val uiState by viewModel.uiState.collectAsState()
+    when (uiState) {
+        BaseViewState.Loading -> {}
+        is BaseViewState.Data -> {
+            JournalsContent((uiState as BaseViewState.Data<JournalsViewState>).value)
+        }
+        else -> {}
+    }
+}
+
+@Composable
+fun JournalsContent(journalsState: JournalsViewState) {
+
+    val mainJournal = remember { journalsState.journalsData.journals.first() }
+
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -77,10 +103,8 @@ fun JournalScreen() {
                 }
                 .padding(bottom = 34.dp)
         )
-        Image(
-            painter = painterResource(id = R.drawable.food1),//image of journal
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
+        PicassoImage(
+            model = mainJournal.image.file,
             modifier = Modifier
                 .constrainAs(journal) {
                     top.linkTo(logo.bottom)
@@ -93,7 +117,7 @@ fun JournalScreen() {
         )
 
         Text(
-            text = "#21",
+            text = "№" + mainJournal.number.toString(),
             fontFamily = FontFamily(Font(R.font.poiret_one_regular_400)),
             fontSize = 20.sp,
 //            fontWeight = FontWeight.Normal,
@@ -104,7 +128,7 @@ fun JournalScreen() {
         )
 
         Text(
-            text = "august",
+            text = mainJournal.month.lowercase(),
             fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
             fontSize = 17.sp,
             modifier = Modifier.constrainAs(month) {

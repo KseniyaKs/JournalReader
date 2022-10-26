@@ -37,7 +37,7 @@ import com.example.articlestest.presentation.theme.Grey300
 import com.example.articlestest.presentation.theme.Grey900
 import com.example.articlestest.presentation.theme.GreyBlue
 import com.example.articlestest.presentation.theme.Pink
-import com.example.articlestest.presentation.view.LogoAndBack
+import com.example.articlestest.presentation.view.Back
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -64,6 +64,7 @@ class RegistrationUserDataFragment : Fragment() {
                     RegistrationUserDataScreen(viewModel)
                 }
             }
+            isClickable = true
         }
     }
 
@@ -114,7 +115,7 @@ fun RegistrationUserDataScreen(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            LogoAndBack { viewModel.onBack() }
+            Back { viewModel.onBack() }
 
             Text(
                 text = stringResource(id = R.string.registration_help),
@@ -175,7 +176,7 @@ fun UserData(
     onEmailCreate: (email: String) -> Unit
 ) {
 
-    var name = remember { mutableStateOf("") }
+    val name = remember { mutableStateOf("") }
     val surname = remember { mutableStateOf("") }
     val patronymic = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
@@ -189,120 +190,156 @@ fun UserData(
             value = surname.value,
             onValueChange = {
                 surname.value = it
-                onSurnameCreate
+                onSurnameCreate(surname.value)
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            shape = RoundedCornerShape(8.dp),
+            textStyle = LocalTextStyle.current.copy(
+                fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center
+            ),
+            placeholder = {
+                Text(
+                    text = stringResource(id = R.string.surname),
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            },
             colors = TextFieldDefaults.textFieldColors(
                 textColor = Grey900,
                 backgroundColor = Color.White,
                 focusedIndicatorColor = Grey300,
                 unfocusedIndicatorColor = Grey300,
-                cursorColor = Color.Black
+                cursorColor = Color.Black,
+                placeholderColor = GreyBlue
             ),
-            textStyle = LocalTextStyle.current.copy(
-                fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
-                fontSize = 20.sp,
-                color = GreyBlue,
-                textAlign = TextAlign.Center
-            ),
+            shape = RoundedCornerShape(8.dp),
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Next
             ),
-            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() })
+            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
         )
 
         OutlinedTextField(
             value = name.value,
             onValueChange = {
                 name.value = it
-                onNameCreate
+                onNameCreate(name.value)
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            shape = RoundedCornerShape(8.dp),
+            textStyle = LocalTextStyle.current.copy(
+                fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center
+            ),
+            placeholder = {
+                Text(
+                    text = stringResource(id = R.string.name),
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            },
             colors = TextFieldDefaults.textFieldColors(
                 textColor = Grey900,
                 backgroundColor = Color.White,
                 focusedIndicatorColor = Grey300,
                 unfocusedIndicatorColor = Grey300,
-                cursorColor = Color.Black
+                cursorColor = Color.Black,
+                placeholderColor = GreyBlue,
             ),
-            textStyle = LocalTextStyle.current.copy(
-                fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
-                fontSize = 20.sp,
-                color = GreyBlue,
-                textAlign = TextAlign.Center
-            ),
+            shape = RoundedCornerShape(8.dp),
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Next
             ),
-            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() })
+            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp),
         )
 
         OutlinedTextField(
             value = patronymic.value,
             onValueChange = {
                 patronymic.value = it
-                onPatronymicCreate
+                onPatronymicCreate(patronymic.value)
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            shape = RoundedCornerShape(8.dp),
+            textStyle = LocalTextStyle.current.copy(
+                fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center
+            ),
+            placeholder = {
+                Text(
+                    text = stringResource(id = R.string.patronymic),
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            },
             colors = TextFieldDefaults.textFieldColors(
                 textColor = Grey900,
                 backgroundColor = Color.White,
                 focusedIndicatorColor = Grey300,
                 unfocusedIndicatorColor = Grey300,
-                cursorColor = Color.Black
+                cursorColor = Color.Black,
+                placeholderColor = GreyBlue
             ),
-            textStyle = LocalTextStyle.current.copy(
-                fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
-                fontSize = 20.sp,
-                color = GreyBlue,
-                textAlign = TextAlign.Center
-            ),
+            shape = RoundedCornerShape(8.dp),
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Next
             ),
-            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() })
+            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
         )
 
         OutlinedTextField(
             value = email.value,
             onValueChange = {
                 email.value = it
-                onEmailCreate
+                onEmailCreate(email.value)
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            shape = RoundedCornerShape(8.dp),
+            textStyle = LocalTextStyle.current.copy(
+                fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center
+            ),
+            placeholder = {
+                Text(
+                    text = stringResource(id = R.string.email),
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            },
             colors = TextFieldDefaults.textFieldColors(
                 textColor = Grey900,
                 backgroundColor = Color.White,
                 focusedIndicatorColor = Grey300,
                 unfocusedIndicatorColor = Grey300,
-                cursorColor = Color.Black
+                cursorColor = Color.Black,
+                placeholderColor = GreyBlue
             ),
-            textStyle = LocalTextStyle.current.copy(
-                fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
-                fontSize = 20.sp,
-                color = GreyBlue,
-                textAlign = TextAlign.Center
-            ),
+            shape = RoundedCornerShape(8.dp),
             keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Text,
+                keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Done
             ),
-            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() })
+            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
         )
     }
 }

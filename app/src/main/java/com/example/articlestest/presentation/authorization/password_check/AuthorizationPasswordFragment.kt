@@ -38,7 +38,7 @@ import com.example.articlestest.presentation.MainActivity
 import com.example.articlestest.presentation.authorization.confirmcode_check.AuthorizationConfirmcodeFragment
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.theme.*
-import com.example.articlestest.presentation.view.LogoAndBack
+import com.example.articlestest.presentation.view.Back
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -73,6 +73,7 @@ class AuthorizationPasswordFragment : Fragment() {
                     )
                 }
             }
+            isClickable = true
         }
     }
 
@@ -127,7 +128,7 @@ fun AuthorizationPasswordScreen(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            LogoAndBack { viewModel.onBack() }
+            Back { viewModel.onBack() }
 
             Text(
                 text = stringResource(id = R.string.enter_password),

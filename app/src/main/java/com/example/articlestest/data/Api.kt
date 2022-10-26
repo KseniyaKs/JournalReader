@@ -2,10 +2,7 @@ package com.example.articlestest.data
 
 import com.example.articlestest.data.dto.*
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface Api {
 
@@ -40,6 +37,17 @@ interface Api {
 
     @POST("sign-up/")
     suspend fun signUp(@Body user: UserBody): Response<TokenDto>
+
+    @GET("cities/")
+    suspend fun getCities(): Response<List<CityInfoDto>>
+
+    @PATCH("user_info/update/")
+    suspend fun createUserInfo(@Body userIfo: UserInfoBody): Response<UserInfoDto>
+
+    //journal
+    @GET("journal/")
+    suspend fun getJournals(): Response<JournalsDto>
+
 
 //
 //    @POST("token/refresh/")

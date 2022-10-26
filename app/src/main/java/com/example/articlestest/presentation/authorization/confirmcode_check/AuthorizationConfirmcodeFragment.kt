@@ -30,8 +30,8 @@ import com.example.articlestest.huinya.base.presentation.view.Countdown
 import com.example.articlestest.presentation.authorization.new_password.AuthorizationNewPasswordFragment
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.theme.Pink
+import com.example.articlestest.presentation.view.Back
 import com.example.articlestest.presentation.view.IncorrectCode
-import com.example.articlestest.presentation.view.LogoAndBack
 import com.example.articlestest.presentation.view.OTPTextFields
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -67,6 +67,7 @@ class AuthorizationConfirmcodeFragment : Fragment() {
                     )
                 }
             }
+            isClickable = true
         }
     }
 
@@ -125,7 +126,7 @@ fun AuthorizationConfirmCodeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            LogoAndBack { viewModel.onBack() }
+            Back { viewModel.onBack() }
 
             Text(
                 text = stringResource(id = R.string.send_code),

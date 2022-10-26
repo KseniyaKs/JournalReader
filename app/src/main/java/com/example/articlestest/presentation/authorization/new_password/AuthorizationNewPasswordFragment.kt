@@ -1,10 +1,12 @@
 package com.example.articlestest.presentation.authorization.new_password
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -31,11 +33,12 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.articlestest.R
+import com.example.articlestest.presentation.MainActivity
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.theme.Grey300
 import com.example.articlestest.presentation.theme.Grey900
 import com.example.articlestest.presentation.theme.Pink
-import com.example.articlestest.presentation.view.LogoAndBack
+import com.example.articlestest.presentation.view.Back
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -71,6 +74,7 @@ class AuthorizationNewPasswordFragment : Fragment() {
                     )
                 }
             }
+            isClickable = true
         }
     }
 
@@ -82,7 +86,9 @@ class AuthorizationNewPasswordFragment : Fragment() {
                     parentFragmentManager.popBackStack()
                 }
                 is NavDestination.AppMain -> {
-                    //new activity
+                    val intent = Intent(this.context, MainActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
                 }
                 else -> {}
             }
@@ -104,13 +110,14 @@ fun AuthorizationNewPasswordScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.White)
             .padding(PaddingValues(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 24.dp)),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Log.d("asdasd", "password_screen")
 
-            LogoAndBack { viewModel.onBack() }
+            Back { viewModel.onBack() }
 
             Text(
                 text = stringResource(id = R.string.enter_password),

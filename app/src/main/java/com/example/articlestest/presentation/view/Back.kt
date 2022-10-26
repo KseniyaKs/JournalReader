@@ -19,7 +19,7 @@ import com.example.articlestest.presentation.theme.Pink
 
 
 @Composable
-fun LogoAndBack(backClick: () -> Unit) {
+fun Back(backClick: () -> Unit) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -55,8 +55,4 @@ fun LogoAndBack(backClick: () -> Unit) {
                 }
         )
     }
-
-//    BackHandler() {
-//
-//    }
 }

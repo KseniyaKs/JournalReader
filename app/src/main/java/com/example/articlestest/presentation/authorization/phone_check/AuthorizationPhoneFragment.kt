@@ -51,7 +51,7 @@ class AuthorizationPhoneFragment : Fragment() {
         fun newInstance() = AuthorizationPhoneFragment()
     }
 
-    private val viewModel: AuthorizationCheckViewModel by viewModels()
+    private val viewModel: AuthorizationPhoneViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +68,7 @@ class AuthorizationPhoneFragment : Fragment() {
                     AuthorizationPhoneScreen(viewModel)
                 }
             }
+            isClickable = true
         }
     }
 
@@ -105,7 +106,7 @@ class AuthorizationPhoneFragment : Fragment() {
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AuthorizationPhoneScreen(
-    viewModel: AuthorizationCheckViewModel,
+    viewModel: AuthorizationPhoneViewModel,
 ) {
 
     val phoneNumber = remember { mutableStateOf("") } //89279442890
@@ -140,11 +141,14 @@ fun AuthorizationPhoneScreen(
             )
 
             OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-                enabled = true,
-                shape = RoundedCornerShape(8.dp),
+                value = phoneNumber.value,
+                onValueChange = {
+                    phoneNumber.value = it
+                },
+                textStyle = LocalTextStyle.current.copy(
+                    fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
+                    fontSize = 20.sp,
+                ),
                 colors = TextFieldDefaults.textFieldColors(
                     textColor = Grey900,
                     backgroundColor = Color.White,
@@ -152,19 +156,16 @@ fun AuthorizationPhoneScreen(
                     unfocusedIndicatorColor = Grey300,
                     cursorColor = Color.Black
                 ),
+                enabled = true,
+                shape = RoundedCornerShape(8.dp),
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Phone,
                     imeAction = ImeAction.Done
                 ),
                 keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
-                textStyle = LocalTextStyle.current.copy(
-                    fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
-                    fontSize = 20.sp,
-                ),
-                value = phoneNumber.value,
-                onValueChange = {
-                    phoneNumber.value = it
-                }
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
             )
         }
 

@@ -2,7 +2,7 @@ package com.example.articlestest.presentation.authorization.password_check
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.example.articlestest.domain.AuthorisationRepository
+import com.example.articlestest.domain.repositories.AuthorisationRepository
 import com.example.articlestest.huinya.base.BaseViewModel
 import com.example.articlestest.huinya.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination

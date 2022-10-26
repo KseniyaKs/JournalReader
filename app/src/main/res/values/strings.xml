@@ -32,13 +32,10 @@
     <string name="buy">Купить</string>
     <string name="see_more">Смотреть прошлые выпуски</string>
 
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_qweqe">qweqe</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="surname">Фамилия</string>
+    <string name="name">Имя</string>
+    <string name="patronymic">Отчество</string>
+    <string name="email">Электронная почта</string>
 
 
 </resources>
