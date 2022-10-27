@@ -1,6 +1,7 @@
 package com.example.articlestest.data
 
 import com.example.articlestest.data.mapper.MapperFromJournalListDtoToModel
+import com.example.articlestest.data.model.Journal
 import com.example.articlestest.data.model.JournalsData
 import com.example.articlestest.domain.repositories.MainRepository
 import com.example.articlestest.huinya.base.ResponseMapper
@@ -14,6 +15,11 @@ class MainRepositoryImpl @Inject constructor(
 
     override suspend fun getJournals(): JournalsData {
         val response = mapper.map(api.getJournals())
+        return mapperFromJournalListDtoToModel.mapList(response)
+    }
+
+    override suspend fun getJournalDetails(id: String): Journal {
+        val response = mapper.map(api.getJournalDetails(id))
         return mapperFromJournalListDtoToModel.map(response)
     }
 }

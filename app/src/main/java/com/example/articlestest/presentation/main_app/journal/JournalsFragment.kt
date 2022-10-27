@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -33,6 +32,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.articlestest.R
 import com.example.articlestest.huinya.base.BaseViewState
+import com.example.articlestest.presentation.main_app.journal_details.JournalDetailsFragment
+import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.theme.Pink
 import com.example.articlestest.presentation.view.PicassoImage
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,6 +65,25 @@ class JournalsFragment : Fragment() {
             isClickable = true
         }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
+            when (destination) {
+                is NavDestination.JournalDetails -> {
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .add(
+                            R.id.nav_host_fragment_activity_main,
+                            JournalDetailsFragment.newInstance(destination.id)
+                        )
+                        .addToBackStack("authorization_confirm_code")
+                        .commit()
+                }
+                else -> {}
+            }
+        }
+    }
 }
 
 @Composable
@@ -73,14 +93,14 @@ fun JournalScreen(viewModel: JournalsViewModel) {
     when (uiState) {
         BaseViewState.Loading -> {}
         is BaseViewState.Data -> {
-            JournalsContent((uiState as BaseViewState.Data<JournalsViewState>).value)
+            JournalsContent((uiState as BaseViewState.Data<JournalsViewState>).value, viewModel)
         }
         else -> {}
     }
 }
 
 @Composable
-fun JournalsContent(journalsState: JournalsViewState) {
+fun JournalsContent(journalsState: JournalsViewState, viewModel: JournalsViewModel) {
 
     val mainJournal = remember { journalsState.journalsData.journals.first() }
 
@@ -89,6 +109,7 @@ fun JournalsContent(journalsState: JournalsViewState) {
             .fillMaxSize()
             .background(Color.White)
             .padding(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 24.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         val (logo, journal, number, month, buy, more) = createRefs()
 
@@ -120,7 +141,6 @@ fun JournalsContent(journalsState: JournalsViewState) {
             text = "№" + mainJournal.number.toString(),
             fontFamily = FontFamily(Font(R.font.poiret_one_regular_400)),
             fontSize = 20.sp,
-//            fontWeight = FontWeight.Normal,
             modifier = Modifier.constrainAs(number) {
                 top.linkTo(journal.bottom)
                 start.linkTo(parent.start)
@@ -138,7 +158,13 @@ fun JournalsContent(journalsState: JournalsViewState) {
         )
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                viewModel.onTriggerEvent(
+                    eventType = JournalsEvent.GetJournalDetails(
+                        id = mainJournal.id
+                    )
+                )
+            },
             colors = ButtonDefaults.buttonColors(containerColor = Pink),
             modifier = Modifier.constrainAs(buy) {
                 top.linkTo(journal.bottom)
@@ -157,11 +183,13 @@ fun JournalsContent(journalsState: JournalsViewState) {
             color = Pink,
             fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
             fontSize = 17.sp,
-            modifier = Modifier.constrainAs(more) {
-                bottom.linkTo(parent.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
+            modifier = Modifier
+                .constrainAs(more) {
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+                .clickable { }
         )
     }
 }

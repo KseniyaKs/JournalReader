@@ -30,6 +30,11 @@ class JournalsViewModel @Inject constructor(
     override fun onTriggerEvent(eventType: JournalsEvent) {
         when (eventType) {
             JournalsEvent.GetJournals -> getJournals()
+            is JournalsEvent.GetJournalDetails -> onNavigationEvent(
+                NavDestination.JournalDetails(
+                    eventType.id
+                )
+            )
         }
     }
 

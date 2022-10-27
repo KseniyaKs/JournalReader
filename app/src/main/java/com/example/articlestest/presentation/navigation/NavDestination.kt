@@ -22,5 +22,7 @@ sealed class NavDestination {
         val email: String,
     ) : NavDestination()
 
+    data class JournalDetails(val id: String) : NavDestination()
+
     object BackClick : NavDestination()
 }

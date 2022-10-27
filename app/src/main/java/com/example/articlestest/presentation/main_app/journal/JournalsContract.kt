@@ -8,4 +8,7 @@ data class JournalsViewState(
 
 sealed class JournalsEvent {
     object GetJournals : JournalsEvent()
+    data class GetJournalDetails(
+        val id: String
+    ) : JournalsEvent()
 }

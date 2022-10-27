@@ -37,5 +37,10 @@
     <string name="patronymic">Отчество</string>
     <string name="email">Электронная почта</string>
 
+    <string name="journal_description">Описание журнала</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
