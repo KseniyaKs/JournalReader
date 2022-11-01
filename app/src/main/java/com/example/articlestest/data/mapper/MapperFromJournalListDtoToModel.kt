@@ -45,8 +45,9 @@ class MapperFromJournalListDtoToModelImpl @Inject constructor() : MapperFromJour
             number = journalsDto.number,
             month = journalsDto.month,
             journalFile = journalsDto.journalFile,
-            date = journalsDto.date,
-            price = journalsDto.price
+            dateIssue = journalsDto.dateIssue,
+            price = journalsDto.price,
+            isBought = journalsDto.isBought
         )
     }
 

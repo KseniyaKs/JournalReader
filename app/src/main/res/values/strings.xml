@@ -25,11 +25,13 @@
     <string name="registration_help">Для завершения регистрации, пожалуйста, введите данные о Вас</string>
     <string name="your_city">Ваш город</string>
 
-    <string name="magazine">Журнал</string>
+
+    <string name="journal" translatable="false">Журнал</string>
     <string name="articles">Статьи</string>
     <string name="profile">Профиль</string>
 
     <string name="buy">Купить</string>
+    <string name="read">Читать</string>
     <string name="see_more">Смотреть прошлые выпуски</string>
 
     <string name="surname">Фамилия</string>
@@ -38,6 +40,12 @@
     <string name="email">Электронная почта</string>
 
     <string name="journal_description">Описание журнала</string>
+
+    <plurals name="rub">
+        <item quantity="one">%d рубль</item>
+        <item quantity="few">%d рублей</item>
+        <item quantity="many">%d рубля</item>
+    </plurals>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

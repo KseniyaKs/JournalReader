@@ -1,4 +1,4 @@
-package com.example.articlestest.huinya.base
+package com.example.articlestest.presentation.base
 
 
 class ApiException(message: String) : Throwable(message)

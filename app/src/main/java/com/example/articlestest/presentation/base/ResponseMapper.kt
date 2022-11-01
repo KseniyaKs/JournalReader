@@ -1,4 +1,4 @@
-package com.example.articlestest.huinya.base
+package com.example.articlestest.presentation.base
 
 import retrofit2.Response
 import javax.inject.Inject

@@ -1,6 +1,5 @@
 package com.example.articlestest.data.model
 
-import java.util.*
 
 data class JournalsData(
     val count: Number,
@@ -16,8 +15,9 @@ data class Journal(
     val number: Number,
     val month: String,
     val journalFile: String,
-    val date: Date,
-    val price: String
+    val dateIssue: String,
+    val price: String,
+    val isBought: Boolean
 )
 
 data class Image(

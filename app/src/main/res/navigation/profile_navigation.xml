@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_navigation"
+    app:startDestination="@+id/profile">
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.articlestest.presentation.main_app.profile.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_journal_description"-->
+    <!--        android:name="com.example.articlestest.presentation.main_app.journal_details.JournalDetailsFragment"-->
+    <!--        android:label="@string/journal_description"-->
+    <!--        tools:layout="@layout/fragment_journal_details" />-->
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_journal_reader"-->
+    <!--        android:name="com.example.articlestest.presentation.main_app.journal_details.JournalDetailsFragment"-->
+    <!--        tools:layout="@layout/fragment_journal_reader" />-->
+
+</navigation>

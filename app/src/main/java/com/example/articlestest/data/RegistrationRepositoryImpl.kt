@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.edit
 import com.example.articlestest.data.model.City
 import com.example.articlestest.domain.PreferenceKeys
 import com.example.articlestest.domain.repositories.RegistrationRepository
-import com.example.articlestest.huinya.base.ResponseMapper
+import com.example.articlestest.presentation.base.ResponseMapper
 import javax.inject.Inject
 
 class RegistrationRepositoryImpl @Inject constructor(

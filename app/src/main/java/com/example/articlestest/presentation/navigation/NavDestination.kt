@@ -24,5 +24,9 @@ sealed class NavDestination {
 
     data class JournalDetails(val id: String) : NavDestination()
 
+    object BuyJournal : NavDestination()
+
+    data class ReadJournal(val firstPageId: String) : NavDestination()
+
     object BackClick : NavDestination()
 }

@@ -3,8 +3,8 @@ package com.example.articlestest.presentation.registration.user_city
 import androidx.lifecycle.viewModelScope
 import com.example.articlestest.data.model.City
 import com.example.articlestest.domain.repositories.RegistrationRepository
-import com.example.articlestest.huinya.base.BaseViewModel
-import com.example.articlestest.huinya.base.BaseViewState
+import com.example.articlestest.presentation.base.BaseViewModel
+import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

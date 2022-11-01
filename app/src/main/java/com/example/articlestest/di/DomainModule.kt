@@ -10,10 +10,10 @@ import com.example.articlestest.data.mapper.*
 import com.example.articlestest.domain.repositories.AuthorisationRepository
 import com.example.articlestest.domain.repositories.MainRepository
 import com.example.articlestest.domain.repositories.RegistrationRepository
-import com.example.articlestest.huinya.base.ResponseMapper
-import com.example.articlestest.huinya.base.ResponseMapperImpl
 import com.example.articlestest.huinya.base.test.ArticleRepository
 import com.example.articlestest.huinya.base.test.ArticleRepositoryImpl
+import com.example.articlestest.presentation.base.ResponseMapper
+import com.example.articlestest.presentation.base.ResponseMapperImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -67,9 +67,15 @@ class DomainModule {
     fun provideMainRepository(
         api: Api,
         mapper: ResponseMapper,
-        mapperFromJournalListDtoToModel: MapperFromJournalListDtoToModel
+        mapperFromJournalListDtoToModel: MapperFromJournalListDtoToModel,
+        mapperFromJournalPageDtoToModel: MapperFromJournalPageDtoToModel
     ): MainRepository {
-        return MainRepositoryImpl(api, mapper, mapperFromJournalListDtoToModel)
+        return MainRepositoryImpl(
+            api,
+            mapper,
+            mapperFromJournalListDtoToModel,
+            mapperFromJournalPageDtoToModel
+        )
     }
 
 
@@ -96,6 +102,12 @@ class DomainModule {
     @Singleton
     fun provideMapperFromJournalListDtoToModel(): MapperFromJournalListDtoToModel {
         return MapperFromJournalListDtoToModelImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMapperFromJournalPageDtoToModel(): MapperFromJournalPageDtoToModel {
+        return MapperFromJournalPageDtoToModelImpl()
     }
 
 }

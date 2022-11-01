@@ -2,8 +2,8 @@ package com.example.articlestest.presentation.main_app.journal
 
 import androidx.lifecycle.viewModelScope
 import com.example.articlestest.domain.repositories.MainRepository
-import com.example.articlestest.huinya.base.BaseViewModel
-import com.example.articlestest.huinya.base.BaseViewState
+import com.example.articlestest.presentation.base.BaseViewModel
+import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,6 +18,16 @@ class JournalsViewModel @Inject constructor(
     init {
         onTriggerEvent(eventType = JournalsEvent.GetJournals)
     }
+
+//    val buttonState = MutableLiveData<ButtonState>()
+//
+//    fun onSomeButtonClicked() {
+//        buttonState.value = ButtonState(false)
+//    }
+//
+//    class ButtonState(
+//        val isEnabled: Boolean
+//    )
 
     private fun getJournals() {
         setState(BaseViewState.Loading)
@@ -40,5 +50,6 @@ class JournalsViewModel @Inject constructor(
 
     override fun onNavigationEvent(eventType: NavDestination) {
         navigationState.value = eventType
+        super.onNavigationEvent(eventType)
     }
 }

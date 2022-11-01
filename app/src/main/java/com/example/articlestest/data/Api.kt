@@ -48,6 +48,12 @@ interface Api {
     @GET("journal/")
     suspend fun getJournals(): Response<JournalsDto>
 
+    @GET("journal/{id}/")
+    suspend fun getJournalDetails(@Path("id") id: String): Response<JournalDto>
+
+    @GET("page/{id}/")
+    suspend fun getJournalPage(@Path("id") id: String): Response<JournalPageDto>
+
 
 //
 //    @POST("token/refresh/")

@@ -2,8 +2,8 @@ package com.example.articlestest.presentation.authorization.confirmcode_check
 
 import androidx.lifecycle.viewModelScope
 import com.example.articlestest.domain.repositories.AuthorisationRepository
-import com.example.articlestest.huinya.base.BaseViewModel
-import com.example.articlestest.huinya.base.BaseViewState
+import com.example.articlestest.presentation.base.BaseViewModel
+import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

@@ -10,6 +10,7 @@ val Teal200 = Color(0xFF03DAC5)
 //for selected_tab in bottom bar, more button of article, like
 val Pink = Color(0xFFD44594)
 
+val WhiteSmoke = Color(0xFFF5F5F5)
 val Grey300 = Color(0xFFD0D5DD)
 val Grey = Color(0xFFA6A6A6)
 val DarkGrey = Color(0xFF222222)

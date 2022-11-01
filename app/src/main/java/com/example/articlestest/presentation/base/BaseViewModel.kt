@@ -1,4 +1,4 @@
-package com.example.articlestest.huinya.base
+package com.example.articlestest.presentation.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,13 +14,25 @@ abstract class BaseViewModel<STATE : BaseViewState<*>, EVENT> : ViewModel() {
 
     val navigationState = MutableLiveData<NavDestination?>(null)
 
+    val buttonState = MutableLiveData<ButtonState>()
+
+    fun onSomeButtonClicked() {
+        buttonState.value = ButtonState(false)
+    }
+
+    class ButtonState(
+        val isEnabled: Boolean
+    )
+
     protected val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         handleError(throwable)
     }
 
     abstract fun onTriggerEvent(eventType: EVENT)
 
-    abstract fun onNavigationEvent(eventType: NavDestination)
+    open fun onNavigationEvent(eventType: NavDestination) {
+        navigationState.value = null
+    }
 
     protected fun setState(state: STATE) {
         _uiState.value = state

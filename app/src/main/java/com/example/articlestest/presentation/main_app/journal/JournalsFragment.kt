@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -30,21 +30,17 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import coil.compose.AsyncImage
 import com.example.articlestest.R
-import com.example.articlestest.huinya.base.BaseViewState
-import com.example.articlestest.presentation.main_app.journal_details.JournalDetailsFragment
+import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.theme.Pink
-import com.example.articlestest.presentation.view.PicassoImage
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class JournalsFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = JournalsFragment()
-    }
 
     val viewModel: JournalsViewModel by viewModels()
 
@@ -62,7 +58,6 @@ class JournalsFragment : Fragment() {
                     JournalScreen(viewModel)
                 }
             }
-            isClickable = true
         }
     }
 
@@ -71,14 +66,9 @@ class JournalsFragment : Fragment() {
         viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
             when (destination) {
                 is NavDestination.JournalDetails -> {
-                    requireActivity().supportFragmentManager
-                        .beginTransaction()
-                        .add(
-                            R.id.nav_host_fragment_activity_main,
-                            JournalDetailsFragment.newInstance(destination.id)
-                        )
-                        .addToBackStack("authorization_confirm_code")
-                        .commit()
+                    val action =
+                        JournalsFragmentDirections.actionFragmentJournalToJournalDetails(destination.id)//)
+                    findNavController().navigate(action)
                 }
                 else -> {}
             }
@@ -124,8 +114,10 @@ fun JournalsContent(journalsState: JournalsViewState, viewModel: JournalsViewMod
                 }
                 .padding(bottom = 34.dp)
         )
-        PicassoImage(
-            model = mainJournal.image.file,
+
+        AsyncImage(
+            model = "https://i.stack.imgur.com/Xcfqcl.png",//mainJournal.image.file,
+            contentDescription = null,
             modifier = Modifier
                 .constrainAs(journal) {
                     top.linkTo(logo.bottom)
@@ -134,7 +126,7 @@ fun JournalsContent(journalsState: JournalsViewState, viewModel: JournalsViewMod
                 }
                 .padding(bottom = 32.dp)
                 .height(336.dp)
-                .width(336.dp)
+                .fillMaxWidth()
         )
 
         Text(

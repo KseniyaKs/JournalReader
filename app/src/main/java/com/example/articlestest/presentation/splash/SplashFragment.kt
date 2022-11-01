@@ -1,4 +1,4 @@
-package com.example.articlestest.presentation
+package com.example.articlestest.presentation.splash
 
 import android.os.Bundle
 import android.util.Log

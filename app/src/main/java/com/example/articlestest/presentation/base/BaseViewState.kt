@@ -1,4 +1,4 @@
-package com.example.articlestest.huinya.base
+package com.example.articlestest.presentation.base
 
 sealed interface BaseViewState<out T> {
     object Loading : BaseViewState<Nothing>
