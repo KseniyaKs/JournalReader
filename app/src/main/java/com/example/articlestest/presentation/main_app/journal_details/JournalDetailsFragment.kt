@@ -1,7 +1,6 @@
 package com.example.articlestest.presentation.main_app.journal_details
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,7 +68,6 @@ class JournalDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
-            Log.d("JournalDetailsFragment", destination.toString())
             when (destination) {
                 is NavDestination.BackClick -> {
                     findNavController().popBackStack()
@@ -120,8 +118,6 @@ fun JournalDetailsContent(
 ) {
 
     val journalInfo = remember { journalState.journal }
-    val price = journalInfo.price.floatToInt()
-    Log.d("price", price.toString())
 
     ConstraintLayout(
         modifier = Modifier
@@ -237,9 +233,11 @@ fun JournalDetailsContent(
 
         Button(
             onClick = {
-                if (journalInfo.isBought) {
-                    viewModel.onTriggerEvent(eventType = JournalDetailsEvent.Read(journalInfo.pages.first().id))
-                } else viewModel.onTriggerEvent(eventType = JournalDetailsEvent.Buy)
+                viewModel.onTriggerEvent(eventType = JournalDetailsEvent.Read(journalInfo.pages.first().id))
+
+//                if (journalInfo.isBought) {
+//                    viewModel.onTriggerEvent(eventType = JournalDetailsEvent.Read(journalInfo.pages.first().id))
+//                } else viewModel.onTriggerEvent(eventType = JournalDetailsEvent.Buy)
             },
             shape = RoundedCornerShape(37.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Pink),

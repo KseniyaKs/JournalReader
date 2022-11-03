@@ -106,8 +106,14 @@ class DomainModule {
 
     @Provides
     @Singleton
-    fun provideMapperFromJournalPageDtoToModel(): MapperFromJournalPageDtoToModel {
-        return MapperFromJournalPageDtoToModelImpl()
+    fun provideMapperFromJournalPageDtoToModel(mapperFromJournalListDtoToModel: MapperFromJournalListDtoToModel): MapperFromJournalPageDtoToModel {
+        return MapperFromJournalPageDtoToModelImpl(mapperFromJournalListDtoToModel)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMapperArticlesListToModel(): MapperFromArticlesListToModel {
+        return MapperFromArticlesListToModelImpl()
     }
 
 }

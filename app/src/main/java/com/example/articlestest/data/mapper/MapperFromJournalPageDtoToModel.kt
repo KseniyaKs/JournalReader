@@ -11,7 +11,9 @@ interface MapperFromJournalPageDtoToModel {
     fun map(page: JournalPageDto): JournalPage
 }
 
-class MapperFromJournalPageDtoToModelImpl @Inject constructor() : MapperFromJournalPageDtoToModel {
+class MapperFromJournalPageDtoToModelImpl @Inject constructor(
+    private val mapperFromJournalListDtoToModel: MapperFromJournalListDtoToModel
+) : MapperFromJournalPageDtoToModel {
 
     override fun map(page: JournalPageDto): JournalPage {
         return JournalPage(
@@ -33,7 +35,7 @@ class MapperFromJournalPageDtoToModelImpl @Inject constructor() : MapperFromJour
                 )
             },
             likeCount = page.likeCount,
-            journal = page.journal,
+            journal = mapperFromJournalListDtoToModel.map(page.journal),
             pageNumber = page.pageNumber,
             pageFile = page.pageFile
         )

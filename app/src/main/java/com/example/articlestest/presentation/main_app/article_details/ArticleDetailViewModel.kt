@@ -1,4 +1,4 @@
-package com.example.articlestest.huinya.base.article_details
+package com.example.articlestest.presentation.main_app.article_details
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

@@ -1,15 +1,22 @@
 package com.example.articlestest.presentation.view
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.articlestest.R
+import com.example.articlestest.presentation.theme.Blue
 import com.example.articlestest.presentation.theme.DarkGrey
 import com.example.articlestest.presentation.theme.Pink
 
@@ -50,4 +57,150 @@ fun IssueNumber(month: String, issue: String, modifier: Modifier) {
             fontSize = 17.sp
         )
     }
+}
+
+@Composable
+fun JournalToolBar(
+    onBack: () -> Unit,
+    month: String,
+    year: String,
+    sizeJournal: String,
+    currentPage: String
+) {
+    ConstraintLayout(
+        modifier = Modifier
+            .padding(bottom = 14.dp)
+            .fillMaxWidth()
+            .wrapContentHeight(),
+    ) {
+        val (back, dateIssue, pages) = createRefs()
+        Icon(
+            painter = painterResource(id = R.drawable.ic_back),
+            contentDescription = stringResource(id = R.string.back),
+            tint = Pink,
+            modifier = Modifier
+                .clickable { onBack() }
+                .constrainAs(back) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                }
+        )
+
+        Text(
+            text = "$month/$year",
+            modifier = Modifier.constrainAs(dateIssue) {
+                top.linkTo(parent.top)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }
+        )
+
+        Text(
+            text = "$currentPage из $sizeJournal",
+            modifier = Modifier.constrainAs(pages) {
+                top.linkTo(parent.top)
+                end.linkTo(parent.end)
+            }
+        )
+    }
+}
+
+@Composable
+fun JournalBottomBar(onButtonClick: () -> Unit, likeAmount: String, commentAmount: String) {
+    ConstraintLayout(
+        modifier = Modifier
+            .padding(top = 12.dp, bottom = 12.dp)
+            .fillMaxWidth()
+            .wrapContentHeight()
+    ) {
+        val (previos, next, likeAndComment) = createRefs()
+
+        IconButton(
+            onClick = {},
+            modifier = Modifier.constrainAs(previos) {
+                start.linkTo(parent.start)
+                bottom.linkTo(parent.bottom)
+            }
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_previos_page),
+                contentDescription = null
+            )
+        }
+
+        LikeAndComment(
+            modifier = Modifier.constrainAs(likeAndComment) {
+                start.linkTo(previos.end)
+                end.linkTo(next.start)
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+            },
+            amountOfLike = likeAmount,
+            amountOfComment = commentAmount
+        )
+
+        IconButton(
+            onClick = {},
+            modifier = Modifier.constrainAs(next) {
+                end.linkTo(parent.end)
+                bottom.linkTo(parent.bottom)
+            }
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_next_page),
+                contentDescription = null
+            )
+        }
+    }
+}
+
+@Composable
+fun LikeAndComment(modifier: Modifier = Modifier, amountOfLike: String, amountOfComment: String) {
+
+    ConstraintLayout(
+        modifier = Modifier
+            .then(modifier)
+            .wrapContentSize()
+    ) {
+        val (like, likeAmount, comment, commentAmount, spacer) = createRefs()
+        Icon(
+            painter = painterResource(id = R.drawable.ic_like),
+            contentDescription = null,
+            tint = Blue,
+            modifier = Modifier.constrainAs(like) {
+                start.linkTo(parent.start)
+            }
+        )
+
+        Text(
+            text = amountOfLike,
+            modifier = Modifier.constrainAs(likeAmount) {
+                start.linkTo(like.end, margin = 6.dp)
+            }
+        )
+
+        Spacer(modifier = Modifier
+            .width(52.dp)
+            .constrainAs(spacer) {
+                start.linkTo(like.end)
+                end.linkTo(comment.start)
+            })
+
+        Icon(
+            painter = painterResource(id = R.drawable.ic_comment),
+            contentDescription = null,
+            tint = Blue,
+            modifier = Modifier.constrainAs(comment) {
+                end.linkTo(parent.end)
+            }
+        )
+
+        Text(
+            text = amountOfComment,
+            modifier = Modifier.constrainAs(commentAmount) {
+                start.linkTo(comment.end, margin = 6.dp)
+            }
+        )
+    }
+
 }

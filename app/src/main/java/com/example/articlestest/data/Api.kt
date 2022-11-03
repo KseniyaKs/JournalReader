@@ -54,6 +54,9 @@ interface Api {
     @GET("page/{id}/")
     suspend fun getJournalPage(@Path("id") id: String): Response<JournalPageDto>
 
+    //articles
+    @GET("article/")
+    suspend fun getArticles(): Response<ArticlesDto>
 
 //
 //    @POST("token/refresh/")

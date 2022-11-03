@@ -1,7 +1,9 @@
 package com.example.articlestest.data
 
+import com.example.articlestest.data.mapper.MapperFromArticlesListToModel
 import com.example.articlestest.data.mapper.MapperFromJournalListDtoToModel
 import com.example.articlestest.data.mapper.MapperFromJournalPageDtoToModel
+import com.example.articlestest.data.model.Articles
 import com.example.articlestest.data.model.Journal
 import com.example.articlestest.data.model.JournalPage
 import com.example.articlestest.data.model.JournalsData
@@ -13,7 +15,8 @@ class MainRepositoryImpl @Inject constructor(
     private val api: Api,
     private val mapper: ResponseMapper,
     private val mapperFromJournalListDtoToModel: MapperFromJournalListDtoToModel,
-    private val mapperFromJournalPageDtoToModel: MapperFromJournalPageDtoToModel
+    private val mapperFromJournalPageDtoToModel: MapperFromJournalPageDtoToModel,
+    private val mapperFromArticlesListToModel: MapperFromArticlesListToModel
 ) : MainRepository {
 
     override suspend fun getJournals(): JournalsData {
@@ -30,4 +33,10 @@ class MainRepositoryImpl @Inject constructor(
         val response = mapper.map(api.getJournalPage(id))
         return mapperFromJournalPageDtoToModel.map(response)
     }
+
+    override suspend fun getArticles(): Articles {
+        val response = mapper.map(api.getArticles())
+        return mapperFromArticlesListToModel.mapList(response)
+    }
+
 }
