@@ -40,7 +40,7 @@ class ApiModule {
     ): Api {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("http://95.183.11.194/api/")
+            .baseUrl("https://polli-style.ru/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(Api::class.java)
