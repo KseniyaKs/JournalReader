@@ -3,6 +3,7 @@ package com.example.articlestest.presentation
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.example.articlestest.R
+import com.example.articlestest.presentation.splash.SplashFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -14,4 +14,8 @@ interface AuthorisationRepository {
     suspend fun checkConfirmCode(phone: String, code: String): Boolean
 
     suspend fun createNewPassword(phone: String, password: String, newPassword: String)
+
+    suspend fun createNewToken(token: String)
+
+    suspend fun isNotEmptyProfile(): Boolean
 }

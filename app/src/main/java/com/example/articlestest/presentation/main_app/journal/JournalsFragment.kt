@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -18,7 +21,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
@@ -67,7 +69,7 @@ class JournalsFragment : Fragment() {
             when (destination) {
                 is NavDestination.JournalDetails -> {
                     val action =
-                        JournalsFragmentDirections.actionFragmentJournalToJournalDetails(destination.id)//)
+                        JournalsFragmentDirections.actionFragmentJournalToJournalDetails(destination.id)
                     findNavController().navigate(action)
                 }
                 else -> {}
@@ -90,14 +92,13 @@ fun JournalScreen(viewModel: JournalsViewModel) {
 }
 
 @Composable
-fun JournalsContent(journalsState: JournalsViewState, viewModel: JournalsViewModel) {
+fun JournalsContent(state: JournalsViewState, viewModel: JournalsViewModel) {
 
-    val mainJournal = remember { journalsState.journalsData.journals.first() }
+    val mainJournal = remember { state.journalsData.journals.first() }
 
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
             .padding(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 24.dp)
             .verticalScroll(rememberScrollState())
     ) {

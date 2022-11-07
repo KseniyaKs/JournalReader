@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -113,15 +112,14 @@ fun JournalDetailsScreen(viewModel: JournalDetailsViewModel) {
 
 @Composable
 fun JournalDetailsContent(
-    journalState: JournalDetailsViewState,
+    state: JournalDetailsViewState,
     viewModel: JournalDetailsViewModel
 ) {
 
-    val journalInfo = remember { journalState.journal }
+    val journalInfo = remember { state.journal }
 
     ConstraintLayout(
         modifier = Modifier
-            .background(Color.White)
             .fillMaxSize()
             .padding(start = 20.dp, end = 20.dp, top = 32.dp)
             .verticalScroll(rememberScrollState())
@@ -138,17 +136,6 @@ fun JournalDetailsContent(
                 .fillMaxWidth()
                 .height(375.dp)
         )
-
-
-//        PicassoImage(
-//            model = "https://i.stack.imgur.com/Xcfqcl.png",//journalInfo.image.file,
-//            modifier = Modifier
-//                .constrainAs(journal) {
-//                    top.linkTo(parent.top, margin = 32.dp)
-//                }
-//                .wrapContentSize()
-//                .height(375.dp)
-//        )
 
         Icon(
             painter = painterResource(id = R.drawable.ic_back),

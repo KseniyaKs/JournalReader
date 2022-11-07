@@ -8,4 +8,7 @@ data class ArticlesViewState(
 
 sealed class ArticlesEvent {
     object GetArticles : ArticlesEvent()
+    data class GetArticleDetails(
+        val id: String
+    ) : ArticlesEvent()
 }

@@ -22,16 +22,21 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.articlestest.R
 import com.example.articlestest.presentation.authorization.phone_check.AuthorizationPhoneFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
 
+@AndroidEntryPoint
 class SplashFragment : Fragment() {
 
     companion object {
         fun newInstance() = SplashFragment()
     }
+
+    val viewModel: SplashViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +44,7 @@ class SplashFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         return ComposeView(requireContext()).apply {
+            viewModel
             // Dispose of the Composition when the view's LifecycleOwner
             // is destroyed
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -52,13 +58,6 @@ class SplashFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //navigation for registration or authorization or main activity
-//        viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
-//        }
     }
 }
 

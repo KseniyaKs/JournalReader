@@ -23,7 +23,6 @@ class JournalDetailsViewModel @Inject constructor(
         }
     }
 
-
     override fun onTriggerEvent(eventType: JournalDetailsEvent) {
         when (eventType) {
             is JournalDetailsEvent.Get -> getJournal(eventType.id)

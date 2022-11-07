@@ -20,6 +20,7 @@ class AuthorisationRepositoryImpl @Inject constructor(
     private val mapperFromUserPhoneDtoToModel: MapperFromUserPhoneDtoToModel,
     private val sharedPreferences: DataStore<Preferences>
 ) : AuthorisationRepository {
+
     override suspend fun checkPhone(phone: String): AuthorizationCheck {
         val response = mapper.map(api.checkPhone(PhoneBody(phone = phone)))
         return mapperFromAuthorizationCheckDtoToModel.map(response)
@@ -67,5 +68,23 @@ class AuthorisationRepositoryImpl @Inject constructor(
         sharedPreferences.edit { preferences ->
             preferences[PreferenceKeys.PASSWORD] = newPassword
         }
+    }
+
+    override suspend fun createNewToken(token: String) {
+        val response = mapper.map(api.createNewToken(TokenBody(token)))
+
+        sharedPreferences.edit { preferences ->
+            preferences[PreferenceKeys.ACCESS_TOKEN] = response.accessToken
+            preferences[PreferenceKeys.REFRESH_TOKEN] = response.refreshToken
+        }
+    }
+
+    override suspend fun isNotEmptyProfile(): Boolean {
+        val response = mapper.map(api.getUserInfo())
+
+        return !(response.name.isNullOrEmpty() ||
+                response.surname.isNullOrEmpty() ||
+                response.email.isNullOrEmpty() ||
+                response.city == null)
     }
 }

@@ -27,7 +27,7 @@ class AuthorizationInterceptor @Inject constructor(
 
     override fun intercept(chain: Interceptor.Chain): Response {
         var request: Request = chain.request()
-        if (token != null) {
+        token?.let {
             request = request.newBuilder()
                 .addHeader("Authorization", "Bearer $token").build()
         }

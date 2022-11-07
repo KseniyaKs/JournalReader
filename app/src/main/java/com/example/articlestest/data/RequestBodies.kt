@@ -20,3 +20,7 @@ data class UserInfoBody(
     val email: String,
     val city_pk: String,
 )
+
+data class TokenBody(
+    val refreshToken: String
+)

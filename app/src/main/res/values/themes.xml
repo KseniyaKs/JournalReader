@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.ArticlesTest" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/white_smoke</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 

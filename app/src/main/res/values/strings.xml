@@ -2,7 +2,7 @@
     <string name="app_name">ArticlesTest</string>
 
     <string name="header_articles_screen">КНИГА СТИЛЯ</string>
-    <string name="author_name">ПОЛЛИ РЫЖОВОЙ</string>
+    <string name="author_name">ПОЛЛИ РЫЖОВА</string>
 
     <string name="back">Назад</string>
     <string name="more_button">Подробнее</string>
@@ -40,12 +40,12 @@
     <string name="email">Электронная почта</string>
 
     <string name="journal_description">Описание журнала</string>
+    <string name="article">Статья</string>
 
-    <plurals name="rub">
-        <item quantity="one">%d рубль</item>
-        <item quantity="few">%d рублей</item>
-        <item quantity="many">%d рубля</item>
-    </plurals>
+    <string name="restore_subscription">Восстановить подписку</string>
+    <string name="unsubscribe">Отменить подписку</string>
+    <string name="contact_support">Связаться с техподдержкой</string>
+    <string name="logout">Выйти из аккаунта</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

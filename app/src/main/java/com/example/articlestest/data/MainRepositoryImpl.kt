@@ -3,10 +3,7 @@ package com.example.articlestest.data
 import com.example.articlestest.data.mapper.MapperFromArticlesListToModel
 import com.example.articlestest.data.mapper.MapperFromJournalListDtoToModel
 import com.example.articlestest.data.mapper.MapperFromJournalPageDtoToModel
-import com.example.articlestest.data.model.Articles
-import com.example.articlestest.data.model.Journal
-import com.example.articlestest.data.model.JournalPage
-import com.example.articlestest.data.model.JournalsData
+import com.example.articlestest.data.model.*
 import com.example.articlestest.domain.repositories.MainRepository
 import com.example.articlestest.presentation.base.ResponseMapper
 import javax.inject.Inject
@@ -37,6 +34,11 @@ class MainRepositoryImpl @Inject constructor(
     override suspend fun getArticles(): Articles {
         val response = mapper.map(api.getArticles())
         return mapperFromArticlesListToModel.mapList(response)
+    }
+
+    override suspend fun getArticleDetails(id: String): Article {
+        val response = mapper.map(api.getArticleDetails(id))
+        return mapperFromArticlesListToModel.map(response)
     }
 
 }

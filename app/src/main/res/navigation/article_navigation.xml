@@ -9,17 +9,23 @@
         android:id="@+id/articles"
         android:name="com.example.articlestest.presentation.main_app.articles.ArticlesFragment"
         android:label="@string/articles"
-        tools:layout="@layout/fragment_articles" />
+        tools:layout="@layout/fragment_articles">
 
-    <!--    <fragment-->
-    <!--        android:id="@+id/navigation_journal_description"-->
-    <!--        android:name="com.example.articlestest.presentation.main_app.journal_details.JournalDetailsFragment"-->
-    <!--        android:label="@string/journal_description"-->
-    <!--        tools:layout="@layout/fragment_journal_details" />-->
+        <action
+            android:id="@+id/action_fragment_articles_to_article_details"
+            app:destination="@+id/article_content" />
+    </fragment>
 
-    <!--    <fragment-->
-    <!--        android:id="@+id/navigation_journal_reader"-->
-    <!--        android:name="com.example.articlestest.presentation.main_app.journal_details.JournalDetailsFragment"-->
-    <!--        tools:layout="@layout/fragment_journal_reader" />-->
+    <fragment
+        android:id="@+id/article_content"
+        android:name="com.example.articlestest.presentation.main_app.article_details.ArticleDetailsFragment"
+        android:label="@string/article"
+        tools:layout="@layout/fragment_article_details">
+
+        <argument
+            android:name="articleId"
+            app:argType="string" />
+
+    </fragment>
 
 </navigation>

@@ -9,7 +9,10 @@ data class Articles(
 
 data class Article(
     val id: String,
-    val imageDto: Image,
+    val image: Image,
     val title: String,
-    val description: String
+    val description: String,
+    val date: String,
+    val comments: List<Comment> = listOf(),
+    val likeCount: Number = 0
 )

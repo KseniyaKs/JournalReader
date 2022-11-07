@@ -30,8 +30,12 @@ class ArticlesViewModel @Inject constructor(
     override fun onTriggerEvent(eventType: ArticlesEvent) {
         when (eventType) {
             ArticlesEvent.GetArticles -> getArticles()
+            is ArticlesEvent.GetArticleDetails -> onNavigationEvent(
+                NavDestination.ArticleDetails(
+                    eventType.id
+                )
+            )
         }
-
     }
 
     override fun onNavigationEvent(eventType: NavDestination) {

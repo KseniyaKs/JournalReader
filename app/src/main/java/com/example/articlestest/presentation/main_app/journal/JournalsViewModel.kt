@@ -19,16 +19,6 @@ class JournalsViewModel @Inject constructor(
         onTriggerEvent(eventType = JournalsEvent.GetJournals)
     }
 
-//    val buttonState = MutableLiveData<ButtonState>()
-//
-//    fun onSomeButtonClicked() {
-//        buttonState.value = ButtonState(false)
-//    }
-//
-//    class ButtonState(
-//        val isEnabled: Boolean
-//    )
-
     private fun getJournals() {
         setState(BaseViewState.Loading)
         viewModelScope.launch {

@@ -27,6 +27,13 @@ interface Api {
     suspend fun createNewPassword(@Body newPasswordBody: NewPasswordBody): Response<NewPasswordDto>
 
 
+    @POST("token/refresh/")
+    suspend fun createNewToken(@Body token: TokenBody): Response<TokenDto>
+
+    @GET("user_info/")
+    suspend fun getUserInfo(): Response<UserInfoDto>
+
+
     //registration
     @FormUrlEncoded
     @POST("confirm/confirmed/")
@@ -54,13 +61,22 @@ interface Api {
     @GET("page/{id}/")
     suspend fun getJournalPage(@Path("id") id: String): Response<JournalPageDto>
 
+//    @POST("page/{id}/add_comment/")
+//    suspend fun addJournalsComment(@Path("id") id: String): Response<>
+
+//    @POST("page/{id}/add_like/")
+//    suspend fun addJournalsLike(@Path("id") id: String): Response<>
+
     //articles
     @GET("article/")
     suspend fun getArticles(): Response<ArticlesDto>
 
-//
-//    @POST("token/refresh/")
-//    suspend fun createNewPToken(@Body user: UserBody): Response<>
+    @GET("article/{id}/")
+    suspend fun getArticleDetails(@Path("id") id: String): Response<ArticleDto>
 
+//    @POST("page/{id}/add_comment/")
+//    suspend fun addArticlesComment(@Path("id") id: String): Response<>
 
+//    @POST("page/{id}/add_like/")
+//    suspend fun addArticlesLike(@Path("id") id: String): Response<>
 }

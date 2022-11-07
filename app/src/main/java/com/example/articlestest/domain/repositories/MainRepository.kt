@@ -1,9 +1,6 @@
 package com.example.articlestest.domain.repositories
 
-import com.example.articlestest.data.model.Articles
-import com.example.articlestest.data.model.Journal
-import com.example.articlestest.data.model.JournalPage
-import com.example.articlestest.data.model.JournalsData
+import com.example.articlestest.data.model.*
 
 interface MainRepository {
     suspend fun getJournals(): JournalsData
@@ -13,4 +10,6 @@ interface MainRepository {
     suspend fun getPage(id: String): JournalPage
 
     suspend fun getArticles(): Articles
+
+    suspend fun getArticleDetails(id: String): Article
 }

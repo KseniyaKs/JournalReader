@@ -68,13 +68,15 @@ class DomainModule {
         api: Api,
         mapper: ResponseMapper,
         mapperFromJournalListDtoToModel: MapperFromJournalListDtoToModel,
-        mapperFromJournalPageDtoToModel: MapperFromJournalPageDtoToModel
+        mapperFromJournalPageDtoToModel: MapperFromJournalPageDtoToModel,
+        mapperFromArticlesListToModel: MapperFromArticlesListToModel
     ): MainRepository {
         return MainRepositoryImpl(
             api,
             mapper,
             mapperFromJournalListDtoToModel,
-            mapperFromJournalPageDtoToModel
+            mapperFromJournalPageDtoToModel,
+            mapperFromArticlesListToModel
         )
     }
 

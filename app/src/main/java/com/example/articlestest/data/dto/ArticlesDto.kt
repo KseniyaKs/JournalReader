@@ -13,5 +13,6 @@ data class ArticleDto(
     @SerializedName("id") val id: String,
     @SerializedName("image") val imageDto: ImageDto,
     @SerializedName("title") val title: String,
-    @SerializedName("description") val description: String
+    @SerializedName("description") val description: String,
+    @SerializedName("date_created") val date: String
 )
