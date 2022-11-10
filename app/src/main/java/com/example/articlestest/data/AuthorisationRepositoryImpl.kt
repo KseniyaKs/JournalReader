@@ -75,7 +75,6 @@ class AuthorisationRepositoryImpl @Inject constructor(
 
         sharedPreferences.edit { preferences ->
             preferences[PreferenceKeys.ACCESS_TOKEN] = response.accessToken
-            preferences[PreferenceKeys.REFRESH_TOKEN] = response.refreshToken
         }
     }
 

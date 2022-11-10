@@ -20,12 +20,13 @@ fun ButtonMaxWidthWithText(
     onClick: () -> Unit,
     background: Color,
     text: String,
-    textColor: Color
+    textColor: Color,
+    modifier: Modifier = Modifier
 ) {
 
     Button(
         onClick = { onClick() },
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(44.dp),
         shape = RoundedCornerShape(37.dp),

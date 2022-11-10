@@ -1,4 +1,4 @@
-package com.example.articlestest.presentation.view
+package com.example.articlestest.presentation.components
 
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable

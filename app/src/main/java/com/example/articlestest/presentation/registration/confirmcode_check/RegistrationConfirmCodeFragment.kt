@@ -26,14 +26,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.articlestest.R
 import com.example.articlestest.presentation.base.BaseViewState
+import com.example.articlestest.presentation.components.IncorrectCode
+import com.example.articlestest.presentation.components.OTPTextFields
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.create_password.RegistrationPasswordFragment
 import com.example.articlestest.presentation.theme.DarkBlue
 import com.example.articlestest.presentation.theme.Pink
 import com.example.articlestest.presentation.view.Back
 import com.example.articlestest.presentation.view.Countdown
-import com.example.articlestest.presentation.view.IncorrectCode
-import com.example.articlestest.presentation.view.OTPTextFields
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -38,6 +40,8 @@ import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.theme.DarkGrey
 import com.example.articlestest.presentation.theme.Pink
+import com.example.articlestest.presentation.theme.WhiteSmoke
+import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -121,7 +125,7 @@ fun JournalDetailsContent(
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = 20.dp, end = 20.dp, top = 32.dp)
+            .padding(start = 20.dp, end = 20.dp, top = 20.dp)
             .verticalScroll(rememberScrollState())
     ) {
         val (back, journal, number, month, price, descriptionTag, description, button) = createRefs()
@@ -208,42 +212,48 @@ fun JournalDetailsContent(
         )
 
         Text(
-            text = journalInfo.description,
+            text = journalInfo.description + "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n" +
+                    "\n" +
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n" +
+                    "\n" +
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
             fontSize = 14.sp,
             fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
             color = Color.Black,
-            modifier = Modifier.constrainAs(description) {
-                top.linkTo(descriptionTag.bottom, margin = 6.dp)
-                start.linkTo(parent.start)
-            }
+            modifier = Modifier
+                .constrainAs(description) {
+                    top.linkTo(descriptionTag.bottom, margin = 6.dp)
+                    start.linkTo(parent.start)
+                }
+                .padding(bottom = 84.dp)
         )
+    }
 
-        Button(
+    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+        val (button) = createRefs()
+
+        ButtonMaxWidthWithText(
             onClick = {
                 viewModel.onTriggerEvent(eventType = JournalDetailsEvent.Read(journalInfo.pages.first().id))
-
-//                if (journalInfo.isBought) {
-//                    viewModel.onTriggerEvent(eventType = JournalDetailsEvent.Read(journalInfo.pages.first().id))
-//                } else viewModel.onTriggerEvent(eventType = JournalDetailsEvent.Buy)
+//                viewModel.onTriggerEvent(
+//                    eventType = if (journalInfo.isBought) JournalDetailsEvent.Read(
+//                        journalInfo.pages.first().id
+//                    ) else JournalDetailsEvent.Buy
+//                )
             },
-            shape = RoundedCornerShape(37.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Pink),
+            background = Pink,
+            text = if (journalInfo.isBought) stringResource(id = R.string.read) else stringResource(
+                id = R.string.buy
+            ),
+            textColor = Color.White,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(44.dp)
+                .wrapContentHeight()
+                .background(WhiteSmoke)
+                .padding(start = 20.dp, end = 20.dp, bottom = 24.dp)
                 .constrainAs(button) {
-                    top.linkTo(description.bottom, margin = 16.dp)
-                    bottom.linkTo(parent.bottom, margin = 24.dp)
+                    bottom.linkTo(parent.bottom)
                 }
-        ) {
-            Text(
-                text = if (journalInfo.isBought) stringResource(id = R.string.read) else stringResource(
-                    id = R.string.buy
-                ),
-                fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
-                fontSize = 17.sp,
-                color = Color.White
-            )
-        }
+        )
     }
 }

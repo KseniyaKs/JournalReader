@@ -14,5 +14,8 @@ data class ArticleDto(
     @SerializedName("image") val imageDto: ImageDto,
     @SerializedName("title") val title: String,
     @SerializedName("description") val description: String,
-    @SerializedName("date_created") val date: String
+    @SerializedName("date_created") val date: String,
+    @SerializedName("comments") val comments: List<CommentDto>,
+    @SerializedName("like_count") val likeCount: Number,
+    @SerializedName("is_liked") val isLike: Boolean
 )

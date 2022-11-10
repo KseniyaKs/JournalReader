@@ -13,6 +13,7 @@ data class Article(
     val title: String,
     val description: String,
     val date: String,
-    val comments: List<Comment> = listOf(),
-    val likeCount: Number = 0
+    val comments: List<Comment>,
+    val likeCount: Number,
+    val isLike: Boolean
 )

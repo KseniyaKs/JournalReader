@@ -1,4 +1,4 @@
-package com.example.articlestest.presentation.comments
+package com.example.articlestest.presentation.main_app.comments
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -22,5 +22,5 @@ data class UserInfoBody(
 )
 
 data class TokenBody(
-    val refreshToken: String
+    val refresh: String
 )

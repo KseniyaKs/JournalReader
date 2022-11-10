@@ -1,5 +1,6 @@
 package com.example.articlestest.presentation.view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
@@ -12,28 +13,37 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.articlestest.R
 import com.example.articlestest.presentation.theme.Blue
+import com.example.articlestest.presentation.theme.Pink
 
 
 @Composable
-fun LikeAndComment(modifier: Modifier = Modifier, amountOfLike: String, amountOfComment: String) {
+fun LikeAndComment(
+    modifier: Modifier = Modifier,
+    likeCount: String,
+    isLike: Boolean = false,
+    onLikeClick: () -> Unit,
+    commentCount: String,
+    onCommentClick: () -> Unit
+) {
 
     ConstraintLayout(
-        modifier = Modifier
-            .then(modifier)
+        modifier = modifier
             .wrapContentSize()
     ) {
         val (like, likeAmount, comment, commentAmount, spacer) = createRefs()
         Icon(
             painter = painterResource(id = R.drawable.ic_like),
             contentDescription = null,
-            tint = Blue,
-            modifier = Modifier.constrainAs(like) {
-                start.linkTo(parent.start)
-            }
+            tint = if (isLike) Pink else Blue,
+            modifier = Modifier
+                .constrainAs(like) {
+                    start.linkTo(parent.start)
+                }
+                .clickable { onLikeClick() }
         )
 
         Text(
-            text = amountOfLike,
+            text = likeCount,
             modifier = Modifier.constrainAs(likeAmount) {
                 start.linkTo(like.end, margin = 6.dp)
             }
@@ -50,13 +60,15 @@ fun LikeAndComment(modifier: Modifier = Modifier, amountOfLike: String, amountOf
             painter = painterResource(id = R.drawable.ic_comment),
             contentDescription = null,
             tint = Blue,
-            modifier = Modifier.constrainAs(comment) {
-                end.linkTo(parent.end)
-            }
+            modifier = Modifier
+                .constrainAs(comment) {
+                    end.linkTo(parent.end)
+                }
+                .clickable { onCommentClick() }
         )
 
         Text(
-            text = amountOfComment,
+            text = commentCount,
             modifier = Modifier.constrainAs(commentAmount) {
                 start.linkTo(comment.end, margin = 6.dp)
             }

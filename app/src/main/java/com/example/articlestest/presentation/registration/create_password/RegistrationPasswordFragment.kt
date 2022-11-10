@@ -81,7 +81,7 @@ class RegistrationPasswordFragment : Fragment() {
                 is NavDestination.BackClick -> {
                     parentFragmentManager.popBackStack()
                 }
-                is NavDestination.RegistrationUserData -> {
+                NavDestination.RegistrationUserData -> {
                     requireActivity().supportFragmentManager
                         .beginTransaction()
                         .add(R.id.container, RegistrationUserDataFragment.newInstance())

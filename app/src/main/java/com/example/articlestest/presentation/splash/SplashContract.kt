@@ -10,4 +10,5 @@ sealed class SplashEvent {
     ) : SplashEvent()
 
     object IsNotEmptyProfile : SplashEvent()
+    object NewUser : SplashEvent()
 }

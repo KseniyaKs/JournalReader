@@ -26,7 +26,6 @@ interface Api {
     @POST("reset_password/")
     suspend fun createNewPassword(@Body newPasswordBody: NewPasswordBody): Response<NewPasswordDto>
 
-
     @POST("token/refresh/")
     suspend fun createNewToken(@Body token: TokenBody): Response<TokenDto>
 

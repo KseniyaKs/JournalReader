@@ -67,10 +67,11 @@ fun JournalToolBar(
     month: String,
     year: String,
     sizeJournal: String,
-    currentPage: String
+    currentPage: String,
+    modifier: Modifier = Modifier
 ) {
     ConstraintLayout(
-        modifier = Modifier
+        modifier = modifier
             .padding(bottom = 14.dp)
             .fillMaxWidth()
             .wrapContentHeight(),
@@ -108,18 +109,26 @@ fun JournalToolBar(
 }
 
 @Composable
-fun JournalBottomBar(onButtonClick: () -> Unit, likeAmount: String, commentAmount: String) {
+fun JournalBottomBar(
+    onButtonClick: () -> Unit,
+    likeAmount: String,
+    commentAmount: String,
+    isLike: Boolean,
+    onCommentClick: () -> Unit,
+    onLikeClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     ConstraintLayout(
-        modifier = Modifier
+        modifier = modifier
             .padding(top = 12.dp, bottom = 12.dp)
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
-        val (previos, next, likeAndComment) = createRefs()
+        val (previous, next, likeAndComment) = createRefs()
 
         IconButton(
             onClick = {},
-            modifier = Modifier.constrainAs(previos) {
+            modifier = Modifier.constrainAs(previous) {
                 start.linkTo(parent.start)
                 bottom.linkTo(parent.bottom)
             }
@@ -132,13 +141,16 @@ fun JournalBottomBar(onButtonClick: () -> Unit, likeAmount: String, commentAmoun
 
         LikeAndComment(
             modifier = Modifier.constrainAs(likeAndComment) {
-                start.linkTo(previos.end)
+                start.linkTo(previous.end)
                 end.linkTo(next.start)
                 top.linkTo(parent.top)
                 bottom.linkTo(parent.bottom)
             },
-            amountOfLike = likeAmount,
-            amountOfComment = commentAmount
+            likeCount = likeAmount,
+            isLike = isLike,
+            commentCount = commentAmount,
+            onCommentClick = onCommentClick,
+            onLikeClick = onLikeClick
         )
 
         IconButton(

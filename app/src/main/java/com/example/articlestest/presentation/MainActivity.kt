@@ -14,26 +14,31 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private var binding: ActivityMainBinding? = null
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding?.root)
 
         navController = findNavController(R.id.nav_host_fragment_activity_main)
-        val bottomNavigationView = binding.navView
+        val bottomNavigationView = binding?.navView
 
-        bottomNavigationView.setupWithNavController(navController)
+        bottomNavigationView?.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.read_journal -> bottomNavigationView.visibility = View.GONE
-                R.id.article_content -> bottomNavigationView.visibility = View.GONE
-                else -> bottomNavigationView.visibility = View.VISIBLE
+                R.id.read_journal -> bottomNavigationView?.visibility = View.GONE
+                R.id.article_content -> bottomNavigationView?.visibility = View.GONE
+                else -> bottomNavigationView?.visibility = View.VISIBLE
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

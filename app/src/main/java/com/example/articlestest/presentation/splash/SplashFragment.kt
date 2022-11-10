@@ -1,7 +1,7 @@
 package com.example.articlestest.presentation.splash
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,14 +17,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.articlestest.R
+import com.example.articlestest.presentation.MainActivity
 import com.example.articlestest.presentation.authorization.phone_check.AuthorizationPhoneFragment
+import com.example.articlestest.presentation.navigation.NavDestination
+import com.example.articlestest.presentation.registration.user_data.RegistrationUserDataFragment
+import com.example.articlestest.presentation.theme.WhiteSmoke
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
@@ -37,6 +40,7 @@ class SplashFragment : Fragment() {
     }
 
     val viewModel: SplashViewModel by viewModels()
+//    val onFinishedShowing :() -> Unit
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,18 +48,42 @@ class SplashFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         return ComposeView(requireContext()).apply {
-            viewModel
             // Dispose of the Composition when the view's LifecycleOwner
             // is destroyed
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MaterialTheme {
                     SplashScreen {
-                        parentFragmentManager.beginTransaction()
-                            .replace(R.id.container, AuthorizationPhoneFragment.newInstance())
-                            .commit()
+                        viewModel.initEvent()
                     }
                 }
+            }
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
+            when (destination) {
+                NavDestination.AuthorizationPhone -> {
+                    parentFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.container, AuthorizationPhoneFragment.newInstance())
+                        .addToBackStack("authorization_phone")
+                        .commit()
+                }
+                is NavDestination.AppMain -> {
+                    val intent = Intent(this.context, MainActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
+                }
+                is NavDestination.RegistrationUserData -> {
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .add(R.id.container, RegistrationUserDataFragment.newInstance())
+                        .commit()
+                }
+                else -> {}
             }
         }
     }
@@ -73,11 +101,10 @@ fun SplashScreen(onFinishedShowing: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(WhiteSmoke),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Log.d("asdasd", "splash")
         Image(
             painter = painterResource(id = R.drawable.ic_logo_big),
             contentDescription = null

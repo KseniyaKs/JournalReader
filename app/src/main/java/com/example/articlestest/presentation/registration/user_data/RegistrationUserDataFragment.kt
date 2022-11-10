@@ -33,10 +33,7 @@ import androidx.fragment.app.viewModels
 import com.example.articlestest.R
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.user_city.RegistrationUserCityFragment
-import com.example.articlestest.presentation.theme.Grey300
-import com.example.articlestest.presentation.theme.Grey900
-import com.example.articlestest.presentation.theme.GreyBlue
-import com.example.articlestest.presentation.theme.Pink
+import com.example.articlestest.presentation.theme.*
 import com.example.articlestest.presentation.view.Back
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -73,7 +70,8 @@ class RegistrationUserDataFragment : Fragment() {
         viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
             when (destination) {
                 is NavDestination.BackClick -> {
-                    parentFragmentManager.popBackStack()
+//                    parentFragmentManager.popBackStack()
+                    requireActivity().onBackPressed()
                 }
                 is NavDestination.RegistrationUserCity -> {
                     requireActivity().supportFragmentManager
@@ -110,7 +108,7 @@ fun RegistrationUserDataScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(WhiteSmoke)
             .padding(PaddingValues(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 24.dp)),
         verticalArrangement = Arrangement.SpaceBetween
     ) {

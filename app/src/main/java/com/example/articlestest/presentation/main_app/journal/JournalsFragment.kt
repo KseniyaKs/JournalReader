@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -171,18 +170,18 @@ fun JournalsContent(state: JournalsViewState, viewModel: JournalsViewModel) {
             )
         }
 
-        Text(
-            text = stringResource(id = R.string.see_more),
-            color = Pink,
-            fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
-            fontSize = 17.sp,
-            modifier = Modifier
-                .constrainAs(more) {
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-                .clickable { }
-        )
+//        Text(
+//            text = stringResource(id = R.string.see_more),
+//            color = Pink,
+//            fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
+//            fontSize = 17.sp,
+//            modifier = Modifier
+//                .constrainAs(more) {
+//                    bottom.linkTo(parent.bottom)
+//                    start.linkTo(parent.start)
+//                    end.linkTo(parent.end)
+//                }
+//                .clickable { }
+//        )
     }
 }

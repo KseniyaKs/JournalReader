@@ -5,6 +5,7 @@ data class JournalPage(
     val id: String,
     val comments: List<Comment>,
     val likeCount: Number,
+    val isLike: Boolean,
     val journal: Journal,
     val pageNumber: Number,
     val pageFile: String
@@ -14,7 +15,7 @@ data class Comment(
     val id: String,
     val user: User,
     val commentText: String,
-    val page: Page
+//    val page: Page
 )
 
 data class User(

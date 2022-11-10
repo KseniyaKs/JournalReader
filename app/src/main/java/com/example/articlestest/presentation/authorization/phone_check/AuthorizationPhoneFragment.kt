@@ -35,12 +35,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.articlestest.R
 import com.example.articlestest.presentation.authorization.password_check.AuthorizationPasswordFragment
+import com.example.articlestest.presentation.components.HyperlinkText
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.confirmcode_check.RegistrationConfirmCodeFragment
 import com.example.articlestest.presentation.theme.Grey300
 import com.example.articlestest.presentation.theme.Grey900
 import com.example.articlestest.presentation.theme.Pink
-import com.example.articlestest.presentation.view.HyperlinkText
 import dagger.hilt.android.AndroidEntryPoint
 
 

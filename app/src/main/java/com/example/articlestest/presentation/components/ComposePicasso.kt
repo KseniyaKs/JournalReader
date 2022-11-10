@@ -1,4 +1,4 @@
-package com.example.articlestest.presentation.view
+package com.example.articlestest.presentation.components
 
 /**
  * Copyright (C) 2020 Wasabeef

@@ -52,6 +52,7 @@ android {
 
 dependencies {
     implementation files('libs/libphonenumber-8.12.56-javadoc.jar')
+    implementation project(":mindev-pdfviewer")
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'com.google.android.material:material:1.7.0'
@@ -108,7 +109,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 
     //coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
     // http inspector

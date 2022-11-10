@@ -24,7 +24,12 @@ class AuthorizationPasswordViewModel @Inject constructor(
             val passwordCheck = repository.signIn(phone = phone, password = password)
 
             if (passwordCheck) {
-                onNavigationEvent(NavDestination.AppMain)
+                val isNotEmptyProfile = repository.isNotEmptyProfile()
+
+                if (isNotEmptyProfile) {
+                    onNavigationEvent(NavDestination.AppMain)
+                } else onNavigationEvent(NavDestination.RegistrationUserData)
+
             } else setState(BaseViewState.Error(Throwable("Invalid password")))
 
         }

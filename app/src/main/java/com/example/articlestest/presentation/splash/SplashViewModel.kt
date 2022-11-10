@@ -22,16 +22,17 @@ class SplashViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(coroutineExceptionHandler) {
-            sharedPreferences.data.collect { it ->
-                token = it[PreferenceKeys.ACCESS_TOKEN]
-
-                token?.let {
-                    onTriggerEvent(eventType = SplashEvent.CreateNewToken(it))
-                    onTriggerEvent(eventType = SplashEvent.IsNotEmptyProfile)
-                }
-
+            sharedPreferences.data.collect {
+                token = it[PreferenceKeys.REFRESH_TOKEN]
             }
         }
+    }
+
+    fun initEvent() {
+        token?.let {
+            onTriggerEvent(eventType = SplashEvent.CreateNewToken(it))
+            onTriggerEvent(eventType = SplashEvent.IsNotEmptyProfile)
+        } ?: onTriggerEvent(eventType = SplashEvent.NewUser)
     }
 
     private fun createNewToken(token: String) {
@@ -43,18 +44,27 @@ class SplashViewModel @Inject constructor(
     private fun isNotEmptyProfile() {
         viewModelScope.launch(coroutineExceptionHandler) {
             val isNotEmptyProfile = repository.isNotEmptyProfile()
+
             if (isNotEmptyProfile) {
                 onNavigationEvent(eventType = NavDestination.AppMain)
             } else onNavigationEvent(eventType = NavDestination.RegistrationUserData)
-//            BaseViewState.Data(SplashViewState(isNotEmptyProfile = isNotEmptyProfile))
         }
+    }
+
+    private fun createNewUser() {
+        onNavigationEvent(eventType = NavDestination.AuthorizationPhone)
     }
 
     override fun onTriggerEvent(eventType: SplashEvent) {
         when (eventType) {
             is SplashEvent.CreateNewToken -> createNewToken(eventType.token)
             is SplashEvent.IsNotEmptyProfile -> isNotEmptyProfile()
+            is SplashEvent.NewUser -> createNewUser()
         }
+    }
+
+    override fun onNavigationEvent(eventType: NavDestination) {
+        navigationState.value = eventType
     }
 
 }

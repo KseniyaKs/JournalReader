@@ -2,9 +2,7 @@ package com.example.articlestest.data.mapper
 
 import com.example.articlestest.data.dto.ArticleDto
 import com.example.articlestest.data.dto.ArticlesDto
-import com.example.articlestest.data.model.Article
-import com.example.articlestest.data.model.Articles
-import com.example.articlestest.data.model.Image
+import com.example.articlestest.data.model.*
 import javax.inject.Inject
 
 interface MapperFromArticlesListToModel {
@@ -33,7 +31,20 @@ class MapperFromArticlesListToModelImpl @Inject constructor() : MapperFromArticl
                 id = articleDto.imageDto.id,
                 file = articleDto.imageDto.file
             ),
-            date = articleDto.date
+            date = articleDto.date,
+            comments = articleDto.comments.map {
+                Comment(
+                    id = it.id,
+                    user = User(
+                        username = it.user.username,
+                        firstName = it.user.firstName,
+                        surname = it.user.surname
+                    ),
+                    commentText = it.commentText
+                )
+            },
+            isLike = articleDto.isLike,
+            likeCount = articleDto.likeCount
         )
     }
 }

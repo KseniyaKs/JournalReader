@@ -184,7 +184,7 @@ fun RegistrationUserCityScreen(
                             surname = surname,
                             patronymic = patronymic,
                             email = email,
-                            city = "22"//city.value
+                            city = city.value
                         )
                     )
                 },

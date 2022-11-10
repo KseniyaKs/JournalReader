@@ -1,6 +1,8 @@
 package com.example.articlestest.presentation.navigation
 
 sealed class NavDestination {
+    object AuthorizationPhone : NavDestination()
+
     data class AuthorizationPassword(val phone: String) : NavDestination()
 
     data class AuthorizationConfirmCode(val phone: String) : NavDestination()

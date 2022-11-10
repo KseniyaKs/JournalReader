@@ -37,6 +37,7 @@ import com.example.articlestest.presentation.MainActivity
 import com.example.articlestest.presentation.authorization.confirmcode_check.AuthorizationConfirmcodeFragment
 import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
+import com.example.articlestest.presentation.registration.user_data.RegistrationUserDataFragment
 import com.example.articlestest.presentation.theme.*
 import com.example.articlestest.presentation.view.Back
 import dagger.hilt.android.AndroidEntryPoint
@@ -95,6 +96,13 @@ class AuthorizationPasswordFragment : Fragment() {
                         .addToBackStack("authorization_confirm_code")
                         .commit()
                 }
+                NavDestination.RegistrationUserData -> {
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .add(R.id.container, RegistrationUserDataFragment.newInstance())
+                        .addToBackStack("registration_user_data")
+                        .commit()
+                }
                 NavDestination.AppMain -> {
                     val intent = Intent(this.context, MainActivity::class.java)
                     startActivity(intent)
@@ -115,7 +123,7 @@ fun AuthorizationPasswordScreen(
 ) {
     val context = LocalContext.current
 
-    val password = remember { mutableStateOf("") } //testtest
+    val password = remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val uiState by viewModel.uiState.collectAsState()

@@ -1,4 +1,4 @@
-package com.example.articlestest.huinya.base.presentation.view
+package com.example.articlestest.presentation.view
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth

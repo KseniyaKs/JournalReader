@@ -10,8 +10,6 @@ import com.example.articlestest.data.mapper.*
 import com.example.articlestest.domain.repositories.AuthorisationRepository
 import com.example.articlestest.domain.repositories.MainRepository
 import com.example.articlestest.domain.repositories.RegistrationRepository
-import com.example.articlestest.huinya.base.test.ArticleRepository
-import com.example.articlestest.huinya.base.test.ArticleRepositoryImpl
 import com.example.articlestest.presentation.base.ResponseMapper
 import com.example.articlestest.presentation.base.ResponseMapperImpl
 import dagger.Module
@@ -24,11 +22,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class DomainModule {
-    @Provides
-    @Singleton
-    fun provideArticleRepository(api: Api): ArticleRepository {
-        return ArticleRepositoryImpl(api)
-    }
 
     @Provides
     @Singleton
