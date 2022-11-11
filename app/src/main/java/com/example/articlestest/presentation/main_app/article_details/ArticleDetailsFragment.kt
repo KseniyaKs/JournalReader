@@ -1,7 +1,6 @@
 package com.example.articlestest.presentation.main_app.article_details
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -58,6 +56,13 @@ class ArticleDetailsFragment : Fragment() {
                 is NavDestination.BackClick -> {
                     findNavController().popBackStack()
                 }
+                is NavDestination.ArticleComments -> {
+                    val action =
+                        ArticleDetailsFragmentDirections.actionArticleContentToComment(
+                            destination.article
+                        )
+                    findNavController().navigate(action)
+                }
                 else -> {}
             }
         }
@@ -86,7 +91,7 @@ fun ArticleDetailsScreen(
 @Composable
 fun ArticleDetailsContent(state: ArticleDetailsViewState, viewModel: ArticleDetailsViewModel) {
 
-    val article = remember { state.article }
+    val article = state.article
 
     Column(
         modifier = Modifier
@@ -116,8 +121,18 @@ fun ArticleDetailsContent(state: ArticleDetailsViewState, viewModel: ArticleDeta
                 likeCount = article.likeCount.toString(),
                 isLike = article.isLike,
                 commentCount = article.comments.size.toString(),
-                onCommentClick = { Log.d("asd", "comment_click") },
-                onLikeClick = { Log.d("asd", "like_click") },
+                onCommentClick = {
+                    viewModel.onTriggerEvent(
+                        eventType = ArticleDetailsEvent.CommentClick(
+                            article
+                        )
+                    )
+                },
+                onLikeClick = {
+                    viewModel.onTriggerEvent(
+                        eventType = ArticleDetailsEvent.LikeClick(article)
+                    )
+                },
                 modifier = Modifier.padding(top = 55.dp, bottom = 20.dp)
             )
         }

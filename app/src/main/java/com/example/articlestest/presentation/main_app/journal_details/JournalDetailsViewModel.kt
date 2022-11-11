@@ -30,7 +30,7 @@ class JournalDetailsViewModel @Inject constructor(
                 onNavigationEvent(eventType = NavDestination.BuyJournal)
             }
             is JournalDetailsEvent.Read -> {
-                onNavigationEvent(eventType = NavDestination.ReadJournal(eventType.firstPageId))
+                onNavigationEvent(eventType = NavDestination.ReadJournal(eventType.journal))
             }
         }
     }

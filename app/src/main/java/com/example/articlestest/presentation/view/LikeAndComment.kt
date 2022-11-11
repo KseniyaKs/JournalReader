@@ -1,5 +1,6 @@
 package com.example.articlestest.presentation.view
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
@@ -13,14 +14,13 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.articlestest.R
 import com.example.articlestest.presentation.theme.Blue
-import com.example.articlestest.presentation.theme.Pink
 
 
 @Composable
 fun LikeAndComment(
     modifier: Modifier = Modifier,
     likeCount: String,
-    isLike: Boolean = false,
+    isLike: Boolean,
     onLikeClick: () -> Unit,
     commentCount: String,
     onCommentClick: () -> Unit
@@ -31,10 +31,9 @@ fun LikeAndComment(
             .wrapContentSize()
     ) {
         val (like, likeAmount, comment, commentAmount, spacer) = createRefs()
-        Icon(
-            painter = painterResource(id = R.drawable.ic_like),
+        Image(
+            painter = painterResource(id = if (isLike) R.drawable.ic_full_like else R.drawable.ic_empty_like),
             contentDescription = null,
-            tint = if (isLike) Pink else Blue,
             modifier = Modifier
                 .constrainAs(like) {
                     start.linkTo(parent.start)
@@ -43,7 +42,7 @@ fun LikeAndComment(
         )
 
         Text(
-            text = likeCount,
+            text = if (likeCount.toInt() < 1) "" else likeCount,
             modifier = Modifier.constrainAs(likeAmount) {
                 start.linkTo(like.end, margin = 6.dp)
             }

@@ -14,6 +14,6 @@ sealed class JournalDetailsEvent {
     object Buy : JournalDetailsEvent()
 
     data class Read(
-        val firstPageId: String
+        val journal: Journal
     ) : JournalDetailsEvent()
 }

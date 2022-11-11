@@ -29,10 +29,32 @@ class MindevPDFViewer @JvmOverloads constructor(
 
     private var orientation: Direction = Direction.HORIZONTAL
     private var isPdfAnimation: Boolean = false
-
+    private val rv: RecyclerView by lazy { findViewById(R.id.recyclerView) }
 
     init {
         getAttrs(attrs, defStyleAttr)
+
+        LayoutInflater.from(context)
+            .inflate(R.layout.pdf_viewer_view, this, false)
+            .let(::addView)
+    }
+
+    fun onNextPage() {
+        if (findPagePosition(rv) < pageTotalCount) {
+            rv.smoothScrollToPosition(
+                (rv.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                    .plus(1)
+            )
+        }
+    }
+
+    fun onPreviousPage() {
+        if (findPagePosition(rv) > 0) {
+            rv.smoothScrollToPosition(
+                (rv.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                    .minus(1)
+            )
+        }
     }
 
     @SuppressLint("CustomViewStyleable")
@@ -69,12 +91,6 @@ class MindevPDFViewer @JvmOverloads constructor(
 
         pdfRendererCore = PdfCore(context, File(path))
 
-        LayoutInflater.from(context)
-            .inflate(R.layout.pdf_viewer_view, this, false)
-            .let(::addView)
-
-        val rv: RecyclerView = findViewById(R.id.recyclerView)
-
         rv.apply {
             layoutManager = LinearLayoutManager(this.context).apply {
                 orientation =
@@ -87,27 +103,30 @@ class MindevPDFViewer @JvmOverloads constructor(
             if (pdfRendererCore != null) adapter = PdfAdapter(pdfRendererCore!!, isPdfAnimation)
             addOnScrollListener(scrollListener)
         }
-//        click.setOnClickListener {
-//            rv.smoothScrollToPosition((recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition().plus(1))
-//        }
         rv.let(PagerSnapHelper()::attachToRecyclerView)
     }
 
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            (recyclerView.layoutManager as LinearLayoutManager).run {
-                var foundPosition = findFirstCompletelyVisibleItemPosition()
-                if (foundPosition != RecyclerView.NO_POSITION) {
-                    statusListener.onPageChanged(foundPosition, pageTotalCount)
-                    return@run
-                }
-                foundPosition = findFirstVisibleItemPosition()
-                if (foundPosition != RecyclerView.NO_POSITION) {
-                    statusListener.onPageChanged(foundPosition, pageTotalCount)
-                    return@run
-                }
+            statusListener.onPageChanged(findPagePosition(recyclerView), pageTotalCount)
+        }
+    }
+
+    private fun findPagePosition(recyclerView: RecyclerView): Int {
+        var pos: Int = 0
+        (recyclerView.layoutManager as LinearLayoutManager).run {
+            var foundPosition = findFirstCompletelyVisibleItemPosition()
+            if (foundPosition != RecyclerView.NO_POSITION) {
+                pos = foundPosition
+                return@run
+            }
+            foundPosition = findFirstVisibleItemPosition()
+            if (foundPosition != RecyclerView.NO_POSITION) {
+                pos = foundPosition
+                return@run
             }
         }
+        return pos
     }
 }

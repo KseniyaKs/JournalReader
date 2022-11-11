@@ -4,10 +4,18 @@ import com.example.articlestest.data.model.Article
 
 data class ArticleDetailsViewState(
     val article: Article
-)
+    )
 
 sealed class ArticleDetailsEvent {
     data class Get(
         val id: String
+    ) : ArticleDetailsEvent()
+
+    data class CommentClick(
+        val article: Article
+    ) : ArticleDetailsEvent()
+
+    data class LikeClick(
+        val article: Article
     ) : ArticleDetailsEvent()
 }

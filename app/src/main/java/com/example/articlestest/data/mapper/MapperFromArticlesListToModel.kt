@@ -2,7 +2,9 @@ package com.example.articlestest.data.mapper
 
 import com.example.articlestest.data.dto.ArticleDto
 import com.example.articlestest.data.dto.ArticlesDto
-import com.example.articlestest.data.model.*
+import com.example.articlestest.data.model.Article
+import com.example.articlestest.data.model.Articles
+import com.example.articlestest.data.model.Image
 import javax.inject.Inject
 
 interface MapperFromArticlesListToModel {
@@ -10,7 +12,9 @@ interface MapperFromArticlesListToModel {
     fun map(articleDto: ArticleDto): Article
 }
 
-class MapperFromArticlesListToModelImpl @Inject constructor() : MapperFromArticlesListToModel {
+class MapperFromArticlesListToModelImpl @Inject constructor(
+    private val mapperFromCommentDtoToModel: MapperFromCommentDtoToModel
+) : MapperFromArticlesListToModel {
     override fun mapList(articlesDto: ArticlesDto): Articles {
         return Articles(
             count = articlesDto.count,
@@ -32,16 +36,8 @@ class MapperFromArticlesListToModelImpl @Inject constructor() : MapperFromArticl
                 file = articleDto.imageDto.file
             ),
             date = articleDto.date,
-            comments = articleDto.comments.map {
-                Comment(
-                    id = it.id,
-                    user = User(
-                        username = it.user.username,
-                        firstName = it.user.firstName,
-                        surname = it.user.surname
-                    ),
-                    commentText = it.commentText
-                )
+            comments = articleDto.comments.map { comment ->
+                mapperFromCommentDtoToModel.map(comment)
             },
             isLike = articleDto.isLike,
             likeCount = articleDto.likeCount

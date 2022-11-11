@@ -12,4 +12,8 @@ interface MainRepository {
     suspend fun getArticles(): Articles
 
     suspend fun getArticleDetails(id: String): Article
+
+    suspend fun addArticleComment(id: String, comment: String): Comment
+
+    suspend fun changeLikeStatus(id: String): Boolean
 }

@@ -62,14 +62,16 @@ class DomainModule {
         mapper: ResponseMapper,
         mapperFromJournalListDtoToModel: MapperFromJournalListDtoToModel,
         mapperFromJournalPageDtoToModel: MapperFromJournalPageDtoToModel,
-        mapperFromArticlesListToModel: MapperFromArticlesListToModel
+        mapperFromArticlesListToModel: MapperFromArticlesListToModel,
+        mapperFromCommentDtoToModel: MapperFromCommentDtoToModel
     ): MainRepository {
         return MainRepositoryImpl(
             api,
             mapper,
             mapperFromJournalListDtoToModel,
             mapperFromJournalPageDtoToModel,
-            mapperFromArticlesListToModel
+            mapperFromArticlesListToModel,
+            mapperFromCommentDtoToModel
         )
     }
 
@@ -101,14 +103,28 @@ class DomainModule {
 
     @Provides
     @Singleton
-    fun provideMapperFromJournalPageDtoToModel(mapperFromJournalListDtoToModel: MapperFromJournalListDtoToModel): MapperFromJournalPageDtoToModel {
-        return MapperFromJournalPageDtoToModelImpl(mapperFromJournalListDtoToModel)
+    fun provideMapperFromJournalPageDtoToModel(
+        mapperFromJournalListDtoToModel: MapperFromJournalListDtoToModel,
+        mapperFromCommentDtoToModel: MapperFromCommentDtoToModel
+    ): MapperFromJournalPageDtoToModel {
+        return MapperFromJournalPageDtoToModelImpl(
+            mapperFromJournalListDtoToModel,
+            mapperFromCommentDtoToModel
+        )
     }
 
     @Provides
     @Singleton
-    fun provideMapperArticlesListToModel(): MapperFromArticlesListToModel {
-        return MapperFromArticlesListToModelImpl()
+    fun provideMapperArticlesListToModel(
+        mapperFromCommentDtoToModel: MapperFromCommentDtoToModel
+    ): MapperFromArticlesListToModel {
+        return MapperFromArticlesListToModelImpl(mapperFromCommentDtoToModel)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMapperFromCommentDtoToModel(): MapperFromCommentDtoToModel {
+        return MapperFromCommentDtoToModelImpl()
     }
 
 }

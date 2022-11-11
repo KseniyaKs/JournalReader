@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.articlestest.databinding.FragmentPdfReaderBinding
+import com.example.articlestest.extension.monthNumber
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.mindev.mindev_pdfviewer.MindevPDFViewer
 import com.mindev.mindev_pdfviewer.PdfScope
@@ -70,6 +71,16 @@ class PdfReaderFragment : Fragment() {
             binding?.pdf?.initializePDFDownloader(url, statusListener)
             lifecycle.addObserver(PdfScope())
         }
+
+        binding?.nextPage?.setOnClickListener {
+            binding?.pdf?.onNextPage()
+        }
+
+        binding?.previousPage?.setOnClickListener {
+            binding?.pdf?.onPreviousPage()
+        }
+
+        binding?.date?.text = "${args.journal.month.monthNumber()}/${args.journal.dateIssue}"
     }
 
     override fun onDestroy() {
@@ -77,73 +88,3 @@ class PdfReaderFragment : Fragment() {
         binding = null
     }
 }
-
-//@Composable
-//fun ReaderScreen(viewModel: PdfReaderViewModel, firstPageId: String) {
-//    val uiState by viewModel.uiState.collectAsState()
-//
-//    when (uiState) {
-//        BaseViewState.Loading -> {}
-//        is BaseViewState.Data -> {
-//            ReaderContent(
-//                (uiState as BaseViewState.Data<PdfReaderViewState>).value,
-//                viewModel
-//            )
-//        }
-//        else -> {}
-//    }
-//
-//    LaunchedEffect(Unit) {
-//        viewModel.onTriggerEvent(
-//            eventType = PdfReaderEvent.GetPage(firstPageId)
-//        )
-//    }
-//}
-
-//@OptIn(ExperimentalFoundationApi::class)
-//@Composable
-//fun ReaderContent(
-//    pdfState: PdfReaderViewState,
-//    viewModel: PdfReaderViewModel,
-//) {
-//    val pageInfo = remember { pdfState.page }
-//    val pdfFile by viewModel.pdfDownload.collectAsState()
-//
-//    Column(
-//        modifier = Modifier.fillMaxSize(),
-//        verticalArrangement = Arrangement.SpaceBetween
-//    ) {
-//        JournalToolBar(
-//            onBack = { viewModel.onNavigationEvent(eventType = NavDestination.BackClick) },
-//            month = pageInfo.journal.month.monthNumber(),
-//            year = pageInfo.journal.dateIssue,
-//            sizeJournal = pageInfo.journal.pages.size.toString(),
-//            currentPage = "2",
-//            modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 16.dp)
-//        )
-//
-//        pdfFile?.let {
-//            PdfViewer(it)
-//        }
-//    }
-//
-//    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-//        val (bottomBar) = createRefs()
-//
-//        JournalBottomBar(
-//            onButtonClick = { },
-//            likeAmount = pageInfo.likeCount.toString(),
-//            commentAmount = pageInfo.comments.size.toString(),
-//            isLike = pageInfo.isLike,
-//            onLikeClick = {},
-//            onCommentClick = {},
-//            modifier = Modifier
-//                .constrainAs(bottomBar) {
-//                    bottom.linkTo(parent.bottom)
-//                }
-//                .fillMaxWidth()
-//                .wrapContentHeight()
-//                .background(WhiteSmoke)
-//        )
-//    }
-//}

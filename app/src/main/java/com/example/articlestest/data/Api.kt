@@ -73,9 +73,12 @@ interface Api {
     @GET("article/{id}/")
     suspend fun getArticleDetails(@Path("id") id: String): Response<ArticleDto>
 
-//    @POST("page/{id}/add_comment/")
-//    suspend fun addArticlesComment(@Path("id") id: String): Response<>
+    @POST("article/{id}/add_comment/")
+    suspend fun addArticlesComment(
+        @Path("id") id: String,
+        @Body comment: CommentBody
+    ): Response<CommentDto>
 
-//    @POST("page/{id}/add_like/")
-//    suspend fun addArticlesLike(@Path("id") id: String): Response<>
+    @POST("article/{id}/add_like/")
+    suspend fun changeLikeStatus(@Path("id") id: String): Response<Any>
 }

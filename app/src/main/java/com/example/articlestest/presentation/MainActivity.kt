@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.read_journal -> bottomNavigationView?.visibility = View.GONE
                 R.id.article_content -> bottomNavigationView?.visibility = View.GONE
+                R.id.comments -> bottomNavigationView?.visibility = View.GONE
                 else -> bottomNavigationView?.visibility = View.VISIBLE
             }
         }

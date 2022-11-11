@@ -1,5 +1,8 @@
 package com.example.articlestest.presentation.navigation
 
+import com.example.articlestest.data.model.Article
+import com.example.articlestest.data.model.Journal
+
 sealed class NavDestination {
     object AuthorizationPhone : NavDestination()
 
@@ -28,9 +31,11 @@ sealed class NavDestination {
 
     object BuyJournal : NavDestination()
 
-    data class ReadJournal(val firstPageId: String) : NavDestination()
+    data class ReadJournal(val journal: Journal) : NavDestination()
 
     data class ArticleDetails(val id: String) : NavDestination()
+
+    data class ArticleComments(val article: Article) : NavDestination()
 
     object BackClick : NavDestination()
 }

@@ -9,7 +9,7 @@
         android:id="@+id/like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_like" />
+        app:srcCompat="@drawable/ic_empty_like" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"

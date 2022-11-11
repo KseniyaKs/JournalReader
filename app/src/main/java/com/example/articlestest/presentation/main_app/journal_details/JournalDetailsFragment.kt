@@ -83,7 +83,7 @@ class JournalDetailsFragment : Fragment() {
                 is NavDestination.ReadJournal -> {
                     val action =
                         JournalDetailsFragmentDirections.actionFragmentJournalToReadJournal(
-                            destination.firstPageId
+                            destination.journal
                         )
                     findNavController().navigate(action)
                 }
@@ -234,7 +234,7 @@ fun JournalDetailsContent(
 
         ButtonMaxWidthWithText(
             onClick = {
-                viewModel.onTriggerEvent(eventType = JournalDetailsEvent.Read(journalInfo.pages.first().id))
+                viewModel.onTriggerEvent(eventType = JournalDetailsEvent.Read(journalInfo))
 //                viewModel.onTriggerEvent(
 //                    eventType = if (journalInfo.isBought) JournalDetailsEvent.Read(
 //                        journalInfo.pages.first().id

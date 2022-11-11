@@ -2,6 +2,7 @@ package com.example.articlestest.presentation.main_app.article_details
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.example.articlestest.data.model.Article
 import com.example.articlestest.domain.repositories.MainRepository
 import com.example.articlestest.presentation.base.BaseViewModel
 import com.example.articlestest.presentation.base.BaseViewState
@@ -30,18 +31,24 @@ class ArticleDetailsViewModel @Inject constructor(
             setState(BaseViewState.Data(ArticleDetailsViewState(article)))
         }
     }
-//
-//    fun likeArticle(isLike: Boolean) {
-//        viewModelScope.launch(CoroutineExceptionHandler{  _, throwable ->
-//            Log.d("exception", throwable.toString())
-//        }) {
-//            repository.likeArticle(isLike)
-//        }
-//    }
+
+    private fun onLikeClick(article: Article) {
+        viewModelScope.launch(coroutineExceptionHandler) {
+            val isLike = repository.changeLikeStatus(article.id)
+            val article2 = article.copy(isLike = isLike, likeCount = if (isLike) +1 else -1)
+            setState(BaseViewState.Data(ArticleDetailsViewState(article2)))
+        }
+    }
+
+    private fun onCommentClick(article: Article) {
+        onNavigationEvent(eventType = NavDestination.ArticleComments(article))
+    }
 
     override fun onTriggerEvent(eventType: ArticleDetailsEvent) {
         when (eventType) {
             is ArticleDetailsEvent.Get -> getArticle(eventType.id)
+            is ArticleDetailsEvent.CommentClick -> onCommentClick(eventType.article)
+            is ArticleDetailsEvent.LikeClick -> onLikeClick(eventType.article)
         }
     }
 

@@ -19,9 +19,13 @@ import com.example.articlestest.R
 import com.example.articlestest.presentation.theme.Pink
 
 @Composable
-fun ArticleToolbar(titleText: String, onBack: () -> Unit) {
+fun ArticleToolbar(
+    titleText: String,
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     ConstraintLayout(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(49.dp)
     )

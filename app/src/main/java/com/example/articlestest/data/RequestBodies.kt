@@ -24,3 +24,7 @@ data class UserInfoBody(
 data class TokenBody(
     val refresh: String
 )
+
+data class CommentBody(
+    val text: String
+)

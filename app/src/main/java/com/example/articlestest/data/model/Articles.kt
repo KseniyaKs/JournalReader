@@ -1,5 +1,8 @@
 package com.example.articlestest.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 data class Articles(
     val count: Number,
     val next: Number?,
@@ -7,6 +10,7 @@ data class Articles(
     val results: List<Article>
 )
 
+@Parcelize
 data class Article(
     val id: String,
     val image: Image,
@@ -16,4 +20,4 @@ data class Article(
     val comments: List<Comment>,
     val likeCount: Number,
     val isLike: Boolean
-)
+) : Parcelable

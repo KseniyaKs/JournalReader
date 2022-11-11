@@ -26,6 +26,21 @@
             android:name="articleId"
             app:argType="string" />
 
+        <action
+            android:id="@+id/action_article_content_to_comment"
+            app:destination="@id/comments" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/comments"
+        android:name="com.example.articlestest.presentation.main_app.comments.CommentsFragment"
+        android:label="@string/comments"
+        tools:layout="@layout/fragment_comments">
+
+        <argument
+            android:name="article"
+            app:argType="com.example.articlestest.data.model.Article" />
     </fragment>
 
 </navigation>

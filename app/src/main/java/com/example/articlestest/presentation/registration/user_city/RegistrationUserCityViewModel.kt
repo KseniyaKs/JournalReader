@@ -20,7 +20,7 @@ class RegistrationUserCityViewModel @Inject constructor(
     val cityState = MutableStateFlow<List<City>>(listOf())
 
     private fun getCities() {
-        viewModelScope.launch() {
+        viewModelScope.launch(coroutineExceptionHandler) {
             cityState.emit(repository.getCities())
         }
     }
@@ -34,6 +34,7 @@ class RegistrationUserCityViewModel @Inject constructor(
     ) {
         viewModelScope.launch(coroutineExceptionHandler) {
             repository.createUserInfo(name, surname, patronymic, email, city)
+            onNavigationEvent(eventType = NavDestination.AppMain)
         }
     }
 

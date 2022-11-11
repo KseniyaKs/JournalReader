@@ -15,8 +15,7 @@ data class JournalPageDto(
 data class CommentDto(
     @SerializedName("id") val id: String,
     @SerializedName("user") val user: UserDto,
-    @SerializedName("text") val commentText: String,
-//    @SerializedName("page") val page: PageDto,
+    @SerializedName("text") val commentText: String
 )
 
 data class UserDto(
@@ -32,4 +31,3 @@ data class PageDto(
     @SerializedName("journal") val journalId: String
 )
 
-//PdfDocument.PageInfo

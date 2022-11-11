@@ -1,6 +1,7 @@
 package com.example.articlestest.data
 
 import com.example.articlestest.data.mapper.MapperFromArticlesListToModel
+import com.example.articlestest.data.mapper.MapperFromCommentDtoToModel
 import com.example.articlestest.data.mapper.MapperFromJournalListDtoToModel
 import com.example.articlestest.data.mapper.MapperFromJournalPageDtoToModel
 import com.example.articlestest.data.model.*
@@ -13,7 +14,8 @@ class MainRepositoryImpl @Inject constructor(
     private val mapper: ResponseMapper,
     private val mapperFromJournalListDtoToModel: MapperFromJournalListDtoToModel,
     private val mapperFromJournalPageDtoToModel: MapperFromJournalPageDtoToModel,
-    private val mapperFromArticlesListToModel: MapperFromArticlesListToModel
+    private val mapperFromArticlesListToModel: MapperFromArticlesListToModel,
+    private val mapperFromCommentDtoToModel: MapperFromCommentDtoToModel
 ) : MainRepository {
 
     override suspend fun getJournals(): JournalsData {
@@ -41,4 +43,21 @@ class MainRepositoryImpl @Inject constructor(
         return mapperFromArticlesListToModel.map(response)
     }
 
+    override suspend fun addArticleComment(id: String, comment: String): Comment {
+        val response = mapper.map(api.addArticlesComment(id, CommentBody(comment)))
+        return mapperFromCommentDtoToModel.map(response)
+    }
+
+    override suspend fun changeLikeStatus(id: String): Boolean {
+        val request = api.changeLikeStatus(id)
+        var isLike = false
+
+        if (request.isSuccessful) {
+            when (request.code()) {
+                201 -> isLike = true
+                204 -> isLike = false
+            }
+        }
+        return isLike
+    }
 }

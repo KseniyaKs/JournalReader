@@ -48,8 +48,8 @@
         tools:layout="@layout/fragment_pdf_reader">
 
         <argument
-            android:name="firstPageId"
-            app:argType="string" />
+            android:name="journal"
+            app:argType="com.example.articlestest.data.model.Journal" />
 
     </fragment>
 
