@@ -13,4 +13,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "ArticlesTest"
-include ':app'
+include ':app', ':mindev-pdfviewer'
+
