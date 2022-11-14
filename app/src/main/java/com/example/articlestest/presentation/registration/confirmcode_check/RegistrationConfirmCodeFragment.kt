@@ -6,9 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
@@ -33,6 +30,7 @@ import com.example.articlestest.presentation.registration.create_password.Regist
 import com.example.articlestest.presentation.theme.DarkBlue
 import com.example.articlestest.presentation.theme.Pink
 import com.example.articlestest.presentation.view.Back
+import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
 import com.example.articlestest.presentation.view.Countdown
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -151,7 +149,11 @@ fun RegistrationConfirmCodeScreen(
                 modifier = Modifier.padding(bottom = 42.dp)
             )
 
-            Button(
+            ButtonMaxWidthWithText(
+                background = Pink,
+                text = stringResource(id = R.string.continue_button),
+                textColor = Color.White,
+                enabled = code.value.isNotEmpty(),
                 onClick = {
                     viewModel.onTriggerEvent(
                         eventType = RegistrationConfirmCodeEvent.CheckConfirmCode(
@@ -159,20 +161,8 @@ fun RegistrationConfirmCodeScreen(
                             code = code.value
                         )
                     )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(44.dp),
-                shape = RoundedCornerShape(37.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Pink)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.continue_button),
-                    fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
-                    fontSize = 17.sp,
-                    color = Color.White
-                )
-            }
+                }
+            )
         }
     }
 }

@@ -44,12 +44,12 @@ class MainRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addArticleComment(id: String, comment: String): Comment {
-        val response = mapper.map(api.addArticlesComment(id, CommentBody(comment)))
+        val response = mapper.map(api.addArticleComment(id, CommentBody(comment)))
         return mapperFromCommentDtoToModel.map(response)
     }
 
-    override suspend fun changeLikeStatus(id: String): Boolean {
-        val request = api.changeLikeStatus(id)
+    override suspend fun changeArticleLikeStatus(id: String): Boolean {
+        val request = api.changeArticleLikeStatus(id)
         var isLike = false
 
         if (request.isSuccessful) {
@@ -60,4 +60,23 @@ class MainRepositoryImpl @Inject constructor(
         }
         return isLike
     }
+
+    override suspend fun addJournalComment(id: String, comment: String): Comment {
+        val response = mapper.map(api.addJournalComment(id, CommentBody(comment)))
+        return mapperFromCommentDtoToModel.map(response)
+    }
+
+    override suspend fun changeJournalLikeStatus(id: String): Boolean {
+        val request = api.changeJournalLikeStatus(id)
+        var isLike = false
+
+        if (request.isSuccessful) {
+            when (request.code()) {
+                201 -> isLike = true
+                204 -> isLike = false
+            }
+        }
+        return isLike
+    }
+
 }

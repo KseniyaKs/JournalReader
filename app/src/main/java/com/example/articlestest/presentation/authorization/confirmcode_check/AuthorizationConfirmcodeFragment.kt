@@ -6,9 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
@@ -21,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.articlestest.R
@@ -32,6 +28,7 @@ import com.example.articlestest.presentation.components.OTPTextFields
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.theme.Pink
 import com.example.articlestest.presentation.view.Back
+import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
 import com.example.articlestest.presentation.view.Countdown
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -164,7 +161,11 @@ fun AuthorizationConfirmCodeScreen(
                 modifier = Modifier.padding(bottom = 42.dp)
             )
 
-            Button(
+            ButtonMaxWidthWithText(
+                background = Pink,
+                text = stringResource(id = R.string.continue_button),
+                textColor = Color.White,
+                enabled = code.value.isNotEmpty(),
                 onClick = {
                     viewModel.onTriggerEvent(
                         eventType = AuthorizationConfirmCodeEvent.CheckConfirmCode(
@@ -172,20 +173,8 @@ fun AuthorizationConfirmCodeScreen(
                             code = code.value
                         )
                     )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(44.dp),
-                shape = RoundedCornerShape(37.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Pink)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.continue_button),
-                    fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
-                    fontSize = 17.sp,
-                    color = Color.White
-                )
-            }
+                }
+            )
         }
     }
 }

@@ -5,24 +5,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
@@ -35,18 +36,21 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.articlestest.R
 import com.example.articlestest.data.model.Article
 import com.example.articlestest.data.model.Comment
+import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.theme.Grey300
 import com.example.articlestest.presentation.theme.Grey900
 import com.example.articlestest.presentation.theme.Pink
 import com.example.articlestest.presentation.theme.WhiteSmoke
-import com.example.articlestest.presentation.view.ArticleToolbar
 import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
+import com.example.articlestest.presentation.view.ToolbarWithTitle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -66,8 +70,20 @@ class CommentsFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MaterialTheme {
-                    CommentsScreen(viewModel, args.article)
+                    CommentsScreen(viewModel, args.articleCommentsArg)
                 }
+            }
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
+            when (destination) {
+                is NavDestination.BackClick -> {
+                    findNavController().popBackStack()
+                }
+                else -> {}
             }
         }
     }
@@ -75,19 +91,47 @@ class CommentsFragment : Fragment() {
 
 @Composable
 fun CommentsScreen(viewModel: CommentsViewModel, article: Article) {
+    val uiState by viewModel.uiState.collectAsState()
 
-//    val comments = remember { mutableStateOf(listOf<Comment>()) }
-    val comments = article.comments
+    when (uiState) {
+        is BaseViewState.Data -> {
+            CommentsContent(
+                viewModel = viewModel,
+                article = article,
+                (uiState as BaseViewState.Data<CommentsViewState>).value
+            )
+        }
+        else -> {}
+    }
+}
 
+@Composable
+fun CommentsContent(
+    viewModel: CommentsViewModel,
+    article: Article,
+    state: CommentsViewState
+) {
+
+    val scrollState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+    val newCommentsList = remember { state.comments }
+
+    if (state.scrollToBottom) {
+        LaunchedEffect(key1 = state) {
+            coroutineScope.launch {
+                scrollState.animateScrollToItem(newCommentsList.lastIndex)
+            }
+        }
+    }
 
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
             .padding(start = 20.dp, end = 20.dp, top = 25.dp)
     ) {
-        val (toolbar, commentsList, asd) = createRefs()
+        val (toolbar, commentsList, noComments) = createRefs()
 
-        ArticleToolbar(
+        ToolbarWithTitle(
             titleText = stringResource(id = R.string.comments),
             onBack = { viewModel.onNavigationEvent(eventType = NavDestination.BackClick) },
             modifier = Modifier.constrainAs(toolbar) {
@@ -95,16 +139,28 @@ fun CommentsScreen(viewModel: CommentsViewModel, article: Article) {
             }
         )
 
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = Modifier
-                .padding(bottom = 220.dp)
-                .constrainAs(commentsList) {
+        if (newCommentsList.isEmpty()) {
+            Text(
+                text = "Нет комментариев..",
+                modifier = Modifier.constrainAs(noComments) {
                     top.linkTo(toolbar.bottom)
                 }
-        ) {
-            items(comments) {
-                Comment(it)
+            )
+        } else {
+            LazyColumn(
+                state = scrollState,
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier
+                    .padding(bottom = 220.dp)
+                    .constrainAs(commentsList) {
+                        top.linkTo(toolbar.bottom)
+                    }
+            ) {
+                for (comment in newCommentsList) {
+                    item(comment.id) {
+                        Comment(comment)
+                    }
+                }
             }
         }
     }
@@ -127,6 +183,7 @@ fun CommentsScreen(viewModel: CommentsViewModel, article: Article) {
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SendComment(
     viewModel: CommentsViewModel,
@@ -134,6 +191,7 @@ fun SendComment(
     modifier: Modifier = Modifier
 ) {
     val commentText = remember { mutableStateOf("") }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(modifier = modifier) {
 
@@ -154,7 +212,7 @@ fun SendComment(
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done
             ),
-//            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
             textStyle = LocalTextStyle.current.copy(
                 fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
                 fontSize = 20.sp,
@@ -171,10 +229,12 @@ fun SendComment(
                         commentText.value
                     )
                 )
+                commentText.value = ""
             },
             background = Pink,
             text = stringResource(id = R.string.send),
             textColor = Color.White,
+            enabled = commentText.value.isNotEmpty()
         )
     }
 }
@@ -231,4 +291,3 @@ fun Comment(comment: Comment) {
         )
     }
 }
-

@@ -60,11 +60,14 @@ interface Api {
     @GET("page/{id}/")
     suspend fun getJournalPage(@Path("id") id: String): Response<JournalPageDto>
 
-//    @POST("page/{id}/add_comment/")
-//    suspend fun addJournalsComment(@Path("id") id: String): Response<>
+    @POST("page/{id}/add_comment/")
+    suspend fun addJournalComment(
+        @Path("id") id: String,
+        @Body comment: CommentBody
+    ): Response<CommentDto>
 
-//    @POST("page/{id}/add_like/")
-//    suspend fun addJournalsLike(@Path("id") id: String): Response<>
+    @POST("page/{id}/add_like/")
+    suspend fun changeJournalLikeStatus(@Path("id") id: String): Response<Any>
 
     //articles
     @GET("article/")
@@ -74,11 +77,11 @@ interface Api {
     suspend fun getArticleDetails(@Path("id") id: String): Response<ArticleDto>
 
     @POST("article/{id}/add_comment/")
-    suspend fun addArticlesComment(
+    suspend fun addArticleComment(
         @Path("id") id: String,
         @Body comment: CommentBody
     ): Response<CommentDto>
 
     @POST("article/{id}/add_like/")
-    suspend fun changeLikeStatus(@Path("id") id: String): Response<Any>
+    suspend fun changeArticleLikeStatus(@Path("id") id: String): Response<Any>
 }

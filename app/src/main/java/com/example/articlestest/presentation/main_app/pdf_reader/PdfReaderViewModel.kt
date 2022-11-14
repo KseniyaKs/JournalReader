@@ -35,6 +35,23 @@ class PdfReaderViewModel @Inject constructor(
         }
     }
 
+//    private fun onLikeClick(article: Article) {
+//        viewModelScope.launch(coroutineExceptionHandler) {
+//            val isLike = repository.changeArticleLikeStatus(article.id)
+//            val count = article.likeCount.toInt()
+//            val articleCopy = article.copy(
+//                isLike = isLike,
+//                likeCount = if (isLike) count.plus(1) else count.minus(1)
+//            )
+//
+//            setState(BaseViewState.Data(ArticleDetailsViewState(articleCopy)))
+//        }
+//    }
+//
+//    private fun onCommentClick(article: Article) {
+//        onNavigationEvent(eventType = NavDestination.ArticleComments(article))
+//    }
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val url =

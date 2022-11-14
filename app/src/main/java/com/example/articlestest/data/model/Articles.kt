@@ -19,5 +19,6 @@ data class Article(
     val date: String,
     val comments: List<Comment>,
     val likeCount: Number,
-    val isLike: Boolean
+    val isLiked: Boolean,
+    val isCommented: Boolean
 ) : Parcelable

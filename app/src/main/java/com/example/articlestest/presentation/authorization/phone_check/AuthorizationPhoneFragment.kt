@@ -10,7 +10,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.LocalTextStyle
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -41,6 +44,7 @@ import com.example.articlestest.presentation.registration.confirmcode_check.Regi
 import com.example.articlestest.presentation.theme.Grey300
 import com.example.articlestest.presentation.theme.Grey900
 import com.example.articlestest.presentation.theme.Pink
+import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -190,12 +194,11 @@ fun AuthorizationPhoneScreen(
                 textAlign = TextAlign.Center
             )
 
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(44.dp),
-                shape = RoundedCornerShape(37.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Pink),
+            ButtonMaxWidthWithText(
+                background = Pink,
+                text = stringResource(id = R.string.continue_button),
+                textColor = Color.White,
+                enabled = phoneNumber.value.isNotEmpty(),
                 onClick = {
                     viewModel.onTriggerEvent(
                         eventType = AuthorizationCheckContractEvent.PhoneCheck(
@@ -203,14 +206,7 @@ fun AuthorizationPhoneScreen(
                         )
                     )
                 }
-            ) {
-                Text(
-                    text = stringResource(id = R.string.continue_button),
-                    fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
-                    fontSize = 17.sp,
-                    color = Color.White
-                )
-            }
+            )
         }
     }
 }

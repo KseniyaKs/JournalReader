@@ -11,7 +11,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.LocalTextStyle
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -40,6 +43,7 @@ import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.user_data.RegistrationUserDataFragment
 import com.example.articlestest.presentation.theme.*
 import com.example.articlestest.presentation.view.Back
+import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -192,28 +196,20 @@ fun AuthorizationPasswordScreen(
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(44.dp),
-                shape = RoundedCornerShape(37.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Pink),
+            ButtonMaxWidthWithText(
+                background = Pink,
+                text = stringResource(id = R.string.continue_button),
+                textColor = Color.White,
+                enabled = password.value.isNotEmpty(),
                 onClick = {
                     viewModel.onTriggerEvent(
                         eventType = AuthorizationPasswordEvent.SignIn(
                             phone = phone,
                             password = password.value
-                        )// testtest
+                        )
                     )
                 }
-            ) {
-                Text(
-                    text = stringResource(id = R.string.continue_button),
-                    fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
-                    fontSize = 17.sp,
-                    color = Color.White
-                )
-            }
+            )
         }
     }
 }

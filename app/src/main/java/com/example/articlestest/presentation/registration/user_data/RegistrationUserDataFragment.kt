@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.LocalTextStyle
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,6 +38,7 @@ import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.user_city.RegistrationUserCityFragment
 import com.example.articlestest.presentation.theme.*
 import com.example.articlestest.presentation.view.Back
+import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -100,10 +104,10 @@ fun RegistrationUserDataScreen(
     viewModel: RegistrationUserDataViewModel
 ) {
 
-    var name = ""
-    var surname = ""
-    var patronymic = ""
-    var email = ""
+    val name = remember { mutableStateOf("") }
+    val surname = remember { mutableStateOf("") }
+    val patronymic = remember { mutableStateOf("") }
+    val email = remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -123,10 +127,10 @@ fun RegistrationUserDataScreen(
             )
 
             UserData(
-                onNameCreate = { name = it },
-                onSurnameCreate = { surname = it },
-                onPatronymicCreate = { patronymic = it },
-                onEmailCreate = { email = it }
+                onNameCreate = { name.value = it },
+                onSurnameCreate = { surname.value = it },
+                onPatronymicCreate = { patronymic.value = it },
+                onEmailCreate = { email.value = it }
             )
         }
 
@@ -137,30 +141,22 @@ fun RegistrationUserDataScreen(
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            Button(
+            ButtonMaxWidthWithText(
+                background = Pink,
+                text = stringResource(id = R.string.continue_button),
+                textColor = Color.White,
+                enabled = name.value.isNotEmpty() && surname.value.isNotEmpty() && email.value.isNotEmpty(),
                 onClick = {
                     viewModel.onTriggerEvent(
                         eventType = RegistrationUserDataEvent.CreateUserData(
-                            name,
-                            surname,
-                            patronymic,
-                            email
+                            name.value,
+                            surname.value,
+                            patronymic.value,
+                            email.value
                         )
                     )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(44.dp),
-                shape = RoundedCornerShape(37.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Pink)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.further),
-                    fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
-                    fontSize = 17.sp,
-                    color = Color.White
-                )
-            }
+                }
+            )
         }
     }
 }

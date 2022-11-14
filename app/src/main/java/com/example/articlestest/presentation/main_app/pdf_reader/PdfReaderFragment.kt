@@ -1,7 +1,6 @@
 package com.example.articlestest.presentation.main_app.pdf_reader
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,7 +57,6 @@ class PdfReaderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
-            Log.d("JournalDetailsFragment", destination.toString())
             when (destination) {
                 is NavDestination.BackClick -> {
                     findNavController().popBackStack()
@@ -72,15 +70,21 @@ class PdfReaderFragment : Fragment() {
             lifecycle.addObserver(PdfScope())
         }
 
-        binding?.nextPage?.setOnClickListener {
-            binding?.pdf?.onNextPage()
-        }
+        binding?.apply {
+            nextPage.setOnClickListener {
+                binding?.pdf?.onNextPage()
+            }
 
-        binding?.previousPage?.setOnClickListener {
-            binding?.pdf?.onPreviousPage()
-        }
+            previousPage.setOnClickListener {
+                binding?.pdf?.onPreviousPage()
+            }
 
-        binding?.date?.text = "${args.journal.month.monthNumber()}/${args.journal.dateIssue}"
+            back.setOnClickListener {
+                viewModel.onNavigationEvent(eventType = NavDestination.BackClick)
+            }
+
+            date.text = "${args.journal.month.monthNumber()}/${args.journal.dateIssue}"
+        }
     }
 
     override fun onDestroy() {

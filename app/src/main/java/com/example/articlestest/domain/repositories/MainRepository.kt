@@ -15,5 +15,9 @@ interface MainRepository {
 
     suspend fun addArticleComment(id: String, comment: String): Comment
 
-    suspend fun changeLikeStatus(id: String): Boolean
+    suspend fun changeArticleLikeStatus(id: String): Boolean
+
+    suspend fun addJournalComment(id: String, comment: String): Comment
+
+    suspend fun changeJournalLikeStatus(id: String): Boolean
 }

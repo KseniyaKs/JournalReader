@@ -39,8 +39,9 @@ class MapperFromArticlesListToModelImpl @Inject constructor(
             comments = articleDto.comments.map { comment ->
                 mapperFromCommentDtoToModel.map(comment)
             },
-            isLike = articleDto.isLike,
-            likeCount = articleDto.likeCount
+            isLiked = articleDto.isLiked,
+            likeCount = articleDto.likeCount,
+            isCommented = articleDto.isCommented
         )
     }
 }

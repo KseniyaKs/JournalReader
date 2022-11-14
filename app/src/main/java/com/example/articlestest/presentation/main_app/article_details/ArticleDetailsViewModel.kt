@@ -20,7 +20,7 @@ class ArticleDetailsViewModel @Inject constructor(
 
     //прописать ошибку елси пустой или null id
     init {
-        val id = savedStateHandle.get<String>("articleId")
+        val id = savedStateHandle.get<String>("articleIdArg")
         id?.let { onTriggerEvent(eventType = ArticleDetailsEvent.Get(id)) }
     }
 
@@ -34,9 +34,14 @@ class ArticleDetailsViewModel @Inject constructor(
 
     private fun onLikeClick(article: Article) {
         viewModelScope.launch(coroutineExceptionHandler) {
-            val isLike = repository.changeLikeStatus(article.id)
-            val article2 = article.copy(isLike = isLike, likeCount = if (isLike) +1 else -1)
-            setState(BaseViewState.Data(ArticleDetailsViewState(article2)))
+            val isLike = repository.changeArticleLikeStatus(article.id)
+            val count = article.likeCount.toInt()
+            val articleCopy = article.copy(
+                isLiked = isLike,
+                likeCount = if (isLike) count.plus(1) else count.minus(1)
+            )
+
+            setState(BaseViewState.Data(ArticleDetailsViewState(articleCopy)))
         }
     }
 

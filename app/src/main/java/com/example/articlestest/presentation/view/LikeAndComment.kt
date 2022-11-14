@@ -20,9 +20,10 @@ import com.example.articlestest.presentation.theme.Blue
 fun LikeAndComment(
     modifier: Modifier = Modifier,
     likeCount: String,
-    isLike: Boolean,
-    onLikeClick: () -> Unit,
+    isLiked: Boolean,
+    isCommented: Boolean,
     commentCount: String,
+    onLikeClick: () -> Unit,
     onCommentClick: () -> Unit
 ) {
 
@@ -32,7 +33,7 @@ fun LikeAndComment(
     ) {
         val (like, likeAmount, comment, commentAmount, spacer) = createRefs()
         Image(
-            painter = painterResource(id = if (isLike) R.drawable.ic_full_like else R.drawable.ic_empty_like),
+            painter = painterResource(id = if (isLiked) R.drawable.ic_full_like else R.drawable.ic_empty_like),
             contentDescription = null,
             modifier = Modifier
                 .constrainAs(like) {
@@ -56,7 +57,7 @@ fun LikeAndComment(
             })
 
         Icon(
-            painter = painterResource(id = R.drawable.ic_comment),
+            painter = painterResource(id = if (isCommented) R.drawable.ic_is_commented else R.drawable.ic_is_not_comment),
             contentDescription = null,
             tint = Blue,
             modifier = Modifier

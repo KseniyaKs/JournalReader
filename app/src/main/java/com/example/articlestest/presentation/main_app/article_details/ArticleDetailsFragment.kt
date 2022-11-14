@@ -22,8 +22,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
-import com.example.articlestest.presentation.view.ArticleToolbar
 import com.example.articlestest.presentation.view.LikeAndComment
+import com.example.articlestest.presentation.view.ToolbarWithTitle
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -99,7 +99,7 @@ fun ArticleDetailsContent(state: ArticleDetailsViewState, viewModel: ArticleDeta
             .padding(PaddingValues(start = 20.dp, end = 20.dp)),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
-        ArticleToolbar(
+        ToolbarWithTitle(
             titleText = article.title.uppercase(),
             onBack = { viewModel.onNavigationEvent(eventType = NavDestination.BackClick) }
         )
@@ -119,7 +119,8 @@ fun ArticleDetailsContent(state: ArticleDetailsViewState, viewModel: ArticleDeta
 
             LikeAndComment(
                 likeCount = article.likeCount.toString(),
-                isLike = article.isLike,
+                isLiked = article.isLiked,
+                isCommented = article.isCommented,
                 commentCount = article.comments.size.toString(),
                 onCommentClick = {
                     viewModel.onTriggerEvent(
