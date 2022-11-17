@@ -6,7 +6,8 @@ data class JournalPageDto(
     @SerializedName("id") val id: String,
     @SerializedName("comments") val commentsDto: List<CommentDto>,
     @SerializedName("like_count") val likeCount: Number,
-    @SerializedName("is_liked") val isLike: Boolean,
+    @SerializedName("is_liked") val isLiked: Boolean,
+    @SerializedName("is_commented") val isCommented: Boolean,
     @SerializedName("journal") val journal: JournalDto,
     @SerializedName("number") val pageNumber: Number,
     @SerializedName("page_file") val pageFile: String

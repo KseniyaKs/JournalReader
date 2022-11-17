@@ -71,10 +71,13 @@ class RegistrationUserDataFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initNavigation()
+    }
+
+    private fun initNavigation() {
         viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
             when (destination) {
                 is NavDestination.BackClick -> {
-//                    parentFragmentManager.popBackStack()
                     requireActivity().onBackPressed()
                 }
                 is NavDestination.RegistrationUserCity -> {

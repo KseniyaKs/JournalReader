@@ -39,7 +39,7 @@
         tools:layout="@layout/fragment_comments">
 
         <argument
-            android:name="articleCommentsArg"
+            android:name="commentsArg"
             app:argType="com.example.articlestest.data.model.Article" />
     </fragment>
 

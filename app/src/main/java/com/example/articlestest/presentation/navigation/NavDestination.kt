@@ -2,6 +2,7 @@ package com.example.articlestest.presentation.navigation
 
 import com.example.articlestest.data.model.Article
 import com.example.articlestest.data.model.Journal
+import com.example.articlestest.data.model.JournalPage
 
 sealed class NavDestination {
     object AuthorizationPhone : NavDestination()
@@ -36,6 +37,8 @@ sealed class NavDestination {
     data class ArticleDetails(val id: String) : NavDestination()
 
     data class ArticleComments(val article: Article) : NavDestination()
+
+    data class JournalPageComments(val page: JournalPage) : NavDestination()
 
     object BackClick : NavDestination()
 }

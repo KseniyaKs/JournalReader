@@ -19,7 +19,8 @@ class MapperFromJournalPageDtoToModelImpl @Inject constructor(
             comments = page.commentsDto.map { comment ->
                 mapperFromCommentDtoToModel.map(comment)
             },
-            isLike = page.isLike,
+            isCommented = page.isCommented,
+            isLike = page.isLiked,
             likeCount = page.likeCount,
             journal = mapperFromJournalListDtoToModel.map(page.journal),
             pageNumber = page.pageNumber,

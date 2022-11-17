@@ -9,8 +9,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.articlestest.R
 import com.example.articlestest.presentation.theme.Blue
@@ -44,6 +48,9 @@ fun LikeAndComment(
 
         Text(
             text = if (likeCount.toInt() < 1) "" else likeCount,
+            color = Color.Black,
+            fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
+            fontSize = 14.sp,
             modifier = Modifier.constrainAs(likeAmount) {
                 start.linkTo(like.end, margin = 6.dp)
             }
@@ -68,7 +75,10 @@ fun LikeAndComment(
         )
 
         Text(
-            text = commentCount,
+            text = if (commentCount.toInt() < 1) "" else commentCount,
+            color = Color.Black,
+            fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
+            fontSize = 14.sp,
             modifier = Modifier.constrainAs(commentAmount) {
                 start.linkTo(comment.end, margin = 6.dp)
             }

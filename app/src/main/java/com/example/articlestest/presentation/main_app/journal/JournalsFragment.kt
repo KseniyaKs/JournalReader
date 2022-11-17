@@ -43,7 +43,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class JournalsFragment : Fragment() {
 
-    val viewModel: JournalsViewModel by viewModels()
+    private val viewModel: JournalsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +64,10 @@ class JournalsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initNavigation()
+    }
+
+    private fun initNavigation() {
         viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
             when (destination) {
                 is NavDestination.JournalDetails -> {
@@ -101,7 +105,7 @@ fun JournalsContent(state: JournalsViewState, viewModel: JournalsViewModel) {
             .padding(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 24.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        val (logo, journal, number, month, buy, more) = createRefs()
+        val (logo, journal, number, month, buy) = createRefs()
 
         Image(
             painter = painterResource(id = R.drawable.ic_logo_small),
@@ -164,7 +168,7 @@ fun JournalsContent(state: JournalsViewState, viewModel: JournalsViewModel) {
             }
         ) {
             Text(
-                text = stringResource(id = R.string.buy),
+                text = stringResource(id = R.string.more_button),
                 fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
                 fontSize = 17.sp,
             )

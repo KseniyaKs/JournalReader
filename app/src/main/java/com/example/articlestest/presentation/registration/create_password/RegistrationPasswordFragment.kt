@@ -55,7 +55,7 @@ class RegistrationPasswordFragment : Fragment() {
         }
     }
 
-    val viewModel: RegistrationPasswordViewModel by viewModels()
+    private val viewModel: RegistrationPasswordViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,6 +80,10 @@ class RegistrationPasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initNavigation()
+    }
+
+    private fun initNavigation() {
         viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
             when (destination) {
                 is NavDestination.BackClick -> {

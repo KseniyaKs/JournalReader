@@ -37,9 +37,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.articlestest.R
-import com.example.articlestest.data.model.Article
 import com.example.articlestest.data.model.Comment
 import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
@@ -56,8 +54,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class CommentsFragment : Fragment() {
 
-    val viewModel: CommentsViewModel by viewModels()
-    val args: CommentsFragmentArgs by navArgs()
+    private val viewModel: CommentsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,7 +67,7 @@ class CommentsFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MaterialTheme {
-                    CommentsScreen(viewModel, args.articleCommentsArg)
+                    CommentsScreen(viewModel)
                 }
             }
         }
@@ -78,6 +75,10 @@ class CommentsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initNavigation()
+    }
+
+    private fun initNavigation() {
         viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
             when (destination) {
                 is NavDestination.BackClick -> {
@@ -90,14 +91,13 @@ class CommentsFragment : Fragment() {
 }
 
 @Composable
-fun CommentsScreen(viewModel: CommentsViewModel, article: Article) {
+fun CommentsScreen(viewModel: CommentsViewModel) {
     val uiState by viewModel.uiState.collectAsState()
 
     when (uiState) {
         is BaseViewState.Data -> {
             CommentsContent(
                 viewModel = viewModel,
-                article = article,
                 (uiState as BaseViewState.Data<CommentsViewState>).value
             )
         }
@@ -108,7 +108,6 @@ fun CommentsScreen(viewModel: CommentsViewModel, article: Article) {
 @Composable
 fun CommentsContent(
     viewModel: CommentsViewModel,
-    article: Article,
     state: CommentsViewState
 ) {
 
@@ -170,7 +169,6 @@ fun CommentsContent(
 
         SendComment(
             viewModel,
-            article,
             modifier = Modifier
                 .wrapContentHeight()
                 .fillMaxWidth()
@@ -187,7 +185,6 @@ fun CommentsContent(
 @Composable
 fun SendComment(
     viewModel: CommentsViewModel,
-    article: Article,
     modifier: Modifier = Modifier
 ) {
     val commentText = remember { mutableStateOf("") }
@@ -225,7 +222,6 @@ fun SendComment(
             onClick = {
                 viewModel.onTriggerEvent(
                     eventType = CommentsEvent.Send(
-                        article.id,
                         commentText.value
                     )
                 )

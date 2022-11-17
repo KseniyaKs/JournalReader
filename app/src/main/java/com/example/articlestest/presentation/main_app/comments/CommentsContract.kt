@@ -9,7 +9,6 @@ class CommentsViewState(
 
 sealed class CommentsEvent {
     data class Send(
-        val id: String,
         val text: String
     ) : CommentsEvent()
 }

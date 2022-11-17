@@ -78,6 +78,10 @@ class AuthorizationPhoneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initNavigation()
+    }
+
+    private fun initNavigation() {
         viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
             when (destination) {
                 is NavDestination.AuthorizationPassword -> {
@@ -171,6 +175,34 @@ fun AuthorizationPhoneScreen(
                     .fillMaxWidth()
                     .height(56.dp)
             )
+
+//            AndroidView(
+//                factory = { context ->
+//                    val view = LayoutInflater.from(context).inflate(R.layout.edit_text_layout, null, false)
+//                    val textView = view.findViewById<EditText>(R.id.edit_text)
+
+
+//                    MaskedTextChangedListener.installOn(
+//                        phone.findViewById(R.id.edit_text),
+//                        "+7 ([000]) [000]-[00]-[00]",
+//                        object : MaskedTextChangedListener.ValueListener {
+//                            override fun onTextChanged(
+//                                maskFilled: Boolean,
+//                                extractedValue: String,
+//                                formattedValue: String
+//                            ) {
+//                                viewModel.onPhoneNumberChanged(formattedValue)
+//                            }
+//                        }
+//                    )
+
+            // do whatever you want...
+//                    view // return the view
+//                },
+//                update = { view ->
+//                    // Update the view
+//                }
+//            )
         }
 
 

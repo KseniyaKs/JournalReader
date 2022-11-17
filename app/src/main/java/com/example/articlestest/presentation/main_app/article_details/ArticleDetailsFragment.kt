@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.view.LikeAndComment
@@ -30,7 +31,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ArticleDetailsFragment : Fragment() {
 
-    val viewModel: ArticleDetailsViewModel by viewModels()
+    private val viewModel: ArticleDetailsViewModel by viewModels()
+    private val args: ArticleDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +53,15 @@ class ArticleDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initNavigation()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.onTriggerEvent(eventType = ArticleDetailsEvent.Get(args.articleIdArg))
+    }
+
+    fun initNavigation() {
         viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
             when (destination) {
                 is NavDestination.BackClick -> {

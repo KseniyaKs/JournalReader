@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_journal_details">
 
         <argument
-            android:name="journalId"
+            android:name="journalIdArg"
             app:argType="string" />
 
         <action
@@ -48,10 +48,23 @@
         tools:layout="@layout/fragment_pdf_reader">
 
         <argument
-            android:name="journal"
+            android:name="journalArg"
             app:argType="com.example.articlestest.data.model.Journal" />
 
+        <action
+            android:id="@+id/action_page_to_comment"
+            app:destination="@id/page_comments" />
     </fragment>
 
+    <fragment
+        android:id="@+id/page_comments"
+        android:name="com.example.articlestest.presentation.main_app.comments.CommentsFragment"
+        android:label="@string/comments"
+        tools:layout="@layout/fragment_comments">
+
+        <argument
+            android:name="commentsArg"
+            app:argType="com.example.articlestest.data.model.JournalPage" />
+    </fragment>
 
 </navigation>

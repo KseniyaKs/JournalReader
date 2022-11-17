@@ -8,7 +8,29 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ShareCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+
+fun <T> Fragment.observe(liveData: LiveData<T?>, observer: ((T) -> Unit)) {
+    liveData.observe(viewLifecycleOwner) {
+        if (it != null) {
+            observer.invoke(it)
+        } else {
+            Log.d("log", "Fragment.observe.problem")
+        }
+    }
+}
+
+fun Fragment.hideKeyboard() {
+    (context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager)?.let { inputMethodService ->
+        view?.findFocus()?.let { view ->
+            inputMethodService.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+}
 
 inline fun <reified T : Any> Activity.launchActivity(
     requestCode: Int = -1,
@@ -124,24 +146,24 @@ fun Context.openAppOnPlayStore() = try {
     )
 }
 
-fun Context.openAppOnAppGallery() {
-    try {
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("appmarket://details?id=$packageName")
-            )
-        )
-    } catch (ex: ActivityNotFoundException) {
-        val url = "https://appgallery.cloud.huawei.com/marketshare/app/C102867981"
-        val url2 = "https://appgallery8.huawei.com/#/app/C102867981"
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(
-                    ("https://appgallery8.huawei.com/#/app/C102867981")
-                )
-            )
-        )
-    }
-}
+//fun Context.openAppOnAppGallery() {
+//    try {
+//        startActivity(
+//            Intent(
+//                Intent.ACTION_VIEW,
+//                Uri.parse("appmarket://details?id=$packageName")
+//            )
+//        )
+//    } catch (ex: ActivityNotFoundException) {
+//        val url = "https://appgallery.cloud.huawei.com/marketshare/app/C102867981"
+//        val url2 = "https://appgallery8.huawei.com/#/app/C102867981"
+//        startActivity(
+//            Intent(
+//                Intent.ACTION_VIEW,
+//                Uri.parse(
+//                    ("https://appgallery8.huawei.com/#/app/C102867981")
+//                )
+//            )
+//        )
+//    }
+//}

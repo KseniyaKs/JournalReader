@@ -57,6 +57,10 @@ class MindevPDFViewer @JvmOverloads constructor(
         }
     }
 
+    fun onSelectedPage(position: Int) {
+        rv.smoothScrollToPosition(position)
+    }
+
     @SuppressLint("CustomViewStyleable")
     private fun getAttrs(attrs: AttributeSet?, defStyle: Int) {
         val typedArray =
@@ -114,7 +118,7 @@ class MindevPDFViewer @JvmOverloads constructor(
     }
 
     private fun findPagePosition(recyclerView: RecyclerView): Int {
-        var pos: Int = 0
+        var pos = 0
         (recyclerView.layoutManager as LinearLayoutManager).run {
             var foundPosition = findFirstCompletelyVisibleItemPosition()
             if (foundPosition != RecyclerView.NO_POSITION) {

@@ -70,6 +70,15 @@ class JournalDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initNavigation()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.onTriggerEvent(eventType = JournalDetailsEvent.Get(args.journalIdArg))
+    }
+
+    private fun initNavigation() {
         viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
             when (destination) {
                 is NavDestination.BackClick -> {
@@ -90,11 +99,6 @@ class JournalDetailsFragment : Fragment() {
                 else -> {}
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.onTriggerEvent(eventType = JournalDetailsEvent.Get(args.journalId))
     }
 }
 

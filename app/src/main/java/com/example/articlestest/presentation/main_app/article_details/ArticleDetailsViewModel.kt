@@ -1,6 +1,5 @@
 package com.example.articlestest.presentation.main_app.article_details
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.articlestest.data.model.Article
 import com.example.articlestest.domain.repositories.MainRepository
@@ -15,14 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ArticleDetailsViewModel @Inject constructor(
     private val repository: MainRepository,
-    savedStateHandle: SavedStateHandle
 ) : BaseViewModel<BaseViewState<ArticleDetailsViewState>, ArticleDetailsEvent>() {
-
-    //прописать ошибку елси пустой или null id
-    init {
-        val id = savedStateHandle.get<String>("articleIdArg")
-        id?.let { onTriggerEvent(eventType = ArticleDetailsEvent.Get(id)) }
-    }
 
     private fun getArticle(id: String) {
         setState(BaseViewState.Loading)
@@ -38,9 +30,8 @@ class ArticleDetailsViewModel @Inject constructor(
             val count = article.likeCount.toInt()
             val articleCopy = article.copy(
                 isLiked = isLike,
-                likeCount = if (isLike) count.plus(1) else count.minus(1)
+                likeCount = if (isLike) count.plus(1) else count.minus(1),
             )
-
             setState(BaseViewState.Data(ArticleDetailsViewState(articleCopy)))
         }
     }

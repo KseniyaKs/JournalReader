@@ -22,6 +22,9 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_semibold_600"
+        android:textColor="@color/pink"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,13 +32,42 @@
 
 
     <TextView
-        android:id="@+id/tv"
+        android:id="@+id/page_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_semibold_600"
+        android:textColor="@color/pink"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpUsage"
         tools:text="12 из 222" />
+
+    <!--    <androidx.appcompat.widget.LinearLayoutCompat-->
+    <!--        android:id="@+id/selected_page_layout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="32dp"-->
+    <!--        android:background="@color/white"-->
+    <!--        android:visibility="gone"-->
+
+    <!--        android:gravity="center">-->
+
+    <!--        <androidx.appcompat.widget.AppCompatEditText-->
+    <!--            android:id="@+id/selected_page_number"-->
+    <!--            android:layout_width="175dp"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:digits="0123456789"-->
+    <!--            android:inputType="number"-->
+    <!--            android:imeOptions="actionDone"/>-->
+
+    <!--        <androidx.appcompat.widget.AppCompatImageView-->
+    <!--            android:id="@+id/cancel"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            app:srcCompat="@drawable/ic_cancel" />-->
+
+    <!--    </androidx.appcompat.widget.LinearLayoutCompat>-->
+
 
     <com.mindev.mindev_pdfviewer.MindevPDFViewer
         android:id="@+id/pdf"
@@ -67,6 +99,16 @@
         app:srcCompat="@drawable/ic_next_page" />
 
     <include
+        android:id="@+id/selected_page_layout"
+        layout="@layout/edit_text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
         android:id="@+id/like_comment"
         layout="@layout/like_comment_layout"
         android:layout_width="wrap_content"
@@ -75,39 +117,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/previous_page" />
-
-
-    <!--    <androidx.appcompat.widget.LinearLayoutCompat-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintTop_toTopOf="@+id/next_page"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@+id/next_page"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent">-->
-
-    <!--        <androidx.appcompat.widget.AppCompatImageView-->
-    <!--            android:id="@+id/like"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            app:srcCompat="@drawable/ic_like" />-->
-
-    <!--        <androidx.appcompat.widget.AppCompatTextView-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginEnd="52dp"-->
-    <!--            tools:text="12" />-->
-
-    <!--        <androidx.appcompat.widget.AppCompatImageView-->
-    <!--            android:id="@+id/comment"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            app:srcCompat="@drawable/ic_comment" />-->
-
-    <!--        <androidx.appcompat.widget.AppCompatTextView-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            tools:text="12" />-->
-
-    <!--    </androidx.appcompat.widget.LinearLayoutCompat>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

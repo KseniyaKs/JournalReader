@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/selected_page_layout"
+    android:layout_width="match_parent"
+    android:layout_height="32dp"
+    android:background="@color/white_smoke"
+    android:gravity="center">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/selected_page_number"
+        android:layout_width="175dp"
+        android:layout_height="match_parent"
+        android:digits="0123456789"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:background="@drawable/edit_text_border_with_radius_8"
+        android:hint="@string/select_page"
+        android:textColorHint="@color/grey"
+        android:gravity="center"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/cancel"
+        app:srcCompat="@drawable/ic_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

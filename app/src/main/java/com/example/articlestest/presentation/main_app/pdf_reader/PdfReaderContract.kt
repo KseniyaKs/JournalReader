@@ -2,13 +2,19 @@ package com.example.articlestest.presentation.main_app.pdf_reader
 
 import com.example.articlestest.data.model.JournalPage
 
-data class PdfReaderViewState(
-    val page: JournalPage
+data class PageLikeState(
+    val isLiked: Boolean,
+    val likeCount: Number = 0
 )
 
-sealed class PdfReaderEvent {
+sealed class JournalPageEvent {
     data class GetPage(
         val pageId: String
-    ) : PdfReaderEvent()
+    ) : JournalPageEvent()
 
+    object CommentClick : JournalPageEvent()
+
+    data class LikeClick(
+        val page: JournalPage
+    ) : JournalPageEvent()
 }

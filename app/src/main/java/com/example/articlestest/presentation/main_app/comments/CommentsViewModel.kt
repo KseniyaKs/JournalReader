@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.articlestest.data.model.Article
 import com.example.articlestest.data.model.Comment
+import com.example.articlestest.data.model.JournalPage
 import com.example.articlestest.domain.repositories.MainRepository
 import com.example.articlestest.presentation.base.BaseViewModel
 import com.example.articlestest.presentation.base.BaseViewState
@@ -18,25 +19,40 @@ class CommentsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel<BaseViewState<CommentsViewState>, CommentsEvent>() {
 
-    private var addCommentState = mutableListOf<Comment>()
+    private var commentsList = mutableListOf<Comment>()
+    private var commentTo: CommentTo = CommentTo.UNDEFINED
+    private var id: String = ""
 
     init {
-        val article = savedStateHandle.get<Article>("articleCommentsArg")
-        addCommentState = article?.comments?.toMutableList() ?: mutableListOf()
-        setState(BaseViewState.Data(CommentsViewState(addCommentState, true)))
+        when (val args = savedStateHandle.get<Any>("commentsArg")) {
+            is Article -> {
+                commentsList = args.comments.toMutableList()
+                commentTo = CommentTo.ARTICLE
+                id = args.id
+            }
+            is JournalPage -> {
+                commentsList = args.comments.toMutableList()
+                commentTo = CommentTo.JOURNAL_PAGE
+                id = args.id
+            }
+        }
+        setState(BaseViewState.Data(CommentsViewState(commentsList, commentsList.isNotEmpty())))
     }
 
-    private fun sendComment(id: String, text: String) {
+    private fun sendComment(text: String) {
         viewModelScope.launch(coroutineExceptionHandler) {
-            val comment = repository.addArticleComment(id, text)
-            addCommentState.add(comment)
-            setState(BaseViewState.Data(CommentsViewState(addCommentState, true)))
+            val comment = if (commentTo == CommentTo.ARTICLE) {
+                repository.addArticleComment(id, text)
+            } else repository.addJournalComment(id, text)
+
+            commentsList.add(comment)
+            setState(BaseViewState.Data(CommentsViewState(commentsList, commentsList.isNotEmpty())))
         }
     }
 
     override fun onTriggerEvent(eventType: CommentsEvent) {
         when (eventType) {
-            is CommentsEvent.Send -> sendComment(id = eventType.id, text = eventType.text)
+            is CommentsEvent.Send -> sendComment(text = eventType.text)
         }
     }
 
@@ -44,4 +60,8 @@ class CommentsViewModel @Inject constructor(
         navigationState.value = eventType
         super.onNavigationEvent(eventType)
     }
+}
+
+enum class CommentTo {
+    UNDEFINED, ARTICLE, JOURNAL_PAGE
 }
