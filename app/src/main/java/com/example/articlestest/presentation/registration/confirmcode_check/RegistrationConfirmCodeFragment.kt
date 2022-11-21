@@ -29,6 +29,7 @@ import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.create_password.RegistrationPasswordFragment
 import com.example.articlestest.presentation.theme.DarkBlue
 import com.example.articlestest.presentation.theme.Pink
+import com.example.articlestest.presentation.theme.WhiteSmoke
 import com.example.articlestest.presentation.view.Back
 import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
 import com.example.articlestest.presentation.view.Countdown
@@ -110,7 +111,7 @@ fun RegistrationConfirmCodeScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(PaddingValues(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 24.dp))
-            .background(Color.White),
+            .background(WhiteSmoke),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(

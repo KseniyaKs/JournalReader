@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.articlestest.R
 import com.example.articlestest.data.model.JournalPage
-import com.example.articlestest.databinding.FragmentPdfReaderBinding
+import com.example.articlestest.databinding.FragmentJournalPdfReaderBinding
 import com.example.articlestest.extension.hideKeyboard
 import com.example.articlestest.extension.monthNumber
 import com.example.articlestest.extension.observe
@@ -22,12 +22,12 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class PdfReaderFragment : Fragment() {
+class JournalPdfReaderFragment : Fragment() {
 
     private val viewModel: PdfReaderViewModel by viewModels()
-    private val args: PdfReaderFragmentArgs by navArgs()
+    private val args: JournalPdfReaderFragmentArgs by navArgs()
 
-    private var binding: FragmentPdfReaderBinding? = null
+    private var binding: FragmentJournalPdfReaderBinding? = null
     private var id = ""
     private var journalPage: JournalPage? = null
 
@@ -61,7 +61,7 @@ class PdfReaderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentPdfReaderBinding.inflate(inflater, container, false)
+        binding = FragmentJournalPdfReaderBinding.inflate(inflater, container, false)
         return binding!!.root
     }
 
@@ -85,7 +85,7 @@ class PdfReaderFragment : Fragment() {
                 }
                 is NavDestination.JournalPageComments -> {
                     val action =
-                        PdfReaderFragmentDirections.actionPageToComment(
+                        JournalPdfReaderFragmentDirections.actionPageToComment(
                             destination.page
                         )
                     findNavController().navigate(action)
@@ -97,7 +97,7 @@ class PdfReaderFragment : Fragment() {
 
     private fun observeViewModel() {
         observe(viewModel.journalPageState) { page ->
-            binding?.likeComment?.apply {
+            binding?.likeCommentLayout?.apply {
 
                 likeCount.text =
                     if (page.likeCount.toInt() < 1) "" else page.likeCount.toString()
@@ -136,7 +136,7 @@ class PdfReaderFragment : Fragment() {
                 selectedPageLayout.selectedPageLayout.visibility = View.VISIBLE
             }
 
-            likeComment.apply {
+            likeCommentLayout.apply {
                 comment.setOnClickListener {
                     viewModel.onTriggerEvent(eventType = JournalPageEvent.CommentClick)
                 }

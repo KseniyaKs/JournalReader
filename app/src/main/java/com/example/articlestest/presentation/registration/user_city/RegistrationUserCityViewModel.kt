@@ -17,11 +17,15 @@ class RegistrationUserCityViewModel @Inject constructor(
     private val repository: RegistrationRepository,
 ) : BaseViewModel<BaseViewState<RegistrationUserCityViewState>, RegistrationUserCityEvent>() {
 
-    val cityState = MutableStateFlow<List<City>>(listOf())
+    val citiesState = MutableStateFlow<List<City>>(listOf())
+
+    init {
+        onTriggerEvent(eventType = RegistrationUserCityEvent.GetCity)
+    }
 
     private fun getCities() {
         viewModelScope.launch(coroutineExceptionHandler) {
-            cityState.emit(repository.getCities())
+            citiesState.emit(repository.getCities())
         }
     }
 

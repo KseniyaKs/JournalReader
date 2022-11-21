@@ -35,10 +35,7 @@ import androidx.fragment.app.viewModels
 import com.example.articlestest.R
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.user_data.RegistrationUserDataFragment
-import com.example.articlestest.presentation.theme.AlphaBlack
-import com.example.articlestest.presentation.theme.Grey300
-import com.example.articlestest.presentation.theme.Grey900
-import com.example.articlestest.presentation.theme.Pink
+import com.example.articlestest.presentation.theme.*
 import com.example.articlestest.presentation.view.Back
 import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
 import dagger.hilt.android.AndroidEntryPoint
@@ -115,7 +112,7 @@ fun RegistrationPasswordScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(WhiteSmoke)
             .padding(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {

@@ -138,7 +138,7 @@ fun AuthorizationPasswordScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(WhiteSmoke)
             .padding(PaddingValues(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 24.dp)),
         verticalArrangement = Arrangement.SpaceBetween
     ) {

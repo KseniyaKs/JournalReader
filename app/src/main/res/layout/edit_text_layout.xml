@@ -19,6 +19,7 @@
         android:textColorHint="@color/grey"
         android:gravity="center"
         android:textSize="12sp"
+        android:textCursorDrawable="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

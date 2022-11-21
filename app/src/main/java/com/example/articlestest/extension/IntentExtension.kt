@@ -8,7 +8,9 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
@@ -31,6 +33,9 @@ fun Fragment.hideKeyboard() {
         }
     }
 }
+
+fun String.isValidEmail() =
+    !TextUtils.isEmpty(this) && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 inline fun <reified T : Any> Activity.launchActivity(
     requestCode: Int = -1,

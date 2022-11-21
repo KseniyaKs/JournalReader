@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +22,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.stringResource
@@ -34,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.articlestest.R
+import com.example.articlestest.extension.isValidEmail
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.user_city.RegistrationUserCityFragment
 import com.example.articlestest.presentation.theme.*
@@ -111,6 +114,8 @@ fun RegistrationUserDataScreen(
     val surname = remember { mutableStateOf("") }
     val patronymic = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
+    val context = LocalContext.current
+
 
     Column(
         modifier = Modifier
@@ -150,14 +155,19 @@ fun RegistrationUserDataScreen(
                 textColor = Color.White,
                 enabled = name.value.isNotEmpty() && surname.value.isNotEmpty() && email.value.isNotEmpty(),
                 onClick = {
-                    viewModel.onTriggerEvent(
-                        eventType = RegistrationUserDataEvent.CreateUserData(
-                            name.value,
-                            surname.value,
-                            patronymic.value,
-                            email.value
+                    if (!email.value.isValidEmail()) {
+                        Toast.makeText(context, "Введите корректный e-mail", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        viewModel.onTriggerEvent(
+                            eventType = RegistrationUserDataEvent.CreateUserData(
+                                name.value,
+                                surname.value,
+                                patronymic.value,
+                                email.value
+                            )
                         )
-                    )
+                    }
                 }
             )
         }

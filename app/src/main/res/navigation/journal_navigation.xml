@@ -44,8 +44,8 @@
 
     <fragment
         android:id="@+id/read_journal"
-        android:name="com.example.articlestest.presentation.main_app.pdf_reader.PdfReaderFragment"
-        tools:layout="@layout/fragment_pdf_reader">
+        android:name="com.example.articlestest.presentation.main_app.pdf_reader.JournalPdfReaderFragment"
+        tools:layout="@layout/fragment_journal_pdf_reader">
 
         <argument
             android:name="journalArg"
