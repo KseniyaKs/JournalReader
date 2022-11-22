@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class PdfReaderViewModel @Inject constructor(
+class JournalPdfReaderViewModel @Inject constructor(
     private val repository: MainRepository,
 ) : BaseViewModel<BaseViewState<PageLikeState>, JournalPageEvent>() {
 
@@ -22,8 +22,7 @@ class PdfReaderViewModel @Inject constructor(
     private fun getPage(pageId: String) {
         setState(BaseViewState.Loading)
         viewModelScope.launch {
-            val page = repository.getPage(pageId)
-            journalPageState.value = page
+            journalPageState.value = repository.getPage(pageId)
         }
     }
 

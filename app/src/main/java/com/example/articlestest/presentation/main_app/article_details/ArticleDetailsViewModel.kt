@@ -1,5 +1,6 @@
 package com.example.articlestest.presentation.main_app.article_details
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.articlestest.data.model.Article
 import com.example.articlestest.domain.repositories.MainRepository
@@ -16,34 +17,30 @@ class ArticleDetailsViewModel @Inject constructor(
     private val repository: MainRepository,
 ) : BaseViewModel<BaseViewState<ArticleDetailsViewState>, ArticleDetailsEvent>() {
 
+    val articleState = MutableLiveData<Article?>()
+
     private fun getArticle(id: String) {
         setState(BaseViewState.Loading)
         viewModelScope.launch {
-            val article = repository.getArticleDetails(id)
-            setState(BaseViewState.Data(ArticleDetailsViewState(article)))
+            articleState.value = repository.getArticleDetails(id)
         }
     }
 
     private fun onLikeClick(article: Article) {
         viewModelScope.launch(coroutineExceptionHandler) {
-            val isLike = repository.changeArticleLikeStatus(article.id)
-            val count = article.likeCount.toInt()
-            val articleCopy = article.copy(
-                isLiked = isLike,
-                likeCount = if (isLike) count.plus(1) else count.minus(1),
-            )
-            setState(BaseViewState.Data(ArticleDetailsViewState(articleCopy)))
+            repository.changeArticleLikeStatus(article.id)
+            onTriggerEvent(eventType = ArticleDetailsEvent.Get(article.id))
         }
     }
 
-    private fun onCommentClick(article: Article) {
-        onNavigationEvent(eventType = NavDestination.ArticleComments(article))
+    private fun onCommentClick() {
+        onNavigationEvent(eventType = NavDestination.ArticleComments(articleState.value!!))
     }
 
     override fun onTriggerEvent(eventType: ArticleDetailsEvent) {
         when (eventType) {
             is ArticleDetailsEvent.Get -> getArticle(eventType.id)
-            is ArticleDetailsEvent.CommentClick -> onCommentClick(eventType.article)
+            is ArticleDetailsEvent.CommentClick -> onCommentClick()
             is ArticleDetailsEvent.LikeClick -> onLikeClick(eventType.article)
         }
     }

@@ -42,6 +42,7 @@ import com.example.articlestest.presentation.theme.DarkGrey
 import com.example.articlestest.presentation.theme.Pink
 import com.example.articlestest.presentation.theme.WhiteSmoke
 import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
+import com.example.articlestest.presentation.view.ProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -107,7 +108,9 @@ fun JournalDetailsScreen(viewModel: JournalDetailsViewModel) {
     val uiState by viewModel.uiState.collectAsState()
 
     when (uiState) {
-        BaseViewState.Loading -> {}
+        BaseViewState.Loading -> {
+            ProgressBar()
+        }
         is BaseViewState.Data -> {
             JournalDetailsContent(
                 (uiState as BaseViewState.Data<JournalDetailsViewState>).value,

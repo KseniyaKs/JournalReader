@@ -9,13 +9,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationUserDataViewModel @Inject constructor(
-//    private val repository: RegistrationRepository
 ) : BaseViewModel<BaseViewState<RegistrationUserDataViewState>, RegistrationUserDataEvent>() {
 
     private fun createUserCity(
-        name: String, surname: String, patronymic: String, email: String
+        name: String,
+        surname: String,
+        patronymic: String,
+        email: String
     ) {
-        //if() create all or something
         onNavigationEvent(
             NavDestination.RegistrationUserCity(
                 name = name,

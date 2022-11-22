@@ -30,6 +30,7 @@ import com.example.articlestest.presentation.theme.Pink
 import com.example.articlestest.presentation.view.Back
 import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
 import com.example.articlestest.presentation.view.Countdown
+import com.example.articlestest.presentation.view.ProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -122,27 +123,32 @@ fun AuthorizationConfirmCodeScreen(
             .padding(PaddingValues(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 24.dp)),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Back { viewModel.onBack() }
+        if (uiState is BaseViewState.Loading) {
+            ProgressBar()
+        }
+        if (uiState !is BaseViewState.Loading) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Back { viewModel.onBack() }
 
-            Text(
-                text = stringResource(id = R.string.send_code),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
-            )
+                Text(
+                    text = stringResource(id = R.string.send_code),
+                    fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
+                )
 
-            Text(
-                text = stringResource(id = R.string.confirmation_code),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
-                modifier = Modifier.padding(PaddingValues(top = 35.dp, bottom = 8.dp))
-            )
+                Text(
+                    text = stringResource(id = R.string.confirmation_code),
+                    fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
+                    modifier = Modifier.padding(PaddingValues(top = 35.dp, bottom = 8.dp))
+                )
 
-            OTPTextFields(length = 4) { code.value = it }
+                OTPTextFields(length = 4) { code.value = it }
 
-            if (uiState is BaseViewState.Error) {
-                IncorrectCode()
+                if (uiState is BaseViewState.Error) {
+                    IncorrectCode()
+                }
             }
         }
 

@@ -33,6 +33,7 @@ import com.example.articlestest.presentation.theme.WhiteSmoke
 import com.example.articlestest.presentation.view.Back
 import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
 import com.example.articlestest.presentation.view.Countdown
+import com.example.articlestest.presentation.view.ProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -114,26 +115,30 @@ fun RegistrationConfirmCodeScreen(
             .background(WhiteSmoke),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Back { viewModel.onBack() }
+        if (uiState is BaseViewState.Loading) {
+            ProgressBar()
+        }
+        if (uiState !is BaseViewState.Loading) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Back { viewModel.onBack() }
 
-            Text(
-                text = stringResource(id = R.string.confirmation_code),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
-                fontSize = 16.sp,
-                color = DarkBlue,
-                modifier = Modifier.padding(PaddingValues(bottom = 8.dp))
-            )
+                Text(
+                    text = stringResource(id = R.string.confirmation_code),
+                    fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
+                    fontSize = 16.sp,
+                    color = DarkBlue,
+                    modifier = Modifier.padding(PaddingValues(bottom = 8.dp))
+                )
 
-            OTPTextFields(length = 4) { code.value = it }
+                OTPTextFields(length = 4) { code.value = it }
 
-            if (uiState is BaseViewState.Error) {
-                IncorrectCode()
+                if (uiState is BaseViewState.Error) {
+                    IncorrectCode()
+                }
             }
-
         }
 
         Column(

@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import com.example.articlestest.R
 import com.example.articlestest.databinding.FragmentAuthorizationPhoneBinding
+import com.example.articlestest.extension.observe
 import com.example.articlestest.presentation.authorization.password_check.AuthorizationPasswordFragment
+import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.registration.confirmcode_check.RegistrationConfirmCodeFragment
 import com.example.articlestest.presentation.view.MaskWatcher
@@ -38,6 +41,7 @@ class AuthorizationPhoneFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initNavigation()
         initViews()
+        observeViewModel()
     }
 
     override fun onDestroy() {
@@ -76,7 +80,7 @@ class AuthorizationPhoneFragment : Fragment() {
     private fun initViews() {
         binding?.apply {
 
-            edtTxtPhone.addTextChangedListener(MaskWatcher.buildCpf());
+            edtTxtPhone.addTextChangedListener(MaskWatcher.buildCpf())
 
             btnContinue.setOnClickListener {
                 viewModel.onTriggerEvent(
@@ -85,6 +89,13 @@ class AuthorizationPhoneFragment : Fragment() {
                     )
                 )
             }
+        }
+    }
+
+    private fun observeViewModel() {
+        observe(viewModel.uiState.asLiveData()) {
+            binding?.progress?.visibility =
+                if (it is BaseViewState.Loading) View.VISIBLE else View.GONE
         }
     }
 }

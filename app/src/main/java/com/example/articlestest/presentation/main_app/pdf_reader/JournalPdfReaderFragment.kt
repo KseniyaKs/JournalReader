@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class JournalPdfReaderFragment : Fragment() {
 
-    private val viewModel: PdfReaderViewModel by viewModels()
+    private val viewModel: JournalPdfReaderViewModel by viewModels()
     private val args: JournalPdfReaderFragmentArgs by navArgs()
 
     private var binding: FragmentJournalPdfReaderBinding? = null
@@ -33,7 +33,11 @@ class JournalPdfReaderFragment : Fragment() {
 
     private val statusListener = object : MindevPDFViewer.MindevViewerStatusListener {
         override fun onStartDownload() {
-            binding?.pageCount?.text = "start"
+            binding?.apply {
+                progress.progress.visibility = View.VISIBLE
+                nextPage.isEnabled = false
+                previousPage.isEnabled = false
+            }
         }
 
         override fun onPageChanged(position: Int, total: Int) {
@@ -45,10 +49,16 @@ class JournalPdfReaderFragment : Fragment() {
         }
 
         override fun onSuccessDownLoad(path: String) {
-            binding?.pdf?.fileInit(path)
+            binding?.apply {
+                pdf.fileInit(path)
+                progress.progress.visibility = View.GONE
+                nextPage.isEnabled = true
+                previousPage.isEnabled = true
+            }
         }
 
         override fun onFail(error: Throwable) {
+            binding?.progress?.progress?.visibility = View.GONE
         }
 
         override fun unsupportedDevice() {

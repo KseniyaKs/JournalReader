@@ -81,9 +81,12 @@ class MindevPDFViewer @JvmOverloads constructor(
     private val pageTotalCount get() = pdfRendererCore?.getPDFPagePage() ?: 0
 
     fun initializePDFDownloader(url: String, statusListener: MindevViewerStatusListener) {
+        pdfRendererCore?.pdfFile?.exists()?.let {
+            if (it) return
+        }
+
         this.statusListener = statusListener
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            // 미지원 디바이스
             statusListener.unsupportedDevice()
             return
         }

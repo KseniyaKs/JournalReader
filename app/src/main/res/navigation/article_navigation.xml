@@ -23,8 +23,8 @@
         tools:layout="@layout/fragment_article_details">
 
         <argument
-            android:name="articleIdArg"
-            app:argType="string" />
+            android:name="articleArg"
+            app:argType="com.example.articlestest.data.model.Article" />
 
         <action
             android:id="@+id/action_article_content_to_comment"

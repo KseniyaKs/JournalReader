@@ -14,16 +14,6 @@ abstract class BaseViewModel<STATE : BaseViewState<*>, EVENT> : ViewModel() {
 
     val navigationState = MutableLiveData<NavDestination?>(null)
 
-    val buttonState = MutableLiveData<ButtonState>()
-
-    fun onSomeButtonClicked() {
-        buttonState.value = ButtonState(false)
-    }
-
-    class ButtonState(
-        val isEnabled: Boolean
-    )
-
     protected val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         handleError(throwable)
     }

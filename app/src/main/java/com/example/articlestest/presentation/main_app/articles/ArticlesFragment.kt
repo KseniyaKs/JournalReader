@@ -77,7 +77,7 @@ class ArticlesFragment : Fragment() {
                 is NavDestination.ArticleDetails -> {
                     val action =
                         ArticlesFragmentDirections.actionFragmentArticlesToArticleDetails(
-                            destination.id
+                            destination.article
                         )
                     findNavController().navigate(action)
                 }
@@ -124,9 +124,7 @@ fun ArticlesContent(state: ArticlesViewState, viewModel: ArticlesViewModel) {
         items(articles) {
             ArticleItem(it, onClick = {
                 viewModel.onTriggerEvent(
-                    eventType = ArticlesEvent.GetArticleDetails(
-                        id = it.id
-                    )
+                    eventType = ArticlesEvent.GetArticleDetails(it)
                 )
             })
         }

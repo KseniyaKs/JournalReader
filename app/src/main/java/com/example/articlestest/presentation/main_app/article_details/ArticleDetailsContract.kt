@@ -11,9 +11,7 @@ sealed class ArticleDetailsEvent {
         val id: String
     ) : ArticleDetailsEvent()
 
-    data class CommentClick(
-        val article: Article
-    ) : ArticleDetailsEvent()
+    object CommentClick : ArticleDetailsEvent()
 
     data class LikeClick(
         val article: Article

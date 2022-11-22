@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.articlestest.R
 import com.example.articlestest.databinding.FragmentRegistrationUserCityBinding
+import com.example.articlestest.extension.observe
 import com.example.articlestest.presentation.MainActivity
+import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -40,7 +43,6 @@ class RegistrationUserCityFragment : Fragment() {
 
     private val viewModel: RegistrationUserCityViewModel by viewModels()
     private var binding: FragmentRegistrationUserCityBinding? = null
-    private var citiesIds = mutableMapOf<Number, String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +57,7 @@ class RegistrationUserCityFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initNavigation()
         initViews()
+        observeViewModel()
     }
 
     override fun onDestroy() {
@@ -116,6 +119,13 @@ class RegistrationUserCityFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun observeViewModel() {
+        observe(viewModel.uiState.asLiveData()) {
+            binding?.progress?.visibility =
+                if (it is BaseViewState.Loading) View.VISIBLE else View.GONE
         }
     }
 }

@@ -50,6 +50,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="14dp"
         android:layout_marginBottom="28dp"
+        android:saveEnabled="true"
         app:layout_constraintBottom_toTopOf="@id/previous_page"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,5 +93,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/previous_page" />
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/progress_bar_layout"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

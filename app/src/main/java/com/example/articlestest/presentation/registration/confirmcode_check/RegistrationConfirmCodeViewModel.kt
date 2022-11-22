@@ -1,6 +1,5 @@
 package com.example.articlestest.presentation.registration.confirmcode_check
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.articlestest.domain.repositories.AuthorisationRepository
 import com.example.articlestest.domain.repositories.RegistrationRepository
@@ -8,6 +7,7 @@ import com.example.articlestest.presentation.base.BaseViewModel
 import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,16 +16,16 @@ import javax.inject.Inject
 class RegistrationConfirmCodeViewModel @Inject constructor(
     private val repository: RegistrationRepository,
     private val authorizationRepository: AuthorisationRepository,
-    private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel<BaseViewState<RegistrationConfirmCodeViewState>, RegistrationConfirmCodeEvent>() {
 
     private fun checkConfirmCode(phone: String, code: String) {
         setState(BaseViewState.Loading)
         viewModelScope.launch(coroutineExceptionHandler) {
             val confirmCodeCheck = repository.checkConfirmCode(phone = phone, code = code)
-            setState((BaseViewState.Data(RegistrationConfirmCodeViewState)))
             if (confirmCodeCheck) {
                 onNavigationEvent(NavDestination.RegistrationPassword(phone))
+                delay(1000)
+                setState((BaseViewState.Data(RegistrationConfirmCodeViewState)))
             } else setState(BaseViewState.Error(Throwable("Invalid confirmation code")))
         }
     }

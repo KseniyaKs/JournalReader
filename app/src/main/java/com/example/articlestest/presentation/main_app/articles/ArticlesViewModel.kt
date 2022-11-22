@@ -32,7 +32,7 @@ class ArticlesViewModel @Inject constructor(
             ArticlesEvent.GetArticles -> getArticles()
             is ArticlesEvent.GetArticleDetails -> onNavigationEvent(
                 NavDestination.ArticleDetails(
-                    eventType.id
+                    eventType.article
                 )
             )
         }

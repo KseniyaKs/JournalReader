@@ -18,5 +18,6 @@ data class ArticleDto(
     @SerializedName("comments") val comments: List<CommentDto>,
     @SerializedName("like_count") val likeCount: Number,
     @SerializedName("is_liked") val isLiked: Boolean,
-    @SerializedName("is_commented") val isCommented: Boolean
+    @SerializedName("is_commented") val isCommented: Boolean,
+    @SerializedName("article_file") val articleFile: String
 )

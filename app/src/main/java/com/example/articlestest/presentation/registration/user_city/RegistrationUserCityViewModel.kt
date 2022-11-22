@@ -36,9 +36,11 @@ class RegistrationUserCityViewModel @Inject constructor(
         email: String,
         city: String
     ) {
+        setState(BaseViewState.Loading)
         viewModelScope.launch(coroutineExceptionHandler) {
             repository.createUserInfo(name, surname, patronymic, email, city)
             onNavigationEvent(eventType = NavDestination.AppMain)
+            setState(BaseViewState.Data(RegistrationUserCityViewState(citiesState.value)))
         }
     }
 

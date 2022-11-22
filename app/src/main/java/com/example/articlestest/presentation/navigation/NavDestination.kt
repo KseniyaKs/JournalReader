@@ -34,7 +34,7 @@ sealed class NavDestination {
 
     data class ReadJournal(val journal: Journal) : NavDestination()
 
-    data class ArticleDetails(val id: String) : NavDestination()
+    data class ArticleDetails(val article: Article) : NavDestination()
 
     data class ArticleComments(val article: Article) : NavDestination()
 

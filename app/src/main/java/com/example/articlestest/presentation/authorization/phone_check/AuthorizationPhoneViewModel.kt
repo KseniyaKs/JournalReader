@@ -18,10 +18,10 @@ class AuthorizationPhoneViewModel @Inject constructor(
         setState(BaseViewState.Loading)
         viewModelScope.launch {
             val authCheck = repository.checkPhone(phone)
-            setState(BaseViewState.Data(AuthorizationCheckViewStateEvent))
             if (authCheck.is_authorized) {
                 onNavigationEvent(NavDestination.AuthorizationPassword(phone))
             } else onNavigationEvent(NavDestination.RegistrationConfirmationCode(phone))
+            setState(BaseViewState.Data(AuthorizationCheckViewStateEvent))
         }
     }
 

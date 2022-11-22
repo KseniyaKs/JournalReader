@@ -44,6 +44,7 @@ import com.example.articlestest.presentation.registration.user_data.Registration
 import com.example.articlestest.presentation.theme.*
 import com.example.articlestest.presentation.view.Back
 import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
+import com.example.articlestest.presentation.view.ProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -142,56 +143,62 @@ fun AuthorizationPasswordScreen(
             .padding(PaddingValues(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 24.dp)),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Back { viewModel.onBack() }
 
-            Text(
-                text = stringResource(id = R.string.enter_password),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
-            )
-
-            Text(
-                text = stringResource(id = R.string.password),
-                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
-                modifier = Modifier.padding(PaddingValues(top = 35.dp, bottom = 8.dp))
-            )
-
-            OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-                shape = RoundedCornerShape(8.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    textColor = Grey900,
-                    backgroundColor = Color.White,
-                    focusedIndicatorColor = Grey300,
-                    unfocusedIndicatorColor = Grey300,
-                    cursorColor = Color.Black
-                ),
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
-                textStyle = LocalTextStyle.current.copy(
-                    fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
-                    fontSize = 20.sp,
-                ),
-                value = password.value,
-                onValueChange = { password.value = it }
-            )
-
-            if (uiState is BaseViewState.Error) {
-                IncorrectPassword(
-                    forgotPasswordClick = {
-                        viewModel.onNavigationEvent(
-                            NavDestination.AuthorizationConfirmCode(phone)
-                        )
-                    }
-                )
-            }
+        if (uiState is BaseViewState.Loading) {
+            ProgressBar()
         }
 
+        if (uiState !is BaseViewState.Loading) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Back { viewModel.onBack() }
+
+                Text(
+                    text = stringResource(id = R.string.enter_password),
+                    fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
+                )
+
+                Text(
+                    text = stringResource(id = R.string.password),
+                    fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
+                    modifier = Modifier.padding(PaddingValues(top = 35.dp, bottom = 8.dp))
+                )
+
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(8.dp),
+                    colors = TextFieldDefaults.textFieldColors(
+                        textColor = Grey900,
+                        backgroundColor = Color.White,
+                        focusedIndicatorColor = Grey300,
+                        unfocusedIndicatorColor = Grey300,
+                        cursorColor = Color.Black
+                    ),
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+                    textStyle = LocalTextStyle.current.copy(
+                        fontFamily = FontFamily(Font(R.font.gilroy_regular_400)),
+                        fontSize = 20.sp,
+                    ),
+                    value = password.value,
+                    onValueChange = { password.value = it }
+                )
+
+                if (uiState is BaseViewState.Error) {
+                    IncorrectPassword(
+                        forgotPasswordClick = {
+                            viewModel.onNavigationEvent(
+                                NavDestination.AuthorizationConfirmCode(phone)
+                            )
+                        }
+                    )
+                }
+            }
+        }
 
         Column(
             modifier = Modifier.weight(1f, false),

@@ -41,7 +41,8 @@ class MapperFromArticlesListToModelImpl @Inject constructor(
             },
             isLiked = articleDto.isLiked,
             likeCount = articleDto.likeCount,
-            isCommented = articleDto.isCommented
+            isCommented = articleDto.isCommented,
+            articleFile = articleDto.articleFile
         )
     }
 }
