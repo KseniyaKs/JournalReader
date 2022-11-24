@@ -1,7 +1,6 @@
 package com.example.articlestest.presentation.main_app.comments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,7 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -246,25 +246,30 @@ fun Comment(comment: Comment) {
             .background(Color.White)
             .padding(start = 12.dp, end = 12.dp, top = 12.dp, bottom = 12.dp)
     ) {
-        val (preview, name, commentText, spacer) = createRefs()
+        val (preview, name, commentText) = createRefs()
 
-        Log.d("KT", comment.user.firstName.first().toString())
-
-        Text(
-            text = comment.user.firstName.first().toString() + comment.user.surname.first()
-                .toString(),
+        Box(
+            contentAlignment = Alignment.Center,
             modifier = Modifier
                 .height(32.dp)
                 .width(32.dp)
-                .clip(RoundedCornerShape(20.dp))
-                .background(Pink)
                 .constrainAs(preview) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
-                },
-            textAlign = TextAlign.Center,
-            color = Color.White
-        )
+                }
+                .background(
+                    color = Pink,
+                    shape = RoundedCornerShape(20.dp)
+                )
+        ) {
+            Text(
+                text = comment.user.firstName.first().toString() + comment.user.surname.first()
+                    .toString(),
+                textAlign = TextAlign.Center,
+                color = Color.White,
+                modifier = Modifier.padding(bottom = 2.dp)
+            )
+        }
 
         Text(
             text = comment.user.firstName + " " + comment.user.surname,

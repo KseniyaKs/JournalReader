@@ -1,10 +1,10 @@
 package com.example.articlestest.presentation.registration.user_city
 
-import com.example.articlestest.data.model.City
+sealed class RegistrationUserCityViewState {
+    //    data class Cities(val cities: List<City>) : RegistrationUserCityViewState()
+    object CreateUser : RegistrationUserCityViewState()
+}
 
-data class RegistrationUserCityViewState(
-    val cities: List<City>
-)
 
 sealed class RegistrationUserCityEvent {
     class CreateUserInfo(

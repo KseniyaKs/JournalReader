@@ -1,4 +1,4 @@
-package com.example.articlestest.presentation.main_app.journal
+package com.example.articlestest.presentation.main_app.main_journal
 
 import com.example.articlestest.data.model.JournalsData
 

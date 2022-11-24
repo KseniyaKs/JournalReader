@@ -1,6 +1,19 @@
 package com.example.articlestest.presentation.authorization.phone_check
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Browser
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,6 +94,70 @@ class AuthorizationPhoneFragment : Fragment() {
         binding?.apply {
 
             edtTxtPhone.addTextChangedListener(MaskWatcher.buildCpf())
+
+            val spannableString =
+                SpannableString("Нажимая кнопку «Продолжить» вы соглашаетесь с пользовательским соглашением и политикой конфиденцальности ")
+
+            val urlTerms = "https://polli-style.ru/terms/"//условия
+            val clickableUrlTermsSpan: ClickableSpan = object : ClickableSpan() {
+
+                override fun updateDrawState(ds: TextPaint) {
+                    ds.isUnderlineText = false
+                    ds.color = Color.parseColor("#0082F9")
+                    ds.linkColor = Color.parseColor("#0082F9")
+                }
+
+                override fun onClick(widget: View) {
+                    val uri = Uri.parse(urlTerms)
+                    val context = widget.context
+                    val intent = Intent(Intent.ACTION_VIEW, uri)
+                    intent.putExtra(Browser.EXTRA_APPLICATION_ID, context.packageName)
+                    try {
+                        context.startActivity(intent)
+                    } catch (e: ActivityNotFoundException) {
+                        Log.w("URLSpan", "Actvity was not found for intent, $intent")
+                    }
+                }
+            }
+
+            val urlPrivacy = "https://polli-style.ru/privacy/"//конфеденциальность
+            val clickableUrlPrivacy: ClickableSpan = object : ClickableSpan() {
+
+                override fun updateDrawState(ds: TextPaint) {
+                    ds.isUnderlineText = false
+                    ds.color = Color.parseColor("#0082F9")
+                }
+
+                override fun onClick(widget: View) {
+                    val uri = Uri.parse(urlPrivacy)
+                    val context = widget.context
+                    val intent = Intent(Intent.ACTION_VIEW, uri)
+                    intent.putExtra(Browser.EXTRA_APPLICATION_ID, context.packageName)
+                    try {
+                        context.startActivity(intent)
+                    } catch (e: ActivityNotFoundException) {
+                        Log.w("URLSpan", "Actvity was not found for intent, $intent")
+                    }
+                }
+            }
+
+            spannableString.setSpan(clickableUrlTermsSpan, 45, 74, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+            spannableString.setSpan(
+                StyleSpan(Typeface.BOLD),
+                spannableString.indexOf("«"),
+                spannableString.indexOf("»"),
+                Spanned.SPAN_INCLUSIVE_INCLUSIVE
+            )
+            spannableString.setSpan(
+                clickableUrlPrivacy,
+                77,
+                spannableString.lastIndex,
+                Spanned.SPAN_INCLUSIVE_INCLUSIVE
+            )
+
+            agreementPolicy.text = spannableString
+            agreementPolicy.movementMethod = LinkMovementMethod.getInstance()
+            agreementPolicy.highlightColor = Color.TRANSPARENT
 
             btnContinue.setOnClickListener {
                 viewModel.onTriggerEvent(

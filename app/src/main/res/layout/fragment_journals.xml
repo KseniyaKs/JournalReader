@@ -4,4 +4,4 @@
     android:id="@+id/journal_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.main_app.journal.JournalsFragment" />
+    tools:context=".presentation.main_app.main_journal.JournalsFragment" />

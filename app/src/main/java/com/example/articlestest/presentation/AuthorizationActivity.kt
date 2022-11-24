@@ -18,25 +18,3 @@ class AuthorizationActivity : FragmentActivity() {
     }
 }
 
-//        setContent {
-//            val systemUiController = rememberSystemUiController()
-//            val useDarkIcons = MaterialTheme.colors.isLight
-//            SideEffect {
-//                systemUiController.setSystemBarsColor(
-//                    Color.White,
-//                    darkIcons = useDarkIcons,
-//                )
-//            }
-//
-//
-//            ArticlesTestTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                ) {
-//                    MainScreenContent()
-//                }
-//            }
-//
-//        }
-

@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -41,6 +42,7 @@ import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.theme.DarkGrey
 import com.example.articlestest.presentation.theme.Pink
+import com.example.articlestest.presentation.view.ProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -92,7 +94,9 @@ fun ArticlesScreen(viewModel: ArticlesViewModel) {
 
     val uiState by viewModel.uiState.collectAsState()
     when (uiState) {
-        BaseViewState.Loading -> {}
+        BaseViewState.Loading -> {
+            ProgressBar()
+        }
         is BaseViewState.Data -> {
             ArticlesContent((uiState as BaseViewState.Data<ArticlesViewState>).value, viewModel)
         }
@@ -145,14 +149,15 @@ fun ArticleItem(
             ) { onClick() }
     )
     {
-        val (image, title, date, more) = createRefs()
+        val (image, title, date, more, spacer) = createRefs()
 
         AsyncImage(
             model = article.image.file,
             contentDescription = null,
             modifier = Modifier
                 .constrainAs(image) {
-                    top.linkTo(parent.top, margin = 24.dp)
+                    top.linkTo(parent.top)
+                    bottom.linkTo(image.top, margin = 24.dp)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }
@@ -166,6 +171,8 @@ fun ArticleItem(
             text = article.title.uppercase(),
             color = DarkGrey,
             fontSize = 20.sp,
+            maxLines = 3,
+            overflow = TextOverflow.Ellipsis,
             fontFamily = FontFamily(Font(R.font.foglihten_no_regular_400)),
             fontWeight = FontWeight.Light,
             modifier = Modifier
@@ -194,6 +201,12 @@ fun ArticleItem(
             modifier = Modifier.constrainAs(more) {
                 top.linkTo(title.bottom, margin = 5.dp)
                 end.linkTo(parent.end)
+            })
+
+        Spacer(modifier = Modifier
+            .height(24.dp)
+            .constrainAs(spacer) {
+                top.linkTo(date.bottom)
             })
     }
 }

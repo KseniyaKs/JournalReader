@@ -1,4 +1,4 @@
-package com.example.articlestest.presentation.main_app.pdf_reader
+package com.example.articlestest.presentation.main_app.journal_pdf_reader
 
 import com.example.articlestest.data.model.JournalPage
 

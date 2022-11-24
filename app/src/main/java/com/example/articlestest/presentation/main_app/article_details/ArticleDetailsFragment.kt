@@ -11,7 +11,9 @@ import androidx.navigation.fragment.navArgs
 import com.example.articlestest.R
 import com.example.articlestest.data.model.Article
 import com.example.articlestest.databinding.FragmentArticleDetailsBinding
+import com.example.articlestest.extension.gone
 import com.example.articlestest.extension.observe
+import com.example.articlestest.extension.visible
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.mindev.mindev_pdfviewer.MindevPDFViewer
 import com.mindev.mindev_pdfviewer.PdfScope
@@ -28,16 +30,29 @@ class ArticleDetailsFragment : Fragment() {
 
     private val statusListener = object : MindevPDFViewer.MindevViewerStatusListener {
         override fun onStartDownload() {
+            binding?.apply {
+                progress.progress.visible()
+                likeCommentLayout.likeCommentLayout.gone()
+            }
         }
 
         override fun onPageChanged(position: Int, total: Int) {
         }
 
         override fun onSuccessDownLoad(path: String) {
-            binding?.pdfArticle?.fileInit(path)
+            binding?.apply {
+                pdfArticle.fileInit(path)
+                progress.progress.gone()
+                likeCommentLayout.likeCommentLayout.visible()
+            }
+
         }
 
         override fun onFail(error: Throwable) {
+            binding?.apply {
+                progress.progress.gone()
+                likeCommentLayout.likeCommentLayout.visible()
+            }
         }
 
         override fun unsupportedDevice() {
@@ -52,7 +67,8 @@ class ArticleDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentArticleDetailsBinding.inflate(inflater, container, false)
+        if (binding == null) binding =
+            FragmentArticleDetailsBinding.inflate(inflater, container, false)
         return binding!!.root
     }
 
@@ -114,7 +130,7 @@ class ArticleDetailsFragment : Fragment() {
         observe(viewModel.articleState) {
 
             binding?.apply {
-                title.text = it.title
+                title.text = it.title.uppercase()
 
                 likeCommentLayout.apply {
                     likeCount.text =

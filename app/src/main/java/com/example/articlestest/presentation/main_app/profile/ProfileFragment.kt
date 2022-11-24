@@ -1,5 +1,6 @@
 package com.example.articlestest.presentation.main_app.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,12 +20,19 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.articlestest.R
+import com.example.articlestest.presentation.AuthorizationActivity
+import com.example.articlestest.presentation.navigation.NavDestination
 import com.example.articlestest.presentation.theme.BrightRed
 import com.example.articlestest.presentation.theme.DarkGrey
 import com.example.articlestest.presentation.view.ButtonMaxWidthWithText
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
+
+    private val viewModel: ProfileViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,15 +45,33 @@ class ProfileFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MaterialTheme {
-                    ProfileScreen()
+                    ProfileScreen(viewModel)
                 }
+            }
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initNavigation()
+    }
+
+    private fun initNavigation() {
+        viewModel.navigationState.observe(viewLifecycleOwner) { destination ->
+            when (destination) {
+                NavDestination.AuthorizationPhone -> {
+                    val intent = Intent(this.context, AuthorizationActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
+                }
+                else -> {}
             }
         }
     }
 }
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(viewModel: ProfileViewModel) {
     Column(
         modifier = Modifier
             .padding(start = 20.dp, end = 20.dp, top = 32.dp),
@@ -84,7 +110,9 @@ fun ProfileScreen() {
         )
 
         ButtonMaxWidthWithText(
-            onClick = {},
+            onClick = {
+                viewModel.onTriggerEvent(eventType = ProfileEvent.Logout)
+            },
             background = BrightRed,
             text = stringResource(id = R.string.logout),
             textColor = Color.White

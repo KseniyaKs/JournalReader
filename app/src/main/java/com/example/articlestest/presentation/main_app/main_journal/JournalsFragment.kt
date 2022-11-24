@@ -1,16 +1,12 @@
-package com.example.articlestest.presentation.main_app.journal
+package com.example.articlestest.presentation.main_app.main_journal
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -19,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
@@ -99,81 +96,87 @@ fun JournalsContent(state: JournalsViewState, viewModel: JournalsViewModel) {
 
     val mainJournal = remember { state.journalsData.journals.first() }
 
-    ConstraintLayout(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 24.dp)
-            .verticalScroll(rememberScrollState())
-    ) {
-        val (logo, journal, number, month, buy) = createRefs()
-
+    Column(modifier = Modifier.padding(top = 35.dp)) {
         Image(
             painter = painterResource(id = R.drawable.ic_logo_small),
             contentDescription = null,
             modifier = Modifier
-                .constrainAs(logo) {
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-                .padding(bottom = 34.dp)
+                .wrapContentSize()
+                .align(CenterHorizontally)
         )
 
-        AsyncImage(
-            model = "https://i.stack.imgur.com/Xcfqcl.png",//mainJournal.image.file,
-            contentDescription = null,
+        ConstraintLayout(
             modifier = Modifier
-                .constrainAs(journal) {
-                    top.linkTo(logo.bottom)
+                .fillMaxWidth()
+                .wrapContentSize()
+                .padding(start = 20.dp, end = 20.dp, top = 32.dp, bottom = 24.dp)
+                .clickable {
+                    viewModel.onTriggerEvent(
+                        eventType = JournalsEvent.GetJournalDetails(
+                            id = mainJournal.id
+                        )
+                    )
+                }
+        ) {
+            val (journal, number, month, buy) = createRefs()
+
+            AsyncImage(
+                model = mainJournal.image.file,
+                contentDescription = null,
+                modifier = Modifier
+                    .constrainAs(journal) {
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    }
+                    .padding(bottom = 32.dp)
+                    .height(336.dp)
+                    .fillMaxWidth()
+            )
+
+            Text(
+                text = "№" + mainJournal.number.toString(),
+                fontFamily = FontFamily(Font(R.font.poiret_one_regular_400)),
+                fontSize = 20.sp,
+                modifier = Modifier.constrainAs(number) {
+                    top.linkTo(journal.bottom)
                     start.linkTo(parent.start)
+                }
+            )
+
+            Text(
+                text = mainJournal.month.lowercase(),
+                fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
+                fontSize = 17.sp,
+                modifier = Modifier.constrainAs(month) {
+                    top.linkTo(number.bottom)
+                    start.linkTo(parent.start)
+                }
+            )
+
+            Button(
+                onClick = {
+                    viewModel.onTriggerEvent(
+                        eventType = JournalsEvent.GetJournalDetails(
+                            id = mainJournal.id
+                        )
+                    )
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Pink),
+                modifier = Modifier.constrainAs(buy) {
+                    top.linkTo(journal.bottom)
                     end.linkTo(parent.end)
                 }
-                .padding(bottom = 32.dp)
-                .height(336.dp)
-                .fillMaxWidth()
-        )
-
-        Text(
-            text = "№" + mainJournal.number.toString(),
-            fontFamily = FontFamily(Font(R.font.poiret_one_regular_400)),
-            fontSize = 20.sp,
-            modifier = Modifier.constrainAs(number) {
-                top.linkTo(journal.bottom)
-                start.linkTo(parent.start)
-            }
-        )
-
-        Text(
-            text = mainJournal.month.lowercase(),
-            fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
-            fontSize = 17.sp,
-            modifier = Modifier.constrainAs(month) {
-                top.linkTo(number.bottom)
-                start.linkTo(parent.start)
-            }
-        )
-
-        Button(
-            onClick = {
-                viewModel.onTriggerEvent(
-                    eventType = JournalsEvent.GetJournalDetails(
-                        id = mainJournal.id
-                    )
+            ) {
+                Text(
+                    text = stringResource(id = R.string.more_button),
+                    fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
+                    fontSize = 17.sp,
                 )
-            },
-            colors = ButtonDefaults.buttonColors(containerColor = Pink),
-            modifier = Modifier.constrainAs(buy) {
-                top.linkTo(journal.bottom)
-                end.linkTo(parent.end)
             }
-        ) {
-            Text(
-                text = stringResource(id = R.string.more_button),
-                fontFamily = FontFamily(Font(R.font.gilroy_semibold_600)),
-                fontSize = 17.sp,
-            )
+
         }
 
+        //list of journals
 //        Text(
 //            text = stringResource(id = R.string.see_more),
 //            color = Pink,

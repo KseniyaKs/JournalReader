@@ -7,6 +7,7 @@ import com.example.articlestest.presentation.base.BaseViewModel
 import com.example.articlestest.presentation.base.BaseViewState
 import com.example.articlestest.presentation.navigation.NavDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -40,7 +41,8 @@ class RegistrationUserCityViewModel @Inject constructor(
         viewModelScope.launch(coroutineExceptionHandler) {
             repository.createUserInfo(name, surname, patronymic, email, city)
             onNavigationEvent(eventType = NavDestination.AppMain)
-            setState(BaseViewState.Data(RegistrationUserCityViewState(citiesState.value)))
+            delay(1000)
+            setState(BaseViewState.Data(RegistrationUserCityViewState.CreateUser))
         }
     }
 

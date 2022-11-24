@@ -1,4 +1,4 @@
-package com.example.articlestest.presentation.main_app.pdf_reader
+package com.example.articlestest.presentation.main_app.journal_pdf_reader
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,9 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.articlestest.R
 import com.example.articlestest.data.model.JournalPage
 import com.example.articlestest.databinding.FragmentJournalPdfReaderBinding
-import com.example.articlestest.extension.hideKeyboard
-import com.example.articlestest.extension.monthNumber
-import com.example.articlestest.extension.observe
+import com.example.articlestest.extension.*
 import com.example.articlestest.presentation.navigation.NavDestination
 import com.mindev.mindev_pdfviewer.MindevPDFViewer
 import com.mindev.mindev_pdfviewer.PdfScope
@@ -34,14 +32,21 @@ class JournalPdfReaderFragment : Fragment() {
     private val statusListener = object : MindevPDFViewer.MindevViewerStatusListener {
         override fun onStartDownload() {
             binding?.apply {
-                progress.progress.visibility = View.VISIBLE
-                nextPage.isEnabled = false
-                previousPage.isEnabled = false
+                progress.progress.visible()
+                likeCommentLayout.likeCommentLayout.gone()
+                nextPage.apply {
+                    gone()
+                    isEnabled = false
+                }
+                previousPage.apply {
+                    gone()
+                    isEnabled = false
+                }
             }
         }
 
         override fun onPageChanged(position: Int, total: Int) {
-            binding?.pageCount?.text = "${position + 1} из $total"
+            binding?.toolbar?.pageCount?.text = "${position + 1} из $total"
 
             if (id == args.journalArg.pages[position].id) return
             id = args.journalArg.pages[position].id
@@ -51,14 +56,21 @@ class JournalPdfReaderFragment : Fragment() {
         override fun onSuccessDownLoad(path: String) {
             binding?.apply {
                 pdf.fileInit(path)
-                progress.progress.visibility = View.GONE
-                nextPage.isEnabled = true
-                previousPage.isEnabled = true
+                progress.progress.gone()
+                likeCommentLayout.likeCommentLayout.visible()
+                nextPage.apply {
+                    visible()
+                    isEnabled = true
+                }
+                previousPage.apply {
+                    visible()
+                    isEnabled = true
+                }
             }
         }
 
         override fun onFail(error: Throwable) {
-            binding?.progress?.progress?.visibility = View.GONE
+            binding?.progress?.progress?.gone()
         }
 
         override fun unsupportedDevice() {
@@ -71,7 +83,8 @@ class JournalPdfReaderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentJournalPdfReaderBinding.inflate(inflater, container, false)
+        if (binding == null) binding =
+            FragmentJournalPdfReaderBinding.inflate(inflater, container, false)
         return binding!!.root
     }
 
@@ -130,20 +143,24 @@ class JournalPdfReaderFragment : Fragment() {
             pdf.initializePDFDownloader(url, statusListener)
             lifecycle.addObserver(PdfScope())
 
+            toolbar.apply {
+                back.setOnClickListener {
+                    viewModel.onNavigationEvent(eventType = NavDestination.BackClick)
+                }
+
+                pageCount.setOnClickListener {
+                    selectedPageLayout.selectedPageLayout.visible()
+                }
+
+                date.text = "${args.journalArg.month.monthNumber()}/${args.journalArg.dateIssue}"
+            }
+
             nextPage.setOnClickListener {
                 pdf.onNextPage()
             }
 
             previousPage.setOnClickListener {
                 pdf.onPreviousPage()
-            }
-
-            back.setOnClickListener {
-                viewModel.onNavigationEvent(eventType = NavDestination.BackClick)
-            }
-
-            pageCount.setOnClickListener {
-                selectedPageLayout.selectedPageLayout.visibility = View.VISIBLE
             }
 
             likeCommentLayout.apply {
@@ -156,12 +173,10 @@ class JournalPdfReaderFragment : Fragment() {
                 }
             }
 
-            date.text = "${args.journalArg.month.monthNumber()}/${args.journalArg.dateIssue}"
-
             selectedPageLayout.apply {
                 cancel.setOnClickListener {
                     hideKeyboard()
-                    selectedPageLayout.visibility = View.GONE
+                    selectedPageLayout.gone()
                 }
 
                 selectedPageNumber.setOnEditorActionListener { _, actionId, _ ->
@@ -170,11 +185,13 @@ class JournalPdfReaderFragment : Fragment() {
                         try {
                             pdf.onSelectedPage(position = position.toInt() - 1)
                             selectedPageNumber.setText("")
-                            hideKeyboard()
                         } catch (nfe: NumberFormatException) {
 
+                        } finally {
+                            hideKeyboard()
                         }
-                        selectedPageLayout.visibility = View.GONE
+
+                        selectedPageLayout.gone()
                         true
                     } else false
                 }

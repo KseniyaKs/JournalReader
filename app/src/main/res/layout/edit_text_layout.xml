@@ -11,25 +11,26 @@
         android:id="@+id/selected_page_number"
         android:layout_width="175dp"
         android:layout_height="match_parent"
+        android:background="@drawable/edit_text_border_with_radius_8"
         android:digits="0123456789"
+        android:gravity="center"
+        android:hint="@string/select_page"
         android:imeOptions="actionDone"
         android:inputType="number"
-        android:background="@drawable/edit_text_border_with_radius_8"
-        android:hint="@string/select_page"
         android:textColorHint="@color/grey"
-        android:gravity="center"
-        android:textSize="12sp"
         android:textCursorDrawable="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/cancel"
-        app:srcCompat="@drawable/ic_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:srcCompat="@drawable/ic_cancel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

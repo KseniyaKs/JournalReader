@@ -135,14 +135,14 @@ fun JournalDetailsContent(
             .padding(start = 20.dp, end = 20.dp, top = 20.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        val (back, journal, number, month, price, descriptionTag, description, button) = createRefs()
+        val (back, journal, number, month, price, descriptionTag, description) = createRefs()
 
         AsyncImage(
-            model = "https://i.stack.imgur.com/Xcfqcl.png", //journalInfo.image.file
+            model = journalInfo.image.file,
             contentDescription = null,
             modifier = Modifier
                 .constrainAs(journal) {
-                    top.linkTo(parent.top, margin = 32.dp)
+                    top.linkTo(parent.top, margin = 12.dp)
                 }
                 .fillMaxWidth()
                 .height(375.dp)
@@ -154,7 +154,7 @@ fun JournalDetailsContent(
             tint = Pink,
             modifier = Modifier
                 .constrainAs(back) {
-                    top.linkTo(parent.top, margin = 20.dp)
+                    top.linkTo(parent.top)
                     start.linkTo(parent.start)
                 }
                 .clickable {
@@ -219,11 +219,7 @@ fun JournalDetailsContent(
         )
 
         Text(
-            text = journalInfo.description + "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n" +
-                    "\n" +
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n" +
-                    "\n" +
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            text = journalInfo.description,
             fontSize = 14.sp,
             fontFamily = FontFamily(Font(R.font.gilroy_medium_500)),
             color = Color.Black,

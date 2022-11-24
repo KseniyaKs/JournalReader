@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/journals_start"
-        android:name="com.example.articlestest.presentation.main_app.journal.JournalsFragment"
+        android:name="com.example.articlestest.presentation.main_app.main_journal.JournalsFragment"
         android:label="@string/journal"
         tools:layout="@layout/fragment_journals">
 
@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@+id/read_journal"
-        android:name="com.example.articlestest.presentation.main_app.pdf_reader.JournalPdfReaderFragment"
+        android:name="com.example.articlestest.presentation.main_app.journal_pdf_reader.JournalPdfReaderFragment"
         tools:layout="@layout/fragment_journal_pdf_reader">
 
         <argument

@@ -40,7 +40,6 @@ class SplashFragment : Fragment() {
     }
 
     val viewModel: SplashViewModel by viewModels()
-//    val onFinishedShowing :() -> Unit
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

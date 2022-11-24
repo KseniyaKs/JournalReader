@@ -4,51 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="20dp"
     android:layout_marginTop="16dp"
-    android:layout_marginEnd="20dp"
-    android:layout_marginBottom="22dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
     tools:context=".presentation.main_app.article_details.ArticleDetailsFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/gilroy_semibold_600"
         android:textColor="@color/dark_grey"
         android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintStart_toEndOf="@id/back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Articles Name" />
+        tools:text="Articles Name Articles Name Articles Name Articles Name Articles Name Articles Name Articles Name Articles Name Articles Name Articles Name" />
 
-    <com.mindev.mindev_pdfviewer.MindevPDFViewer
-        android:id="@+id/pdf_article"
+    <ScrollView
+        android:id="@+id/scroll_pdf_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
         android:layout_marginTop="14dp"
-        android:layout_marginBottom="28dp"
-        android:isScrollContainer="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/back"
-        app:pdf_animation="true"
-        app:pdf_direction="horizontal" />
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <com.mindev.mindev_pdfviewer.MindevPDFViewer
+            android:id="@+id/pdf_article"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="28dp"
+            app:pdf_animation="true"
+            app:pdf_direction="horizontal" />
+
+    </ScrollView>
 
     <include
         android:id="@+id/like_comment_layout"
         layout="@layout/like_comment_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="55dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/progress_bar_layout"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
