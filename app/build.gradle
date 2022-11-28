@@ -11,7 +11,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.articlestest"
+        applicationId "com.example.pollystyle"
         minSdk 23
         targetSdk 32
         versionCode 1
