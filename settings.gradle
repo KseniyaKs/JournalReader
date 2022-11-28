@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "ArticlesTest"
+rootProject.name = "PollyStyle"
 include ':app', ':mindev-pdfviewer'
 
