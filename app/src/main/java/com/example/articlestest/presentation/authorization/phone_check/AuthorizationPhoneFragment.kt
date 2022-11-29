@@ -93,8 +93,6 @@ class AuthorizationPhoneFragment : Fragment() {
     private fun initViews() {
         binding?.apply {
 
-            edtTxtPhone.addTextChangedListener(MaskWatcher.buildCpf())
-
             val spannableString =
                 SpannableString("Нажимая кнопку «Продолжить» вы соглашаетесь с пользовательским соглашением и политикой конфиденцальности ")
 
@@ -159,12 +157,21 @@ class AuthorizationPhoneFragment : Fragment() {
             agreementPolicy.movementMethod = LinkMovementMethod.getInstance()
             agreementPolicy.highlightColor = Color.TRANSPARENT
 
-            btnContinue.setOnClickListener {
-                viewModel.onTriggerEvent(
-                    eventType = AuthorizationCheckContractEvent.PhoneCheck(
-                        phone = edtTxtPhone.text.toString()
+            edtTxtPhone.addTextChangedListener(MaskWatcher { text, start, before, count ->
+                btnContinue.isEnabled = !text.toString().isNullOrEmpty()
+                btnContinue.alpha = if (btnContinue.isEnabled) 1F else 0.5F
+            })
+
+            btnContinue.apply {
+                if (!this.isEnabled) this.alpha = 0.5F
+
+                this.setOnClickListener {
+                    viewModel.onTriggerEvent(
+                        eventType = AuthorizationCheckContractEvent.PhoneCheck(
+                            phone = edtTxtPhone.text.toString()
+                        )
                     )
-                )
+                }
             }
         }
     }

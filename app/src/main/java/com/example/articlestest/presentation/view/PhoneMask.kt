@@ -3,8 +3,10 @@ package com.example.articlestest.presentation.view
 import android.text.Editable
 import android.text.TextWatcher
 
-
-class MaskWatcher(private val mask: String) : TextWatcher {
+class MaskWatcher(
+    private val mask: String = "## (###) ### ##-##",
+    private val maskOnTextChanged: ((CharSequence, Int, Int, Int) -> Unit)? = null
+) : TextWatcher {
     private var isRunning = false
     private var isDeleting = false
     override fun beforeTextChanged(charSequence: CharSequence, start: Int, count: Int, after: Int) {
@@ -12,7 +14,7 @@ class MaskWatcher(private val mask: String) : TextWatcher {
     }
 
     override fun onTextChanged(charSequence: CharSequence, start: Int, before: Int, count: Int) {
-
+        maskOnTextChanged?.let { it(charSequence, start, before, count) }
     }
 
     override fun afterTextChanged(editable: Editable) {
@@ -54,12 +56,6 @@ class MaskWatcher(private val mask: String) : TextWatcher {
             }
         }
         isRunning = false
-    }
-
-    companion object {
-        fun buildCpf(): MaskWatcher {
-            return MaskWatcher("## (###) ### ##-##")
-        }
     }
 }
 
