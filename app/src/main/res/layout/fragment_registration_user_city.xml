@@ -75,11 +75,12 @@
         android:layout_height="44dp"
         android:background="@drawable/button_corner_radius"
         android:fontFamily="@font/gilroy_semibold_600"
+        android:foreground="?attr/selectableItemBackground"
+        android:stateListAnimator="@null"
         android:text="@string/done"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="17sp"
-        android:stateListAnimator="@null"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <FrameLayout
